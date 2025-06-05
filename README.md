@@ -8,7 +8,6 @@ This repository contains the foundational pipeline for building a **Retrieval-Au
 ✅ Research papers and documentation
 
 
-
 ## 📂 Project Overview
 
 The chatbot is designed to **answer customer questions** about Rockfish’s mission, products, and insights by combining:
@@ -37,7 +36,21 @@ The chatbot is designed to **answer customer questions** about Rockfish’s miss
 4️⃣ **LLM-based Answer Generation**  
 - Use retrieved chunks as context for generative LLMs to formulate customer-friendly answers.
 
+## 🖼️ Media and Examples
 
+### 📸 Screenshots
+
+#### Example of Chunking
+
+
+
+#### Example Text Chunk
+
+![Example Text Chunk](media/example%20txt.png)
+
+#### LLM Integration
+
+![LLM](media/llm.png)
 
 ## 💡 Use Case
 
