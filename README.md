@@ -7,6 +7,13 @@ This repository contains the foundational pipeline for building a **Retrieval-Au
 ✅ YouTube video transcripts  
 ✅ Research papers and documentation
 
+### 🎥 Demo Video
+
+<video width="640" controls>
+  <source src="media/rf-demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 
 ## 📂 Project Overview
 
