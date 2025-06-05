@@ -1,0 +1,300 @@
+Zinan Lin∗, Vyas Sekar†, and Giulia Fanti‡
+Department of Electrical and Computer Engineering
+Carnegie Mellon University
+leading to several recent algorithms for training GANs with privacy guarantees. By drawing connections
+inference as a hypothesis test in which the adversary must determine whether a given sample was drawn
+from the training dataset or from the underlying data distribution. We show that this adversary can
+Introduction
+a generator that aims to generate new samples ˆxi ∼µ and a discriminator that aims to classify samples as
+In practice, they also degrade model quality due to the added noise, sometimes to the extent that the utility
+In some practical scenarios, an attacker may only have access to a GAN’s generated samples, instead
+∗zinanl@andrew.cmu.edu
+†vsekar@andrew.cmu.edu
+‡gfanti@andrew.cmu.edu
+This work appeared in AISTATS 2021. This version has slightly modiﬁed the statement of Theorem 1.
+arXiv:2206.01349v1  [cs.LG]  3 Jun 2022
+special training mechanism, by making connections to recent results on the generalization properties of GANs
+the randomness of the training procedure. More speciﬁcally, we consider the mechanism of training a
+GAN on m training samples and using it to generate n samples. We show that this mechanism ensures
+privacy guarantee is stronger as the training set size grows, but degrades as you generate more samples
+On the negative side, however, the rate is as weak as releasing n raw samples from m training samples.
+want meaningful diﬀerential privacy guarantees.
+• For robustness to membership inference attacks, we show that vanilla GANs are inherently robust to
+inﬁnite samples from the trained GAN. Even in this case, we show that for any attacker strategy, the
+diﬀerence between the true positive rate and the false positive rate—as well as the area under the
+samples. This again means that GANs are more robust to membership inference attacks as training set
+size grows. More generally, for arbitrary generative models, we give a tight bound on the ROC region
+that relies on a simple, geometric proof. To the best of our knowledge, this is the ﬁrst result to bound
+either the ROC region or the rate of decay of attack success probabilities for membership inference
+attacks, including for discriminative models.
+The paper is organized as follows. We discuss the preliminaries and related work in Section 2. Then
+we discuss the results on diﬀerential privacy and membership inference attacks in Section 3 and Section 4
+respectively. Finally we conclude the paper in Section 5.
+Background and Related Work
+GANs are a type of generative model that implicitly learns a distribution from samples and
+x, either from the real distribution µ or the generated distribution, and discriminates which distribution
+it comes from. From another point of view, the discriminator is trying to estimate a distance between the
+generated distribution and the real distribution, and the generator tries to minimize the distance. More
+speciﬁcally, g and f are trained with the following loss:
+where df is a distance measurement between distributions parametrized by f, and gz denotes the distribution
+Diﬀerential privacy
+Our analysis involves a stronger notion of diﬀerential privacy called probabilistic diﬀerential privacy. A
+mass at most δ.
+privacy. In fact, probabilistic diﬀerential privacy is strictly stronger than diﬀerential privacy. To see this,
+Diﬀerential privacy and generalization
+The relation between diﬀerential privacy and generalization
+We are interested in the other direction: when does generalization imply diﬀerential privacy? Cummings et
+al. showed that diﬀerential privacy is strictly weaker than perfect generalization but is strictly stronger than
+models. First, the results about perfect generalization only hold when the domain size is ﬁnite, which is
+the expected empirical loss of the discriminator and its actual loss, so we can have zero generalization error
+arbitrary generated distribution. A more meaningful notion of generalization is to quantify the distance
+between the generated and real distributions. In this work, we use this latter notion of generalization.
+weaker guarantee than if one were to reason about the diﬀerential privacy guarantees of a generative model’s
+parameters, but is relevant to many application settings.
+Membership inference attacks
+Membership inference attacks are closely related to diﬀerential privacy.
+Given a trained model, a membership inference attack aims to infer whether a given sample x was in the
+training dataset or not. The main diﬀerence between membership inference and diﬀerential privacy is that
+databases, whereas in membership inference attacks, the adversary is typically given access only to test
+side information about the number of training samples in the test set. Hence, in general, the attacker in
+membership inference is neither strictly weaker nor strictly stronger than the diﬀerential privacy attacker.
+et al., 2019; Li and Zhang, 2020; Long et al., 2018; Melis et al., 2019; Salem et al., 2018; Shokri et al., 2017;
+attacks for a particular sample is upper bounded by the Kullback–Leibler divergence between the distributions
+of parameters with and without that sample. However, these results do not give a practical method for
+the ﬁrst work to show that the success rate of membership inference attack decays as the number of training
+rate is 0.5 as m →∞.
+Bounds on Diﬀerential Privacy
+We start with some notation, deﬁnitions, and assumptions. For a probability measure µ on X, we let ρµ
+denote its density function. We use G and F to denote the set of possible generators and discriminators,
+respectively, where F is a set of functions X →R. Our results rely on three assumptions:
+deﬁned as the set of linear combinations of the functions:
+wifi : wi ∈R, fi ∈F, n ∈N
+∥fθ −fθ′∥∞≤L ∥θ −θ′∥2 .
+Given µ, ν, two probability measures on X, and set F of functions X →R, the integral probability metric
+∥g∥F,1 ≜inf
+wifi, ∀n ∈N, wi ∈R, fi ∈F
+which intuitively bounds the complexity of representing diﬀerences in log densities of pairs of generators in G
+using functions in F.
+We consider the GAN training and sampling mechanism in Algorithm 1, which adds a sampling processing
+before the normal GAN training. Note that the sampling process in Algorithm 1 is commonly used in existing
+We have moved this sampling process to the beginning of training in Algorithm 1 for ease of analysis.
+: D: A training dataset containing m samples.
+k: Number of sampled training samples used in training.
+n: Number of generated samples.
+Output : Dgenerated: n generated samples.
+1 Dtrain ←k i.i.d. samples from D ;
+2 g ←Trained GAN using Dtrain;
+3 Dgenerated ←n generated samples from the trained g;
+Finally, we deﬁne the quantity
+optimization error, i.e.,
+µ is the real distribution, ˆµk be the empirical distribution of µ on k i.i.d training samples, g is the trained
+Section 3.1, but intuitively, it will be used to bound a GAN’s generalization error arising from approximation,
+optimization, and sampling of the training datasets in Line 1. To reduce notation, we will henceforth write
+this quantity as τk,ξ.
+Our main result states that a GAN trained on m samples and used to generate n samples satisﬁes a
+be arbitrarily small as we get more samples from the sampling phase in Line 1, and we assume negligible
+condition holds trivially. Hence when ϵ scales as O
+Discussion
+guarantee, so the inﬂuence of any single training sample on the ﬁnal generated samples is bounded. However,
+diﬀerential privacy guarantees in practice.
+dataset is large enough that we do not need to sample all dataset entries to achieve good generalization, we
+Proof of Theorem 1
+Assume that the two neighboring datasets are D0 and D1, whose empirical distributions are ˆµ0
+the trained generator distributions from Algorithm 1 are g0 and g1 respectively. The proof has two parts.
+First, we upper bound the distance between g0 and g1 by building on prior generalization results. Then, we
+use this distance to prove a diﬀerential privacy guarantee.
+real distribution, and ˆµk be the empirical distribution of µ on k i.i.d training samples. Deﬁne the trained
+generator from the optimization algorithm as g and assume the optimization error is bounded by τopt, i.e.,
+w.r.t. the randomness of training samples, we have
+approximation error
+optimization error
+generalization error
+From this lemma, we know that with high probability, dF
+is small. The next lemma states that
+is also small.
+Lemma 3. Assume we have two training sets D0 and D1, and the trained generator distributions using D0
+and D1 with Algorithm 1 are g0 and g1, respectively. Under the assumption of Lemma 1 and Lemma 2, we
+have that with probability at least 1 −2ξ,
+∀ν1, ν2 ∈G
+Following Lemma 4 and Lemma 3, immediately we have that with probability at least 1 −2ξ,
+Then, we connect KL divergence with diﬀerential privacy:
+for any ϵ > 0 and δ ≥
+, with probability at least 1 −2ξ over the randomness in Line 1.
+Proof of Proposition 1
+The proof has two parts. First, we lower bound the distance between g0 and g1 by building on prior
+x2, ..., xm are arbitrary samples from X. Then we have
+where the proof of the ﬁrst equality is in Appendix A.
+On the other hand, from Lemma 1, we know that with probability at least 1 −ξ, dF
+Lemma 6. Assume we have two training sets D0 and D1, and the trained generator using D0 and D1 with
+Algorithm 1 are g0 and g1 respectively. Under the assumption of Lemma 1 and Lemma 2, we have that with
+probability at least 1 −2ξ,
+Finally, we connect TV distance to diﬀerential privacy with the following lemma.
+and D1, we have
+Therefore, we have
+Bounds on Robustness to Membership Inference Attacks
+In this section, we ﬁrst derive a general bound on the error of membership inference attacks for generative
+models. Then, we utilize generalization bounds for GANs to obtain speciﬁc bounds for GANs.
+which the attacker can sample from the generated distribution gα, but does not have access to the generator
+parameters α. To upper bound the attack performance, we assume that attacker has unlimited resources and
+can access the trained generator inﬁnite times, so that it can accurately get the generated distribution gα.
+We argue that this assumption is too strong, especially in the case of generative models, where training
+samples are typically proprietary. Therefore, we assume that the attacker makes guesses purely based
+on a single test sample x ∈X, without access to such a dataset. The test sample is either drawn from
+is useful for ﬁnding an attack policy, but is not conducive to characterizing the error statistics. Instead,
+we want to be able to bound the shape of ROC curve. That is, we want to upper bound the true
+positive rate an attacker can achieve given any desired false positive rate. We show that this problem
+can be reduced to a clean hypothesis testing problem, whose errors are closely tied to the generalization
+errors of GANs.
+we assume that the distribution of the generator parameters is
+many generative models are explicitly or implicitly minimizing this KL divergence, including some variants of
+analysis and highlights key theoretical insights. With this assumption, the parameter distribution becomes
+train denotes the density posterior distribution of the training samples given parameter α. The
+following proposition shows that this distribution takes a simple form.
+equal to the generated distribution, i.e., ρα
+Proof. For any x, we have
+With this proposition, the problem becomes clear: for a given sample x, the attacker needs to decide
+every point.
+function of the total variation distance.
+Note that Proposition 3 and Corollary 1 hold for any generative model. For GANs in particular, we can
+use generalization bounds in Lemma 1 to obtain the following result.
+Theorem 2. Consider a GAN model gα and a real distribution µ. Deﬁne
+ΞF,G,µ ≜sup
+ΞF,G,µ · τm,δ
+Then we have that for any membership inference attack policy A, the ROC curve gA : [0, 1] →[0, 1] satisﬁes
+One complication is that existing generalization bounds do not directly bound TV distance, so these must
+be extended. The proof can be found in Section 4.2, and directly gives the following corollary bounding the
+AUC for GANs.
+least 1 −δ w.r.t. the randomness of training samples,
+Discussions
+These results conﬁrm the prior empirical observation that GANs are more robust to membership
+settings would be an interesting future direction.
+False positive rate
+True positive rate
+Figure 1: The upper bound of ROC curves.
+Figure 2: The pair of distributions that achieve the ROC upper bound.
+Proof of Proposition 3
+Note that total variation distance and ROC curve has a very simple geometric relationship, as noted
+achieve the ROC curve in Fig. 1.
+Proof of Theorem 2
+we have that with probability at least 1 −δ w.r.t. the randomness of training samples,
+ΞF,G,µ · τm,δ
+To show this, note that Lemma 1 gives an upper bound on the integral probability metric between the real
+and generated distribution. We ﬁrst connect this distance to the KL divergence with the following lemma.
+Lemma 8. Denote the real distribution as µ. Given a generator set G and a discriminator set F which
+Combing this equation with Lemma 1 we get the desired inequality.
+Discussion
+as well as protection against membership inference attacks. We provide bounds on the privacy risk of each of
+these attacks. However, as discussed in Section 3, the inherent diﬀerential privacy guarantee in GANs is weak.
+Limitations and future work
+apply to all GAN architectures. Extending the results to more general settings would be an interesting
+direction, potentially with stronger generalization bounds.
+in practice. Relaxing this assumption is an interesting direction for future work.
+approximation errors. Numerically quantifying these bounds in practice remains a challenging and interesting
+direction.
+models. This could be an interesting direction for future work.
+Acknowledgments
+This material is based upon work supported by the Air Force Oﬃce of Scientiﬁc Research under award
+authors and should not be interpreted as representing the oﬃcial policies, either expressed or implied, of the
+Combat Capabilities Development Command Army Research Laboratory or the U.S. Government. The U.S.
+Government is authorized to reproduce and distribute reprints for Government purposes not withstanding
+any copyright notation here on. The authors would also like to acknowledge the generous support of JP
+Morgan Chase, Siemens AG, Google, and the Sloan Foundation.
+References
+Martin Abadi, Andy Chu, Ian Goodfellow, H Brendan McMahan, Ilya Mironov, Kunal Talwar, and Li Zhang.
+Deep learning with diﬀerential privacy. In Proceedings of the 2016 ACM SIGSAC Conference on Computer
+and Communications Security, pages 308–318, 2016.
+Martin Arjovsky and Léon Bottou. Towards principled methods for training generative adversarial networks.
+arXiv preprint arXiv:1701.04862, 2017.
+Yu Bai, Tengyu Ma, and Andrej Risteski. Approximability of discriminators implies diversity in gans. arXiv
+preprint arXiv:1806.10586, 2018.
+Borja Balle, Gilles Barthe, and Marco Gaboardi. Privacy ampliﬁcation by subsampling: Tight analyses via
+couplings and divergences. arXiv preprint arXiv:1807.01647, 2018.
+Raef Bassily, Kobbi Nissim, Adam Smith, Thomas Steinke, Uri Stemmer, and Jonathan Ullman. Algorithmic
+of Computing, pages 1046–1059, 2016.
+residual networks. In International Conference on Machine Learning, pages 573–582. PMLR, 2019.
+Andrew Brock, JeﬀDonahue, and Karen Simonyan. Large scale gan training for high ﬁdelity natural image
+synthesis. arXiv preprint arXiv:1809.11096, 2018.
+attacks against gans. arXiv preprint arXiv:1909.03935, 2019.
+diﬀerentially private generators. arXiv preprint arXiv:2006.08265, 2020.
+Edward Choi, Siddharth Biswal, Bradley Malin, Jon Duke, Walter F Stewart, and Jimeng Sun. Generating
+Rachel Cummings, Katrina Ligett, Kobbi Nissim, Aaron Roth, and Zhiwei Steven Wu. Adaptive learning
+with robust generalization guarantees. In Conference on Learning Theory, pages 772–814, 2016.
+arXiv:1605.08803, 2016.
+Cynthia Dwork. Diﬀerential privacy: A survey of results. In International conference on theory and applications
+of models of computation, pages 1–19. Springer, 2008.
+Cynthia Dwork, Aaron Roth, et al. The algorithmic foundations of diﬀerential privacy. Foundations and
+Cynthia Dwork, Vitaly Feldman, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Aaron Leon Roth.
+symposium on Theory of computing, pages 117–126, 2015.
+with recurrent conditional gans. arXiv preprint arXiv:1706.02633, 2017.
+Farhad Farokhi and Mohamed Ali Kaafar. Modelling and quantifying membership information leakage in
+machine learning. arXiv preprint arXiv:2001.10648, 2020.
+Courville, and Yoshua Bengio. Generative adversarial nets. In Advances in neural information processing
+systems, pages 2672–2680, 2014.
+deeplearningbook.org.
+Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and Aaron C Courville. Improved
+training of wasserstein gans. In Advances in neural information processing systems, pages 5767–5777, 2017.
+Jamie Hayes, Luca Melis, George Danezis, and Emiliano De Cristofaro. Logan: Membership inference attacks
+Benjamin Hilprecht, Martin Härterich, and Daniel Bernau. Monte carlo and reconstruction membership
+232–249, 2019.
+diﬀerential privacy guarantees. In International Conference on Learning Representations, 2018.
+Peter Kairouz, Sewoong Oh, and Pramod Viswanath. The composition theorem for diﬀerential privacy. In
+International conference on machine learning, pages 1376–1385. PMLR, 2015.
+Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. Progressive growing of gans for improved
+quality, stability, and variation. arXiv preprint arXiv:1710.10196, 2017.
+Zheng Li and Yang Zhang.
+Membership inference attack with label.
+arXiv preprint
+arXiv:2007.15528, 2020.
+Zinan Lin, Ashish Khetan, Giulia Fanti, and Sewoong Oh. Pacgan: The power of two samples in generative
+adversarial networks. In Advances in neural information processing systems, pages 1498–1507, 2018.
+Zinan Lin, Alankar Jain, Chen Wang, Giulia Fanti, and Vyas Sekar. Using gans for sharing networked
+time series data: Challenges, initial promise, and open questions. In Proceedings of the ACM Internet
+Measurement Conference, pages 464–483, 2020a.
+Yunhui Long, Vincent Bindschaedler, Lei Wang, Diyue Bu, Xiaofeng Wang, Haixu Tang, Carl A Gunter,
+arXiv:1802.04889, 2018.
+Yunhui Long, Suxin Lin, Zhuolin Yang, Carl A Gunter, and Bo Li. Scalable diﬀerentially private generative
+student model via pate. arXiv preprint arXiv:1906.09338, 2019.
+Sebastian Meiser. Approximate and probabilistic diﬀerential privacy deﬁnitions. IACR Cryptology ePrint
+Archive, 2018:277, 2018.
+Luca Melis, Congzheng Song, Emiliano De Cristofaro, and Vitaly Shmatikov. Exploiting unintended feature
+IEEE, 2019.
+Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida. Spectral normalization for generative
+adversarial networks. arXiv preprint arXiv:1802.05957, 2018.
+Alfred Müller. Integral probability metrics and their generating classes of functions. Advances in Applied
+Kobbi Nissim and Uri Stemmer. On the generalization properties of diﬀerential privacy. arXiv, pages
+arXiv–1504, 2015.
+variational divergence minimization. In Advances in neural information processing systems, pages 271–279,
+Aaron van den Oord, Nal Kalchbrenner, and Koray Kavukcuoglu. Pixel recurrent neural networks. arXiv
+preprint arXiv:1601.06759, 2016.
+Learning, pages 5558–5567, 2019.
+Model and data independent membership inference attacks and defenses on machine learning models. arXiv
+preprint arXiv:1806.01246, 2018.
+Reza Shokri, Marco Stronati, Congzheng Song, and Vitaly Shmatikov. Membership inference attacks against
+Alexandre B Tsybakov. Introduction to nonparametric estimation. Springer Science & Business Media, 2008.
+6353–6392, 2016.
+Ryan Webster, Julien Rabin, Loïc Simon, and Frédéric Jurie. Detecting overﬁtting of deep generative networks
+via latent recovery. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition,
+pages 11273–11282, 2019.
+Bingzhe Wu, Shiwan Zhao, Chaochao Chen, Haoyang Xu, Li Wang, Xiaolu Zhang, Guangyu Sun, and Jun
+Zhou. Generalization in generative adversarial networks: A novel perspective from privacy protection. In
+Advances in Neural Information Processing Systems, pages 307–317, 2019.
+Samuel Yeom, Irene Giacomelli, Matt Fredrikson, and Somesh Jha.
+Privacy risk in machine learning:
+Analyzing the connection to overﬁtting. In 2018 IEEE 31st Computer Security Foundations Symposium
+tradeoﬀin gans. arXiv preprint arXiv:1711.02771, 2017.
+Proof of Lemma 2
+Assume that the samples of Di datasets are xi
+1, ..., xi
+m. Without loss of generality, we assume that x0
+for 1 ≤i ≤m −1. Then we have
+Proof of Lemma 3
+From Lemma 1, we know that
+Therefore,
+With probability at least 1 −2ξ, we have
+Proof of Lemma 5
+Proof of Lemma 6
+Recall that in Appendix D we get
+With probability at least 1 −2ξ, we have
+Proof of Lemma 7
+a1 −δ ≤eϵb1
+b2 −δ ≤eϵa2

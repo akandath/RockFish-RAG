@@ -1,0 +1,198 @@
+
+Overview
+
+
+Rockfish SDK Documentation
+
+
+Overview
+
+The Rockfish Synthetic Data Workbench ships with a python SDK that is designed to integrate in with the workflow of data scientists and machine learning engineers to help explore their data, select relevant aspects, prepare it for training, and manipulate the output to match their needs.
+The Rockfish Python SDK enables developers to write and run their code using the Rockfish Pipeline with very little overhead. The core capabilities of the SDK are designed to work in a local or remote context. This allows users allows users to iterate quickly on their development machine or notebook server and then offload large tasks to to remote servers. This also allows for the pre/post processing of data to be setup locally then run on a schedule for session based data.
+
+Package Structure
+
+The SDK has the following logical structure: Rockfish
+â   Connection
+â   â   Config
+â
+ââââDataset
+â   â   Create and Load
+â
+ââââActions
+â   â   Local and Remote Actions
+â   â   Train and Generate
+â   â   Encoder and Embeddings
+â   â   Models
+â   â   â    Rockfish DG (timeseries)
+â   â   â    Rockfish Tabular GAN
+â   â   â    Rockfish Transformer
+â   â
+â   â   Apply and Transform
+â   â   PostAmplify
+â
+ââââWorkflow
+    â   Overview
+    â   Builder
+
+Rockfish
+â   Connection
+â   â   Config
+â
+ââââDataset
+â   â   Create and Load
+â
+ââââActions
+â   â   Local and Remote Actions
+â   â   Train and Generate
+â   â   Encoder and Embeddings
+â   â   Models
+â   â   â    Rockfish DG (timeseries)
+â   â   â    Rockfish Tabular GAN
+â   â   â    Rockfish Transformer
+â   â
+â   â   Apply and Transform
+â   â   PostAmplify
+â
+ââââWorkflow
+    â   Overview
+    â   Builder
+
+
+Import
+
+The code examples in this document use the following imports for convenience. import rockfish as rf import rockfish.actions as ra
+
+import rockfish as rf import rockfish.actions as ra
+
+
+Connection
+
+The Connection class creates a connection to the rockfish pipeline.  You can
+create a local or a remote Connection , which will determine the if code runs
+locally or on the Rockfish Pipeline.
+Example :
+Create a remote Connection : conn = rf . Connection . remote ( "https://api.rockfish.ai" , "<API KEY>" )
+
+conn = rf . Connection . remote ( "https://api.rockfish.ai" , "<API KEY>" )
+
+Create a local Connection : conn = rf . Connection . local ()
+
+conn = rf . Connection . local ()
+
+Create a Connection based on a configuration file.  Create a file ~/.config/rockfish/config.toml : [profile.default] api_url = "https://api.rockfish.ai" api_key = "API KEY" [profile.local] api_url = "http://localhost:8080" api_key = "API KEY"
+
+[profile.default] api_url = "https://api.rockfish.ai" api_key = "API KEY" [profile.local] api_url = "http://localhost:8080" api_key = "API KEY"
+
+Load the default profile: conn = rf . Connection . from_config ()
+
+conn = rf . Connection . from_config ()
+
+Load a named profile: conn = rf . Connection . from_config ( "local" )
+
+conn = rf . Connection . from_config ( "local" )
+
+
+Datasets
+
+Datasets are the interface between your data and the workbench's functionality. They also provide a means to store and share your data with other members of your project. Datasets can be created from csv or parquet file formats, or loaded from the pipeline using the remote dataset id.
+Examples:
+Create a new dataset from a csv file: dataset = rf . Dataset . from_csv ( "Dataset Name" , "path/to/file.csv" )
+
+dataset = rf . Dataset . from_csv ( "Dataset Name" , "path/to/file.csv" )
+
+Load a dataset from the Rockfish Pipeline: conn = rf . Connection . from_config ( "prod" ) dataset = rf . Dataset . from_id ( conn , 'my-dataset-id' )
+
+conn = rf . Connection . from_config ( "prod" ) dataset = rf . Dataset . from_id ( conn , 'my-dataset-id' )
+
+
+Actions and Workflows
+
+Workflows represent the processing steps to train and generate data for each dataset. Since all datasets have different requirements a Workflow can be configured with any number of pre and post processing steps. Each processing step is defined by an Action object. There is no restrictions on number or order of actions in a workflow. Additionally most actions have a local or remote context meaning you can prepare and test your workflow on your development machine or with small samples of your data, then execute large jobs remotely.
+
+Actions
+
+
+Apply and Transform
+
+The Apply and Transform actions allow you to process one or more columns in your dataset with
+predefined data and schema manipulation tools. Apply functions will add the
+result of the operation to a new column in the dataset.  Transform functions
+will overwrite the existing column so you can edit the data in place.
+These actions will not modify the source data, so you can run experiments
+without having to track multiple versions of the file, or lose your source
+data. The actions are also easy to reuse across different datasets.
+
+Train and Generate Actions
+
+The train and generate actions are remote only, most machine learning models require more resources than may be available on your local workstation so the Rockfish Workbench will execute the full workflow on the remote servers. To train a model you need to select the actions for the model you want to use. Rockfish supports three models:
+- Rockfish DG: This is the timeseries focused GAN. If your data contains
+  timestamps this is a good choice. Other considerations are if there are
+  logical inputs and outputs of your data. The Rockfish DG model uses sessions
+  to group fields that define periods of time that have some number invariant
+  values that contain multiple individual set of measurements. A good rule of
+  thumb is the metadata are the inputs of the system and the measurements are
+  the outputs, or the metadata are fields that contain fields that would be
+  used in an SQL GROUP BY statement. To use the Rockfish DG Model use the ra.TrainTimeGAN the and ra.GenerateTimeGAN classes, they
+take a configuration parameter, the details of which can be found in the Rockfish DG documentation.
+Rockfish DG: This is the timeseries focused GAN. If your data contains
+  timestamps this is a good choice. Other considerations are if there are
+  logical inputs and outputs of your data. The Rockfish DG model uses sessions
+  to group fields that define periods of time that have some number invariant
+  values that contain multiple individual set of measurements. A good rule of
+  thumb is the metadata are the inputs of the system and the measurements are
+  the outputs, or the metadata are fields that contain fields that would be
+  used in an SQL GROUP BY statement.
+To use the Rockfish DG Model use the ra.TrainTimeGAN the and ra.GenerateTimeGAN classes, they
+take a configuration parameter, the details of which can be found in the Rockfish DG documentation.
+- Rockfish Tabular GAN: The Rockfish Tabular GAN is a model designed for fast
+  training of tabular data. This GAN only requires that you define the
+  categorical fields, while there are some configuration values you can use to
+  tune the model the tabular GAN model usually has good defaults. To use this model use the ra.TrainTabGAN and ra.GenerateTabGAN classes.
+Rockfish Tabular GAN: The Rockfish Tabular GAN is a model designed for fast
+  training of tabular data. This GAN only requires that you define the
+  categorical fields, while there are some configuration values you can use to
+  tune the model the tabular GAN model usually has good defaults.
+To use this model use the ra.TrainTabGAN and ra.GenerateTabGAN classes.
+- Rockfish Transformer: Rockfish has a transformer model that is capable of
+  both tabular and session data. Transformers are more compute and memory
+  intensive so are best used when you have low numbers of sessions, small
+  number of fields and distinct categorical field variants. To use this model use the ra.TrainTransformer and ra.GenerateTransformer classes.
+Rockfish Transformer: Rockfish has a transformer model that is capable of
+  both tabular and session data. Transformers are more compute and memory
+  intensive so are best used when you have low numbers of sessions, small
+  number of fields and distinct categorical field variants.
+To use this model use the ra.TrainTransformer and ra.GenerateTransformer classes.
+The workbench also contains a recommendation engine that helps you choose the model that best fits your data.
+
+SessionTarget Action
+
+While the various train and generate actions support directly requesting a
+specific number of sessions, when chained with post processing steps the final
+number sessions may be hard to predict.  The ra.SessionTarget action allows a Workflow
+to continually generate new sessions until a target number of sessions is
+reached.
+To use SessionTarget in a Workflow, place it after any post processing
+actions.  Use the output as one of the inputs to the generate step.  This
+creates a Workflow with the following layout: ââââââââââââââââââââââââââââââââââââââââââ
+            v                                        â
+model â> generate -> post-amplify â> session-target ââ
+                                âââ> dataset-save
+
+ââââââââââââââââââââââââââââââââââââââââââ
+            v                                        â
+model â> generate -> post-amplify â> session-target ââ
+                                âââ> dataset-save
+
+Translating to WorkflowBuilder : ... session_target = ra . SessionTarget ( target = 50 ) builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model , session_target ]) builder . add_action ( post_amplify , parents = [ generate ]) builder . add_action ( session_target , parents = [ post_amplify ]) builder . add_action ( save , parents = [ post_amplify ]) workflow = await builder . start ( conn )
+
+... session_target = ra . SessionTarget ( target = 50 ) builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model , session_target ]) builder . add_action ( post_amplify , parents = [ generate ]) builder . add_action ( session_target , parents = [ post_amplify ]) builder . add_action ( save , parents = [ post_amplify ]) workflow = await builder . start ( conn )
+
+
+Workflows
+
+A Workflow is a directed graph of actions to be processed by the pipeline. A
+workflow can be built using the WorkflowBuilder class.
+Example dataset = rf . Dataset . from_id ( conn , 'my-dataset-id' ) train = ra . TrainTimeGAN ( config ) builder = rf . WorkflowBuilder () builder . add_dataset ( dataset ) builder . add_action ( train , parents = [ dataset ]) workflow = await builder . start ( conn )
+
+dataset = rf . Dataset . from_id ( conn , 'my-dataset-id' ) train = ra . TrainTimeGAN ( config ) builder = rf . WorkflowBuilder () builder . add_dataset ( dataset ) builder . add_action ( train , parents = [ dataset ]) workflow = await builder . start ( conn )

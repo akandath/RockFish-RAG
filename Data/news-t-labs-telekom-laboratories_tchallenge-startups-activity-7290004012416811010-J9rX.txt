@@ -1,0 +1,374 @@
+
+T-Labs’ Post
+
+13,626 followers
+- Report this post
+Meet Rockfish Data - one of the winners of last year's T Challenge, now thriving within Deutsche Telekom and T-Mobile US' ecosystems.
+
+The American team's success story truly showcases how collaboration can drive AI innovation in telecommunications.
+
+Rockfish's outcome-centric AI platform tackles data silos with synthetic data, enhancing network performance and security. Their groundbreaking solutions, developed through partnerships with Deutsche Telekom and T-Mobile US, include cross-border data sharing and advanced anomaly detection workflows.
+
+Since its victory at the T Challenge 2024, the team has gone through active Proof-of-Concepts with both telcos. Among other benefits, the T Challenge's spotlight significantly boosted Rockfish's visibility, also leading to a finalist spot for the 4YFN Awards at the Mobile World Congress, supported by hubraum .
+
+While the partnership with Telekom and T-Mobile has helped the startup to scale its platform and position itself at the forefront of AI in telco, Rockfish is also actively contributing to Deutsche Telekom’s AI transformation journey!
+
+Co-Founder MuckAI Girish shared:
+
+“The T Challenge gave us tremendous visibility! It put us on the radar of Deutsche Telekom's teams and shaped our product’s direction. The connections we made were invaluable.”
+
+A special shoutout to Frank van der Rijst and Mohammad Sharifan from Deutsche Telekom for their dedicated mentorship!
+
+During the program, they worked closely with Rockfish's team to pilot three use cases in a live environment, playing a pivotal role in the startup’s continued success. 👏
+
+This year, the T Challenge 2025 continues this legacy, focusing on AI in six areas: network technology, fiber rollout, sustainable power consumption, sales & service, network APIs, and security.
+
+This week marks your final chance to apply - submissions close on January 31st.
+
+Are you ready to create transformative solutions and co-innovate with Deutsche Telekom and T-Mobile US?
+
+👉 Apply now: https://t-challenge.com #TChallenge #Startups Dr. Miralem Gazibegović | Michael Lang | Angie Diamond | Craig Schieber
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+- Report this comment
+Go, Rockfish Data ! Their journey so far has been remarkable and we're thrilled to have them on board for MWC & 4YFN.
+
+Who will be the next success story to emerge from the T Challenge? 🤔
+Co-founder & CEO, Rockfish Data
+- Report this comment
+Thank you, T-Labs and hubraum
+To view or add a comment, sign in
+
+More Relevant Posts
+
+- Meet Global by Business Next Media 4,079 followers 4mo Report this post 🔍 Finding the next big tech idea?
+
+🤖 Ex- MediaTek duo Hanson Chou & Abel Chen founded Deeli AI to simplify tech discovery with AI-powered insights and game-changing tools.
+
+🏆 Their secret sauce? Scanning global data, ranking tech on "maturity" & "recommendation," with clients like Pegatron and Cisco on board.
+
+🚀 Partnering with Berkeley SkyDeck accelerator, Deeli AI provides exclusive access to hidden innovation hubs, bridging the gap for smaller firms to compete globally.
+
+🔗 Learn how Deeli AI transforms innovation discovery with Meet Global:
+👉 https://pse.is/6zgny8 #AIInnovation #TechDiscovery #StartupSuccess #DeeliAI #EmergingTech 6 Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+4,079 followers
+- Report this post
+🔍 Finding the next big tech idea?
+
+🤖 Ex- MediaTek duo Hanson Chou & Abel Chen founded Deeli AI to simplify tech discovery with AI-powered insights and game-changing tools.
+
+🏆 Their secret sauce? Scanning global data, ranking tech on "maturity" & "recommendation," with clients like Pegatron and Cisco on board.
+
+🚀 Partnering with Berkeley SkyDeck accelerator, Deeli AI provides exclusive access to hidden innovation hubs, bridging the gap for smaller firms to compete globally.
+
+🔗 Learn how Deeli AI transforms innovation discovery with Meet Global:
+👉 https://pse.is/6zgny8 #AIInnovation #TechDiscovery #StartupSuccess #DeeliAI #EmergingTech
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Dave Peak Strategy & Innovation Executive | Founder | AI Leader | SVP, VP, CXO, Advisor, Inventor, Investor, Teacher & Mentor | Expert in AI, Healthcare, Fintech & Global Partnerships 7mo Edited Report this post 🌃 Grateful to Underscore VC for hosting an inspiring meetup last night on AI agents, infrastructure, and security—topics that are reshaping how we think about enterprise AI. It’s rare to get together with founders and investors who are deeply invested in pushing the boundaries of what adaptive, autonomous agents can accomplish for the enterprise, including how to build with security in mind. 
+
+At EasyBee AI , our 23 person team is building next-gen AI agents tailored for the mid-market—solutions that don’t just automate but intelligently and securely adapt and evolve to handle complex, multi-step tasks across industries like home improvement, services, hospitality, and more. 🏢🏨 
+
+Thanks to Richard Dulude and Jenni Goodman , and the entire Underscore VC team for bringing together a community that truly understands the transformative potential of AI agents. 🚀 Great to see familiar faces from C10 Labs startups and connect on what’s next for agentic AI for the enterprise.
+
+Excited to keep building in a space where innovation meets real impact. 🌟 #EasyBeeAI #AIAgents #MidMarketAI #GenerativeAI #UnderscoreVC #C10Labs #BostonInnovation 39 2 Comments Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+Strategy & Innovation Executive | Founder | AI Leader | SVP, VP, CXO, Advisor, Inventor, Investor, Teacher & Mentor | Expert in AI, Healthcare, Fintech & Global Partnerships
+- Report this post
+🌃 Grateful to Underscore VC for hosting an inspiring meetup last night on AI agents, infrastructure, and security—topics that are reshaping how we think about enterprise AI. It’s rare to get together with founders and investors who are deeply invested in pushing the boundaries of what adaptive, autonomous agents can accomplish for the enterprise, including how to build with security in mind. 
+
+At EasyBee AI , our 23 person team is building next-gen AI agents tailored for the mid-market—solutions that don’t just automate but intelligently and securely adapt and evolve to handle complex, multi-step tasks across industries like home improvement, services, hospitality, and more. 🏢🏨 
+
+Thanks to Richard Dulude and Jenni Goodman , and the entire Underscore VC team for bringing together a community that truly understands the transformative potential of AI agents. 🚀 Great to see familiar faces from C10 Labs startups and connect on what’s next for agentic AI for the enterprise.
+
+Excited to keep building in a space where innovation meets real impact. 🌟 #EasyBeeAI #AIAgents #MidMarketAI #GenerativeAI #UnderscoreVC #C10Labs #BostonInnovation
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Raphael Ouzan Founder & CEO of A.Team 5mo Report this post Tomorrow, I'll be joining leaders from TELUS Global Ventures (TGV) , Hello Alice , and Gunderson Dettmer at The AI Summit Series New York (Dec 11-12), to dig into what we're all discovering: GenAI requires new types of partnerships that go far beyond the traditional vendor-client relationship.
+
+What we've learned building 600+ products with both startups and Fortune 500s this year: The most successful companies aren't just buying AI solutions - they're co-creating them. They're building strategic partnerships that combine their domain expertise with specialized AI talent - creating a model that's delivering custom AI solutions in months, not years.
+
+Why does this matter? Unlike traditional SaaS, GenAI requires deep integration with your unique data, systems, and processes to drive actual value. It's more like assembling custom building blocks than installing packaged software. And with 78% of companies planning to increase AI investment next year, getting this right is critical.
+
+If you're in NYC for the event: Join me, Terry Doyle (TELUS Ventures), Kelsey Ruger (Hello Alice), Joe Green (Gunderson Dettmer), and Olga. Topchaya (Lapis AI) at The AI Accelerator Stage at 1:25 PM on Dec 11 to learn how forward-thinking companies are building these bridges — then come say hi at A.Team ’s booth #129.
+
+If you're a tech leader in NYC and want to attend the AI Summit, shoot me a DM - I might be able to hook you up with a ticket! 50 6 Comments Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+Founder & CEO of A.Team
+- Report this post
+Tomorrow, I'll be joining leaders from TELUS Global Ventures (TGV) , Hello Alice , and Gunderson Dettmer at The AI Summit Series New York (Dec 11-12), to dig into what we're all discovering: GenAI requires new types of partnerships that go far beyond the traditional vendor-client relationship.
+
+What we've learned building 600+ products with both startups and Fortune 500s this year: The most successful companies aren't just buying AI solutions - they're co-creating them. They're building strategic partnerships that combine their domain expertise with specialized AI talent - creating a model that's delivering custom AI solutions in months, not years.
+
+Why does this matter? Unlike traditional SaaS, GenAI requires deep integration with your unique data, systems, and processes to drive actual value. It's more like assembling custom building blocks than installing packaged software. And with 78% of companies planning to increase AI investment next year, getting this right is critical.
+
+If you're in NYC for the event: Join me, Terry Doyle (TELUS Ventures), Kelsey Ruger (Hello Alice), Joe Green (Gunderson Dettmer), and Olga. Topchaya (Lapis AI) at The AI Accelerator Stage at 1:25 PM on Dec 11 to learn how forward-thinking companies are building these bridges — then come say hi at A.Team ’s booth #129.
+
+If you're a tech leader in NYC and want to attend the AI Summit, shoot me a DM - I might be able to hook you up with a ticket!
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Seldon 10,955 followers 7mo Report this post Top leader driving innovation? Don't mind if we do! 🚀 
+
+On October 24th, a top leader in innovation—or as we proudly call him, Seldon Founder Alex Housley —will take the main stage at #VDS2024 to discuss 'Deploying Scalable AI for Tangible Business Impact' alongside a panel of other industry leaders, Alex will dive into the challenges and opportunities of scaling AI for real-world business transformation.
+
+💭 We're curious: What’s the most significant impact AI has had on your business so far, and where do you see it driving change in the future? #AI #BusinessImpact #MLOps VDS 7,708 followers 7mo Meet the top leaders driving innovation at #VDS2024 ! 🚀
+
+✨ From AI to fintech and greentech, these leaders are shaping the future of tech and business:
+
+▪ Tom Mason , CTO at Unlikely AI , a leader in Generative AI.
+▪ Thomas Holl, Co-Founder of Babbel, revolutionizing language learning.
+▪ Marili 't Hooft - Bolle , CEO of Trengo - Smart Customer Engagement Platform , driving expansion across Europe.
+▪ Dr. Amr Awadallah , CEO of Vectara , transforming semantic search with AI.
+▪ Dr. Alessandra Sala , Senior Director of AI at Shutterstock , empowering creators globally.
+▪ Tony Beltramelli , Founder of Uizard by Miro Labs , democratizing product design.
+▪ Dileep Thazhmon , CEO & Founder of Jeeves , leading fintech innovation globally.
+▪ Eliott Wertheimer , Co-CEO at VanMoof and LAVOIE , redefining e-mobility.
+▪ Kaspar Korjus , Co-Founder of Pactum AI , transforming business negotiations.
+▪ Lubomila Jordanova , CEO of Plan A, leading carbon accounting in Europe.
+▪ Margarida Garcia , VP at poolside , driving AI advancements for software development.
+▪ Yannis Daubin , VP at Databricks , advancing data intelligence in SEMEA.
+▪ Alexander Weltzsch , CEO at dealcode AI , revolutionizing AI-powered sales.
+▪ Alex Housley , Founder of Seldon , democratizing machine learning operations.
+▪ Sebastian Schuon , Co-Founder of Alasco , innovating in real estate tech.
+▪ Baptiste Pannier , CTO at Adaptive ML , leading GenAI adoption.
+▪ Daniela Espinosa, CRO at Kushki , transforming finance with digital payments.
+▪ Miguel Santos , Founder of Technisys , acquired by SoFi for $1.1 billion.
+
+Join these visionaries and more at #VDS2024 on October 23-24 to explore the future of innovation! 💡 #Founders #TechLeaders #Innovation #Entrepreneurship #Valencia 8 2 Comments Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+10,955 followers
+- Report this post
+Top leader driving innovation? Don't mind if we do! 🚀 
+
+On October 24th, a top leader in innovation—or as we proudly call him, Seldon Founder Alex Housley —will take the main stage at #VDS2024 to discuss 'Deploying Scalable AI for Tangible Business Impact' alongside a panel of other industry leaders, Alex will dive into the challenges and opportunities of scaling AI for real-world business transformation.
+
+💭 We're curious: What’s the most significant impact AI has had on your business so far, and where do you see it driving change in the future? #AI #BusinessImpact #MLOps
+7,708 followers
+Meet the top leaders driving innovation at #VDS2024 ! 🚀
+
+✨ From AI to fintech and greentech, these leaders are shaping the future of tech and business:
+
+▪ Tom Mason , CTO at Unlikely AI , a leader in Generative AI.
+▪ Thomas Holl, Co-Founder of Babbel, revolutionizing language learning.
+▪ Marili 't Hooft - Bolle , CEO of Trengo - Smart Customer Engagement Platform , driving expansion across Europe.
+▪ Dr. Amr Awadallah , CEO of Vectara , transforming semantic search with AI.
+▪ Dr. Alessandra Sala , Senior Director of AI at Shutterstock , empowering creators globally.
+▪ Tony Beltramelli , Founder of Uizard by Miro Labs , democratizing product design.
+▪ Dileep Thazhmon , CEO & Founder of Jeeves , leading fintech innovation globally.
+▪ Eliott Wertheimer , Co-CEO at VanMoof and LAVOIE , redefining e-mobility.
+▪ Kaspar Korjus , Co-Founder of Pactum AI , transforming business negotiations.
+▪ Lubomila Jordanova , CEO of Plan A, leading carbon accounting in Europe.
+▪ Margarida Garcia , VP at poolside , driving AI advancements for software development.
+▪ Yannis Daubin , VP at Databricks , advancing data intelligence in SEMEA.
+▪ Alexander Weltzsch , CEO at dealcode AI , revolutionizing AI-powered sales.
+▪ Alex Housley , Founder of Seldon , democratizing machine learning operations.
+▪ Sebastian Schuon , Co-Founder of Alasco , innovating in real estate tech.
+▪ Baptiste Pannier , CTO at Adaptive ML , leading GenAI adoption.
+▪ Daniela Espinosa, CRO at Kushki , transforming finance with digital payments.
+▪ Miguel Santos , Founder of Technisys , acquired by SoFi for $1.1 billion.
+
+Join these visionaries and more at #VDS2024 on October 23-24 to explore the future of innovation! 💡 #Founders #TechLeaders #Innovation #Entrepreneurship #Valencia
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Jacob White Co-Founder Peak Mojo | Executive Advisor | Cybersecurity Platform Engineer | ex-CrowdStrike 8mo Report this post I am looking forward to speaking at #SFTechWeek next week!!!
+We are going to dig deep in CS and uncover how the speed and efficiencies of AI can incorporate and bolster the relationship building....'human side' of Customer Success. Future/Builderz -1 to 1 647 followers 8mo More spots are now available for our #SFTechWeek event!
+Join us to explore the future of AI + Customer Success with top industry leaders: https://lu.ma/l41g25e1 ⭐️ Featured speakers include: Alex Laverty : AI strategy deployment, People.ai Andrés Pérez Soderi : GP, Carya Venture Partners Jacob White : Head of Customer, Peakmojo.ai After a brief panel, we’ll dive into small, focused roundtables, each led by a speaker on key CSM topics.
+
+Hosted by Future/Builderz, Product Pub and AI+.
+
+This event is a part of #TechWeek - a week of events hosted by VCs and startups to bring together the tech ecosystem. 9 1 Comment Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+Co-Founder Peak Mojo | Executive Advisor | Cybersecurity Platform Engineer | ex-CrowdStrike
+- Report this post
+I am looking forward to speaking at #SFTechWeek next week!!!
+We are going to dig deep in CS and uncover how the speed and efficiencies of AI can incorporate and bolster the relationship building....'human side' of Customer Success.
+647 followers
+More spots are now available for our #SFTechWeek event!
+Join us to explore the future of AI + Customer Success with top industry leaders: https://lu.ma/l41g25e1 ⭐️ Featured speakers include: Alex Laverty : AI strategy deployment, People.ai Andrés Pérez Soderi : GP, Carya Venture Partners Jacob White : Head of Customer, Peakmojo.ai After a brief panel, we’ll dive into small, focused roundtables, each led by a speaker on key CSM topics.
+
+Hosted by Future/Builderz, Product Pub and AI+.
+
+This event is a part of #TechWeek - a week of events hosted by VCs and startups to bring together the tech ecosystem.
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- VDS 7,708 followers 7mo Report this post Meet the top leaders driving innovation at #VDS2024 ! 🚀
+
+✨ From AI to fintech and greentech, these leaders are shaping the future of tech and business:
+
+▪ Tom Mason , CTO at Unlikely AI , a leader in Generative AI.
+▪ Thomas Holl, Co-Founder of Babbel, revolutionizing language learning.
+▪ Marili 't Hooft - Bolle , CEO of Trengo - Smart Customer Engagement Platform , driving expansion across Europe.
+▪ Dr. Amr Awadallah , CEO of Vectara , transforming semantic search with AI.
+▪ Dr. Alessandra Sala , Senior Director of AI at Shutterstock , empowering creators globally.
+▪ Tony Beltramelli , Founder of Uizard by Miro Labs , democratizing product design.
+▪ Dileep Thazhmon , CEO & Founder of Jeeves , leading fintech innovation globally.
+▪ Eliott Wertheimer , Co-CEO at VanMoof and LAVOIE , redefining e-mobility.
+▪ Kaspar Korjus , Co-Founder of Pactum AI , transforming business negotiations.
+▪ Lubomila Jordanova , CEO of Plan A, leading carbon accounting in Europe.
+▪ Margarida Garcia , VP at poolside , driving AI advancements for software development.
+▪ Yannis Daubin , VP at Databricks , advancing data intelligence in SEMEA.
+▪ Alexander Weltzsch , CEO at dealcode AI , revolutionizing AI-powered sales.
+▪ Alex Housley , Founder of Seldon , democratizing machine learning operations.
+▪ Sebastian Schuon , Co-Founder of Alasco , innovating in real estate tech.
+▪ Baptiste Pannier , CTO at Adaptive ML , leading GenAI adoption.
+▪ Daniela Espinosa, CRO at Kushki , transforming finance with digital payments.
+▪ Miguel Santos , Founder of Technisys , acquired by SoFi for $1.1 billion.
+
+Join these visionaries and more at #VDS2024 on October 23-24 to explore the future of innovation! 💡 #Founders #TechLeaders #Innovation #Entrepreneurship #Valencia 65 1 Comment Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+7,708 followers
+- Report this post
+Meet the top leaders driving innovation at #VDS2024 ! 🚀
+
+✨ From AI to fintech and greentech, these leaders are shaping the future of tech and business:
+
+▪ Tom Mason , CTO at Unlikely AI , a leader in Generative AI.
+▪ Thomas Holl, Co-Founder of Babbel, revolutionizing language learning.
+▪ Marili 't Hooft - Bolle , CEO of Trengo - Smart Customer Engagement Platform , driving expansion across Europe.
+▪ Dr. Amr Awadallah , CEO of Vectara , transforming semantic search with AI.
+▪ Dr. Alessandra Sala , Senior Director of AI at Shutterstock , empowering creators globally.
+▪ Tony Beltramelli , Founder of Uizard by Miro Labs , democratizing product design.
+▪ Dileep Thazhmon , CEO & Founder of Jeeves , leading fintech innovation globally.
+▪ Eliott Wertheimer , Co-CEO at VanMoof and LAVOIE , redefining e-mobility.
+▪ Kaspar Korjus , Co-Founder of Pactum AI , transforming business negotiations.
+▪ Lubomila Jordanova , CEO of Plan A, leading carbon accounting in Europe.
+▪ Margarida Garcia , VP at poolside , driving AI advancements for software development.
+▪ Yannis Daubin , VP at Databricks , advancing data intelligence in SEMEA.
+▪ Alexander Weltzsch , CEO at dealcode AI , revolutionizing AI-powered sales.
+▪ Alex Housley , Founder of Seldon , democratizing machine learning operations.
+▪ Sebastian Schuon , Co-Founder of Alasco , innovating in real estate tech.
+▪ Baptiste Pannier , CTO at Adaptive ML , leading GenAI adoption.
+▪ Daniela Espinosa, CRO at Kushki , transforming finance with digital payments.
+▪ Miguel Santos , Founder of Technisys , acquired by SoFi for $1.1 billion.
+
+Join these visionaries and more at #VDS2024 on October 23-24 to explore the future of innovation! 💡 #Founders #TechLeaders #Innovation #Entrepreneurship #Valencia
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- AnoCloud 1,219 followers 11mo Report this post Exciting Partnership Announcement! AnoCloud and fn7.io Join Forces to Empower Enterprises with Cutting-Edge Solutions!
+
+At AnoCloud, we stand as a beacon of innovation in data science and analytics consultancy. Our expertise lies in architecting AI-infused solutions that empower organizations to capitalize on data and machine learning algorithms, driving substantial business value. We’re thrilled to announce our strategic partnership with fn7, a dynamic innovator in creating MVP and Mock Products.
+
+About AnoCloud : AnoCloud, born from the vision of two preeminent industry leaders, stands at the forefront of technological innovation. Our unwavering focus lies in tackling intricate problems across a diverse range of industries, driven by the noble intent to democratize access to cutting-edge technologies for both established enterprises and fledgling ventures. 
+
+About fn7.io : fn7 is your go-to partner for innovation. Their AI tools and services help innovators ideate, build mock products, and create MVPs that lead to successful launches. Whether you’re a startup or an established enterprise, fn7’s expertise will accelerate your innovation journey. Get started with their essential MVP Development Checklist today! Check it out here.
+
+Our Collaboration: Together, AnoCloud and fn7 will revolutionize how businesses harness AI and data-driven insights. Our combined strengths will drive transformation, optimize processes, and unlock new opportunities for growth. Stay tuned for exciting joint initiatives, webinars, and thought leadership content! #AnoCloud #fn7 #AIInnovation #Partnership #DataScience #MVPDevelopment 12 Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+1,219 followers
+- Report this post
+Exciting Partnership Announcement! AnoCloud and fn7.io Join Forces to Empower Enterprises with Cutting-Edge Solutions!
+
+At AnoCloud, we stand as a beacon of innovation in data science and analytics consultancy. Our expertise lies in architecting AI-infused solutions that empower organizations to capitalize on data and machine learning algorithms, driving substantial business value. We’re thrilled to announce our strategic partnership with fn7, a dynamic innovator in creating MVP and Mock Products.
+
+About AnoCloud : AnoCloud, born from the vision of two preeminent industry leaders, stands at the forefront of technological innovation. Our unwavering focus lies in tackling intricate problems across a diverse range of industries, driven by the noble intent to democratize access to cutting-edge technologies for both established enterprises and fledgling ventures. 
+
+About fn7.io : fn7 is your go-to partner for innovation. Their AI tools and services help innovators ideate, build mock products, and create MVPs that lead to successful launches. Whether you’re a startup or an established enterprise, fn7’s expertise will accelerate your innovation journey. Get started with their essential MVP Development Checklist today! Check it out here.
+
+Our Collaboration: Together, AnoCloud and fn7 will revolutionize how businesses harness AI and data-driven insights. Our combined strengths will drive transformation, optimize processes, and unlock new opportunities for growth. Stay tuned for exciting joint initiatives, webinars, and thought leadership content! #AnoCloud #fn7 #AIInnovation #Partnership #DataScience #MVPDevelopment
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Mirapath, Inc. 2,712 followers 1y Report this post Exciting times at the AI Infra Summit! 🌟
+
+Our Mirapath team had a fantastic time connecting with industry leaders and gaining insight on the increased infrastructure demands brought by the AI trend. Lunch was equally enlightening as we networked with startup founders, CEOs, and CISOs, each sharing their unique perspectives and requirements within their industry. It was a fruitful event, and we're already looking forward to future opportunities! 💼✨ #AIInfraSummit #Networking #TechTrends 7 Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+2,712 followers
+- Report this post
+Exciting times at the AI Infra Summit! 🌟
+
+Our Mirapath team had a fantastic time connecting with industry leaders and gaining insight on the increased infrastructure demands brought by the AI trend. Lunch was equally enlightening as we networked with startup founders, CEOs, and CISOs, each sharing their unique perspectives and requirements within their industry. It was a fruitful event, and we're already looking forward to future opportunities! 💼✨ #AIInfraSummit #Networking #TechTrends
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Start2 Group 29,817 followers 6mo Edited Report this post The 𝗔𝗜 𝗚𝗮𝘁𝗲𝘄𝗮𝘆 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 has officially wrapped up, and we couldn't be prouder of what our cohort accomplished during their time in the Bay Area. From workshops and site visits to fireside chats and networking events, it was a week packed with learning, growth, and connection.
+
+The cohort dove into a series of workshops led by industry experts, covering topics like Silicon Valley culture, Customer Conversations, AI Ethics, and Best Practices for Selling AI Products in the U.S. They also explored the Future of Generative AI at the Stanford Institute for Human-Centered Artificial Intelligence (HAI) and gained hands-on insights into product design and development at SHACK15 in San Francisco’s iconic Ferry Building. Each session was designed to equip the founders with the tools and strategies needed to scale their companies globally.
+
+In addition to the workshops, our participants experienced Silicon Valley firsthand: they toured Databricks , had an inspiring fireside chat with local AI founders at Contextual AI , and connected with peers and investors during happy hours and an AMA session with AI investors. A highlight of the week was their pitch session at TechCrunch Disrupt, where they showcased their innovative AI solutions on a global stage.
+
+Experiencing Silicon Valley up close gave our founders a unique opportunity to engage with the local AI ecosystem, gain valuable insights, and connect with industry peers. Seeing the cutting-edge innovation firsthand inspired new ideas and gave them a renewed sense of clarity and motivation to push their ventures forward.
+
+A huge thank you to our partners at ScaleNL , hub.brussels , and Flanders Investment & Trade (FIT) for joining forces with us to make this program a reality. We can’t wait to see what’s next for these incredible startups! Axelera AI | Conveo (YC S24) | GreenAnt | imki | Augmented creativity | Typetone | ulalo.io | YourBI #AIGateway #AIStartups #SiliconValley #GlobalExpansion #TechCrunchDisrupt #TCDisrupt2024 27 Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+29,817 followers
+- Report this post
+The 𝗔𝗜 𝗚𝗮𝘁𝗲𝘄𝗮𝘆 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 has officially wrapped up, and we couldn't be prouder of what our cohort accomplished during their time in the Bay Area. From workshops and site visits to fireside chats and networking events, it was a week packed with learning, growth, and connection.
+
+The cohort dove into a series of workshops led by industry experts, covering topics like Silicon Valley culture, Customer Conversations, AI Ethics, and Best Practices for Selling AI Products in the U.S. They also explored the Future of Generative AI at the Stanford Institute for Human-Centered Artificial Intelligence (HAI) and gained hands-on insights into product design and development at SHACK15 in San Francisco’s iconic Ferry Building. Each session was designed to equip the founders with the tools and strategies needed to scale their companies globally.
+
+In addition to the workshops, our participants experienced Silicon Valley firsthand: they toured Databricks , had an inspiring fireside chat with local AI founders at Contextual AI , and connected with peers and investors during happy hours and an AMA session with AI investors. A highlight of the week was their pitch session at TechCrunch Disrupt, where they showcased their innovative AI solutions on a global stage.
+
+Experiencing Silicon Valley up close gave our founders a unique opportunity to engage with the local AI ecosystem, gain valuable insights, and connect with industry peers. Seeing the cutting-edge innovation firsthand inspired new ideas and gave them a renewed sense of clarity and motivation to push their ventures forward.
+
+A huge thank you to our partners at ScaleNL , hub.brussels , and Flanders Investment & Trade (FIT) for joining forces with us to make this program a reality. We can’t wait to see what’s next for these incredible startups! Axelera AI | Conveo (YC S24) | GreenAnt | imki | Augmented creativity | Typetone | ulalo.io | YourBI #AIGateway #AIStartups #SiliconValley #GlobalExpansion #TechCrunchDisrupt #TCDisrupt2024
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+- Max Kops Stella.Coach | Bestselling Author | (TEDx) Speaker +7years | HR Innovation Award 2024 | Newcomer Award 2023 6mo Edited Report this post 3 takesways from Slush in Helsinki! 
+
+After many days packed with side events and 2 days of the SLUSH itself, these are the conclusions I drew: 
+
+1. It feels like AI is added as the domain ending for every fifth startup. 
+
+2. Many highly successful founders were actually sharing their ideas more focused on #CustomerLove , validation and customer centricity 
+
+3. Regulatory tension is building up, e.g. a participant running a multinational company asked the panelists why his customers all around the same are using the AI tools they provide while EU companies block the AI functionalities of the platform. This is a tangible example of how the world is divided at the moment in terms of AI openness, adoption and regulation. 
+
+
+Thanks a lot to everyone organizing the German stage as well, which was a fantastic place to network - not only - in the German ecosystem and pitch Stella Coach as world’s first AI coach. ⭐️ Noemi Alvarez Nicola Solomou Dr. Lucas Mittelmeier Vesa Laakso Nic Newman Philippa Köhnk Felix Schroeder Cassandra M. Miguel Pinheiro Sparkmind.vc Denise Lorie #SLUSH24 20 Like Comment Share Copy LinkedIn Facebook Twitter To view or add a comment, sign in
+Stella.Coach | Bestselling Author | (TEDx) Speaker +7years | HR Innovation Award 2024 | Newcomer Award 2023
+- Report this post
+3 takesways from Slush in Helsinki! 
+
+After many days packed with side events and 2 days of the SLUSH itself, these are the conclusions I drew: 
+
+1. It feels like AI is added as the domain ending for every fifth startup. 
+
+2. Many highly successful founders were actually sharing their ideas more focused on #CustomerLove , validation and customer centricity 
+
+3. Regulatory tension is building up, e.g. a participant running a multinational company asked the panelists why his customers all around the same are using the AI tools they provide while EU companies block the AI functionalities of the platform. This is a tangible example of how the world is divided at the moment in terms of AI openness, adoption and regulation. 
+
+
+Thanks a lot to everyone organizing the German stage as well, which was a fantastic place to network - not only - in the German ecosystem and pitch Stella Coach as world’s first AI coach. ⭐️ Noemi Alvarez Nicola Solomou Dr. Lucas Mittelmeier Vesa Laakso Nic Newman Philippa Köhnk Felix Schroeder Cassandra M. Miguel Pinheiro Sparkmind.vc Denise Lorie #SLUSH24
+- Copy
+- LinkedIn
+- Facebook
+- Twitter
+To view or add a comment, sign in
+13,626 followers
+
+More from this author
+
+- How can technologies like AR and VR boost the customer experience when shopping? T-Labs 3y
+
+How can technologies like AR and VR boost the customer experience when shopping?
+
+
+Explore topics
+
+- Sales
+- Marketing
+- IT Services
+- Business Administration
+- HR Management
+- Engineering
+- Soft Skills
+- See All

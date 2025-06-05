@@ -1,0 +1,17 @@
+The Science Behind Rockfish
+Rockfish builds on and extends 6+ years of foundational academic research on making Deep Generative Models practical for Enterprise-scale synthetic data generation.
+Since 2016, at Carnegie Mellon, co-founders Giulia Fanti and Vyas Sekar have made significant advances in the theory and practice of generative models such as developing state-of-art models for timeseries data, improving the stability and privacy of generative algorithms, practical approaches for rare sample generation, and domain-specific adaptations of deep generative models (e.g., telecommunications, IoT).
+These peer-reviewed research papers have appeared at prestigious AI/ML venuesâ such as NeuRIPS, ICML, AAAI, and Â domain-specific venues such as IMC, SIGCOMM.
+Read more about some of these research foundations below.
+Using GANs for Sharing Networked Time Series Data: Challenges, Initial Promise, and Open Questions
+î
+RareGAN: Â Generating Samples for
+Rare Classes
+î
+On the Privacy Properties of
+GAN-generated Samples
+î
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+î
+Practical GAN-based Synthetic IP Header Trace Generation using NetShare
+î

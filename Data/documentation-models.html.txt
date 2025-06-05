@@ -1,0 +1,27 @@
+
+Models
+
+
+Rockfish Models
+
+Rockfish understands the challenge that users face in connecting their high level intents to the actual runnable
+algorithms and configurations for the various algorithms. Decisions like when to preprocess or encode the dataset/columns in a specific way to ensure that the
+structure is preserved when generating play a critical role in the quality of the generated data.
+To dramatically lower the barrier of entry for users and using the naive approach of trying all possible algorithms/configurations can be costly, Rockfish's uses it proprietary Recommendation Engine that analyzes the dataset, fidelity, and privacy requirements of the use case to suggest an appropriate model and model parameters.
+Rockfish Platform supports different Gen AI models to support different datasets types:
+- Rockfish DoppelGANger (RF-Time-GAN)
+- Rockfish REaLTabFormer time-series (RF-Time-Transformer)
+- Rockfish REaLTabFormer tabular (RF-Tab-Transformer)
+- Rockfish CTGAN (RF-Tab-GAN)
+
+Guidelines for Manual Model selection
+
+For those who want to explore and want to pick the model here are some guidelines:
+- Time Series Data: RF-Time-GAN and RF-Time-Transformer models are optimized for time series data, which consist of metadata fields, a timestamp field, and measurement fields. Generally, RF-Time-GAN has a shorter training time compared to RF-Time-Transformer.
+Time Series Data: RF-Time-GAN and RF-Time-Transformer models are optimized for time series data, which consist of metadata fields, a timestamp field, and measurement fields. Generally, RF-Time-GAN has a shorter training time compared to RF-Time-Transformer.
+- Tabular Data: RF-Tab-GAN and RF-Tab-Transformer are better suited for tabular data, which is a common 2-dimensional dataset.Generally, RF-Tab-GAN has a shorter training time compared to RF-Tab-Transformer.
+Tabular Data: RF-Tab-GAN and RF-Tab-Transformer are better suited for tabular data, which is a common 2-dimensional dataset.Generally, RF-Tab-GAN has a shorter training time compared to RF-Tab-Transformer.
+
+Guidelines for Model Training Parameters
+
+If there is a specific model implementation you would like to see in Rockfish, please send a feature request to us via support@rockfish.ai .

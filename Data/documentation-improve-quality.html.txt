@@ -1,0 +1,60 @@
+
+Improving Data Quality
+
+
+Improving the quality of the generated synthetic data
+
+Rockfish's Synthetic Data Assessor provides several evaluation mechanism to evaluate fidelity, utility, privacy of the generated synthetic data. 
+The fidelity metrics provides an estimatation of how well the generated synthetic data maintains the same statistical properties as the original dataset. 
+If the generated data does not meet your expecation then there are several ways as mentioned below that you can incorporate to improve the quality of the synthetic data.
+
+Dataset files
+
+If you have multiple datasets, you can:
+- either train them separately or
+- join them together if datasets have some common columns to connect with.
+
+Increase your training data
+
+The number of training records used can directly impact the quality of the synthetic data created. 
+The more examples available when training a model, the easier it is for the model to accurately learn the distributions and correlations in the data.
+
+Data Cleaning
+
+Ensure that the original data is cleaned and preprocessed correctly. Remove or correct any anomalies or errors before using it for training the synthetic data generation model.
+
+Out of Range
+
+When generating synthetic data, you may encounter values that fall outside the original training data range.
+
+Option 1: Clip Out-of-Range Continuous Values (RF-Tab-GAN Only)
+
+If you're using the RF-Tab-GAN model and want to prevent it from generating out-of-range values, you can enable the clip_in_range parameter in the generation config. This will clip any generated values to match the range observed in the training data. generate_config = ra . GenerateTabGAN . Config ( tabular_gan = ra . GenerateTabGAN . GenerateConfig ( clip_in_range = True )) generate = ra . GenerateTabGAN ( generate_config )
+
+generate_config = ra . GenerateTabGAN . Config ( tabular_gan = ra . GenerateTabGAN . GenerateConfig ( clip_in_range = True )) generate = ra . GenerateTabGAN ( generate_config )
+
+
+Option 2: Filter using SQL (Any Model)
+
+Regardless of which model you use, you can filter out undesired values from the generated dataset using SQL queries.
+
+Example 1: Continuous columnamountshould have values in [0, 1000.0]
+
+
+import rockfish as rf dataset = rf . Dataset ( ... ) filter_query = """SELECT * FROM my_table WHERE amount BETWEEN 0 AND 1000.0;""" dataset = dataset . sync_sql ( filter_query )
+
+
+Example 2: Categorical columnageshould have values ["bin_2", "bin_3", "bin_4"]
+
+import rockfish as rf dataset = rf . Dataset ( ... ) filter_query = """SELECT * FROM my_table WHERE age IN (bin_2, bin_3, bin_4);""" dataset = dataset . sync_sql ( filter_query ) Refer to the SQL page for more details on how you can use the SQL feature.
+
+import rockfish as rf dataset = rf . Dataset ( ... ) filter_query = """SELECT * FROM my_table WHERE age IN (bin_2, bin_3, bin_4);""" dataset = dataset . sync_sql ( filter_query )
+
+
+Hyperparameter tuning
+
+For each model and dataset, we suggest starting with the default recommended hyperparameters provided by the Rockfish APIs. If the result does not meet your needs, some additional steps that can be done to potentially improve the performance.
+- Use a larger data sample to train
+- Preprocess the training data in different ways
+- Select a different generative model
+- Customize hyperparameters to tune models (please reach out to Rockfish team)

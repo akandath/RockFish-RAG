@@ -1,0 +1,42 @@
+
+Integration
+
+Dataset is the abstraction we use to segment and organize training and
+generated data but how customers can move their data into our platform?
+Rockfish offers an API to create a new dataset uploading parquet files, and the
+python-sdk offers utilities to upload CSV and other format but we know you need more.
+For this reason we started to developer connectors capable of importing and
+dumping data from different sources.
+Here the one we have so far, the one we are working at and if you have specific
+requirements let us know.
+
+AWS S3
+
+For AWS S3 we developed two actions one called s3-loader , useful to download
+data from AWS bucket you own and move them in our system for direct training or
+to store them as dataset for future use.
+
+{ "jobs" : [ { "worker_name" : "s3-loader" , "worker_version" : "1" , "config" : { "bucket" : "netflow-small" , "format" : "parquet" , "prefix" : "/" , "access_key" : "ss" , "secret_access_key" : "sssss" } } ] }
+
+If you use our product on-prem you can authenticate our workers directly via
+AWS service account and you don't need to specify an access_key and a secret_access_key . We have also developed a secret store that can be used to
+decrypt sensitive informations.
+
+{ "jobs" : [ { "worker_name" : "s3-dumper" , "worker_version" : "1" , "config" : { "bucket" : "netflow-small" , "format" : "parquet" , "prefix" : "/" , "access_key" : "ss" , "secret_access_key" : "sssss" } } ] }
+
+
+Databricks
+
+Databricks is another popular SaaS where you can host data and train models. It offers various strategies to interact with system and for now we decided to develop a worker that downloads data via sql interface.
+
+{ "jobs" : [ { "worker_name" : "databricks-sql-loader" , "worker_version" : "1" , "config" : { "sql" : "select * from default.databricks_table" "token" : "" "http_path" : "" "server_hostname" : "" } } ] }
+
+For uploading generated data back to your Databricks account we use the Databricks dbfs API
+
+{ "jobs" : [ { "worker_name" : "databricks-dbfs-save" , "worker_version" : "1" , "config" : { "path" : "dbfs:/mnt/path/to/remote/file" "format" : "csv" "token" : "" "server_hostname" : "" } } ] }
+
+
+What do we have in development?
+
+- Azure Blob Store
+- GCP Object Store

@@ -1,0 +1,46 @@
+
+Muckai Girish column: Generative AI for Enterprises
+
+By Dr. Muckai Girish (Muckai Girish is co-founder & CEO of Rockfish Data – https://www.rockfish.ai. The views expressed in this column are his own) When OpenAI introduced ChatGPT in late 2022, it reached one million users in a mere FIVE days. For reference, to reach the same milestone, it took Facebook 10 months in 2004 and Netflix 3.5 years in 1999. Moreover, ChatGPT reached 100 million monthly active users in two months after launch – a world record. Indeed, why are users flocking to ChatGPT?
+ChatGPT and other similar tools fall under the purview of an emerging class of AI algorithms collectively referred to as Generative AI. Generative AI refers to the subset of artificial intelligence techniques and algorithms that can be used to generate new and unique data or content.
+In contrast to other AI techniques that are designed to perform tasks such as classification or prediction, generative AI algorithms are trained on data and then use that data to generate new data, such as images, text, music, or video.
+While ChatGPT is no doubt the most recent talk of the town, you may have already encountered other impressive demonstration of Generative AI in the popular culture; e.g., AI generated art, AI that can mimic famous authors, AI-assisted code generation, and so on.
+At their technological core, these algorithms leverage novel advances in machine learning such as Generative Adversarial Networks, Transformers, Diffusion Models, and other modelling frameworks.
+What these frameworks are magically good at is capturing the essential distribution and structure of complex datasets, and producing novel “samples” that mimic this structure.
+Industry pundits unanimously agree that Generative AI will reinvent business and transform work. The frenzy around venture and corporate investments, company formations and business model alignments all point to an ecosystem that is firing on all cylinders.
+According to Acumen Research and Consulting, Generative AI market size is forecast to reach $110.8 billion by 2030, growing at an impressive 34% compound annual growth rate (CAGR).
+While consumers interact with and try out Generative AI applications, businesses are increasingly realizing the need as well! For example, enterprises are not able to fully use or share the data they have, because of regulatory or policy restrictions around data use.
+These data silos can slow down, or even prevent, companies from developing better products, testing products, developing more robust machine learning algorithms, and outsourcing work to third parties.
+In this context, one of the most exciting applications of Generative AI for enterprises is in the realm of Synthetic Data, for getting around these data silos that enterprises face today. Synthetic data allows organizations to create artificial datasets that look like the real data, but aren’t.
+These so-called synthetic datasets are produced by state-of-the-art generative AI and can be shared and used in ways that real data cannot, thereby unlocking the potential of data.
+Synthetic data is expected to play a major role in enterprises – Gartner estimates that synthetic data will comprise as much as 60% of the data used in AI development and analytics.
+For instance, companies can proactively test products on customer-relevant data by using synthetic data derived from actual customer workloads. Similarly, companies building machine learning products can use synthetic data to augment real datasets to make machine learning algorithms more robust to “rare” or “sparse” scenarios in real data.
+Companies can accelerate collaborations across geographically dispersed teams and with third-party vendors by sharing privacy-preserving synthetic datasets without having to wait for lengthy approval processes.
+While Generative AI technology is becoming front and center of any enterprise CIO’s priority list, there are numerous opportunities and challenges that need to be addressed. Technology leaders have to figure out how to staff and position their resources and activities to not only extract value quickly, but also to ensure they provide a sustaining competitive advantage.
+Moreover, accessing and making data available to train Generative AI models have been hurdles that every enterprise has to find a way to overcome.
+Though some have expressed concerns about the pace with which Generative AI is evolving, it is clear that the benefits significantly outweigh the risks. We are just scratching the surface of possible applications of Generative AI to change the way we live, work and play. We are fortunate to have front row seats to such an incredible tectonic shift.
+
+Sharing
+
+- Email this article
+- Print this article
+
+Tags
+
+
+About indica
+
+
+Post navigation
+
+
+Related posts
+
+
+Economist Paul Romer highlights India’s success with Digital Public Infrastructure, critiques U.S. technology use
+
+
+PM Modi calls for human-centric approach in tech revolution at ITU World Telecommunication Standardization Assembly
+
+
+ChatGPT biased against CVs with credentials that imply disability, finds researchers

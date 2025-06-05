@@ -1,0 +1,138 @@
+
+Pre-Processing
+
+Pre-processing is essential to ensure data quality, consistency, and relevance for the intended purpose. Before finalizing the onboarding workflow, there are certain pre-processing steps you can take to improve the fidelity of the generated synthetic data.
+Let's take a look at the pre-processing steps one by one:
+
+1. Handling Multiple Datasets
+
+The Rockfish platform currently only supports training one dataset at a time.
+If you have multiple datasets, you can:
+- either train a model per dataset, or
+- join the datasets together on some common columns, and train a model on the joined dataset
+
+2. Handling Large Datasets
+
+If your original dataset is too large (400 columns or 100,000 rows for example) then you can downsample the original dataset.
+
+Downsampling a Tabular Dataset
+
+Select random k records (fewer than the total number of records) from the original dataset for downsampling.
+
+query = """SELECT * FROM my_table ORDER BY RANDOM() LIMIT <k> """
+
+
+Downsampling a Timeseries Dataset
+
+Select random k sessions (fewer than the total number of sessions) from the original dataset for downsampling.
+
+query = """SELECT my_table.* FROM my_table JOIN ( SELECT DISTINCT <metadata_field_1>, <metadata_field_2> FROM my_table ORDER BY RANDOM() LIMIT <k> ) select_sessions ON my_table.<metadata_field_1> = select_sessions.<metadata_field_1> AND my_table.<metadata_field_2> = select_sessions.<metadata_field_2> """
+
+After defining the query, apply it to the dataset for downsampling. dataset = rf . Dataset . from_csv ( "example" , "data/path/example.csv" ) dataset = dataset . syn_sql ( query )
+
+dataset = rf . Dataset . from_csv ( "example" , "data/path/example.csv" ) dataset = dataset . syn_sql ( query )
+
+
+3. Handling High Cardinality Fields
+
+When working with datasets that contain fields with high cardinality, using a transformer-based model (e.g. RF-Time-Transformer, RF-Tab-Transformer) is typically manageable. However, attempting to use GAN-based models (e.g. RF-Time-GAN, RF-Tab-GAN) can result in out-of-memory issues. This occurs because the high cardinality field gets encoded into a large dimension, overwhelming the system's memory capacity.
+To address this issue for GAN-based models, we have a few options: Dimensionality Reduction and Resampling.
+
+3.1. Dimensionality Reduction
+
+
+3.1.1 Group the less frequent values
+
+Group less frequent values while maintaining the proportions of the remaining values in a dataset.
+Option 1: Select the top k most frequent values. The remaining, less frequent values are grouped into a single other category (e.g. "others"), simplifying the dataset.
+
+replacement = ra . Replace ( field = "<high_cardinality_field_name>" , condition = ra . TopKCondition ( top_k = 2 ), # example of top 2 resample = ra . ValuesResample ( replace_values = [ "others" ]), )
+
+Option 2: Select the values that meet or exceed a certain threshold rate. All values below the threshold are grouped into another category  (e.g. "others").
+
+replacement = ra . Replace ( field = "<high_cardinality_field_name>" , condition = ra . ThresholdCondition ( threshold = 0.2 ), # example of threshold rate at 0.2 resample = ra . ValuesResample ( replace_values = [ "others" ]), )
+
+
+3.1.2  Remove the less frequent values
+
+Remove the less frequent values while maintaining the proportional relationship between the remaining values in a dataset.
+Option 1: Select the top-k most frequent values. The less frequent values are replaced by those top-k values in their
+existing proportions.
+replacement = ra . Replace ( field = "<high_cardinality_field_name>" , condition = ra . TopKCondition ( top_k = 2 ), # example of top 2 ) Option 2: Select values that meet or exceed the threshold rate. The less frequent values (below the threshold) are replaced by those values that meet the threshold in their existing proportions.
+
+replacement = ra . Replace ( field = "<high_cardinality_field_name>" , condition = ra . TopKCondition ( top_k = 2 ), # example of top 2 )
+
+
+replacement = ra . Replace ( field = "<high_cardinality_field_name>" , condition = ra . ThresholdCondition ( threshold = 0.2 ), # example of threshold rate at 0.2 )
+
+
+3.2. Resampling
+
+Another effective approach is to extract these fields from the original dataset before training. During the synthetic data generation process, you can resample the extracted fields from the stored artifact and append the resampled fields. This will preserve the distribution of those fields as in the original dataset.
+Here are the steps.
+Step 1: Extract the high cardinality fields. To extract the field(s) into an artifact, we need to create an ExtractResample action and add it to the training workflow.
+
+# create `ExtractResample` action extract = ra . ExtractResample ( fields = [ "<high_cardinality_fields>" ]) # add ExtractResample action to the train workflow builder = rf . WorkflowBuilder () builder . add_path ( dataset , extract , train ) workflow = await builder . start ( conn )
+
+Step 2: Obtain the artifact ID. ExtractResample action creates an artifact in the model store to store the
+extracted fields. Using artifact ID can retrieve the stored extracted fields.
+
+async for link in workflow . links (): if link . rel == "resample_artifact" : artifact_id = link . href . parts [ - 1 ]
+
+Step 3: Resample during data generation. During the data generation progress, you can apply this artifact to
+resample the high cardinality fields by providing artifact_id in ApplyResample action.
+
+# create `ApplyResample` action apply = ra . ApplyResample ( artifact_id = artifact_id ) # add the ApplyResample action to the generation workflow builder = rf . WorkflowBuilder () builder . add_path ( generate , apply , save ) workflow = await builder . start ( conn )
+
+
+4. Handling Missing Values
+
+Handling missing values before training a model is crucial because missing data can introduce a bias, reduce a model's accuracy, and affect its ability to generalize.
+Rockfish provides several methods to fill out missing values.
+Please refer to the examples for the following methods in
+
+5. Handling Dependent Fields
+
+If your dataset contains categorical columns that are strictly associated with each other, we offer ways to preserve 
+associations in the synthetic dataset.
+For example, suppose your dataset consists of the following two columns:
+In this dataset, the OS Name and OS Version columns have a one-to-many relationship. Similarly, the OS Version and OS 
+Build columns also have a one-to-many relationship. That is, a row with OS Name = "Android" can only have "Marshmallow" 
+or "Nougat" as the OS Version, and a row with OS Version = "Marshmallow" can only have "M1" or "M2" as the OS Build.
+In other words, the three columns have a strict association that needs to be preserved in the synthetic dataset.
+A recommended way to preserve a well-defined relationship is to merge (or join), the associated columns together before training 
+(using the JoinFields action) and then split the columns of the synthetic dataset (using the SplitField action).
+If your dataset has multiple relationships (independent of each other), you can easily join and split columns per 
+relationship.
+To join columns, you would add the following to your workflow:
+
+join_fields = rf . actions . JoinFields ( fields = [ "OS Name" , "OS Version" , "OS Build" ], append_field = [ "OS" ] # (default) separator = ";" )
+
+Note that you can specify >= 2 columns to be joined at a time in a JoinFields action.
+To split a field, you would add the following to your workflow:
+
+split_field = rf . actions . SplitField ( field = [ "OS" ], append_fields = [ "OS Name" , "OS Version" , "OS Build" ] # (default) separator = ";" )
+
+Note that you should pass a custom separator in case your column values have ; in them, since the columns will be 
+merged or split using ; by default.
+Categorical fields of the following types are supported: string, integer, float, date, timestamp.
+Follow the E2E example to see how to handle dependent fields:
+
+6. Handling Related Timestamps
+
+When working with event data that contains multiple timestamps (e.g., session start, page load, click events), it is essential to maintain the temporal relationships between events. One way to preserve these relationships is by converting absolute timestamps to relative values based on a primary reference timestamp. This allows the model to focus on the temporal intervals between events, rather than the absolute values, which may vary widely.
+Steps to convert timestamps to relative timestamps:
+- Choose one timestamp as the reference point from which all other timestamps will be calculated. This step is part of the Dataset Properties configuration, where you specify the timestamp fields as the primary timestamp.
+- Calculate relative timestamp: For each event timestamp, we calculate the relative timestamp by subtracting the primary reference timestamp.
+- After calculating the relative timestamps, we store the results in new columns. This preserves the original absolute timestamp values in case they are needed for future reference.
+- Use Relative Timestamps for Synthetic Data Generation: During the synthetic data generation process, only the relative timestamps are used. This helps the model focus on the sequence and timing of events rather than the absolute timestamps.
+- Optional: Remove Relative Timestamps in Final Output: Once synthetic data has been generated, you may choose to remove the relative timestamp columns from the final output. This ensures that only meaningful, realistic timestamp data is included in the synthetic dataset.
+
+7. Handling Sensitive Data
+
+Refer to the Privacy docs to understand how you can use the Rockfish privacy features for handling sensitive fields.
+
+Recommended Pre-processing Steps
+
+If you are not sure which pre-processing steps to apply to your dataset, our recommendation engine can produce the Rockfish actions required for pre-processing your dataset, along with a report summarizing the recommendations.
+Please refer to the example

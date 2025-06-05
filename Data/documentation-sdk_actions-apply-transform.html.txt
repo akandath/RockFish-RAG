@@ -1,0 +1,79 @@
+
+rockfish.actions.apply_transform
+
+
+Attributes
+
+
+Number=Union[int,float]module-attribute
+
+
+Scalar=Union[int,float,bool,str]module-attribute
+
+
+Classes
+
+
+ApplyConfigdataclass
+
+Configuration class for the Apply action.
+Attributes:
+Function to apply.
+New field name to append to dataset.
+
+TransformConfigdataclass
+
+Configuration class for the Transform action.
+Attributes:
+Function to use for the transformation.
+
+Functiondataclass
+
+
+Adddataclass
+
+
+Castdataclass
+
+
+Dividedataclass
+
+
+FillNulldataclass
+
+FillNull replaces null values in a field with a Scaler fill_value .
+Attributes:
+Field name to operate over.
+Value to replace nulls with.
+
+FillNullAggregationdataclass
+
+FillNullAggregation replaces null values in a field with the results of
+an aggregation function on that same field.
+Attributes:
+Field name to operate over.
+
+FillNullBackwarddataclass
+
+FillNullBackward replaces null values in a field with the next non-null
+value.
+Attributes:
+Field name to operate over.
+
+FillNullForwarddataclass
+
+FillNullForward replaces null values in a field with the previous non-null
+value.
+Attributes:
+Field name to operate over.
+
+JoinFieldsdataclass
+
+
+Multiplydataclass
+
+
+Remapdataclass
+
+
+Subtractdataclass

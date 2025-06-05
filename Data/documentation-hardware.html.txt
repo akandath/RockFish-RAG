@@ -1,0 +1,53 @@
+
+Hardware
+
+
+Hardware Requirements
+
+You will need to install at least two but likely more Rockfish Data Hybrid workers nodes. The total number of workers required is dependent on your workflows, the general rule of thumb is to have at least the same number of workers as you have actions defined in your workflow . For a successful deployment and operation, the Kubernetes cluster on which you deploy should meet the compute and storage minimum requirements.
+Rockfish Data requires nodes with available resources that meet the computation and memory requirements. Different processing nodes have different requirements, see the container documentation for more information on each worker type. To ensure a smooth operation in shared cluster environments, it is best to dedicate the nodes solely to Rockfish Data tasks. Shared resources can affect the compute time for a workflow and can lead to process migration which can add to further compute time. For more information, see Taints and tolerations in the Kubernetes documentation
+
+cpu-worker-pool Nodes
+
+These workers are the data ETL actions in the pipeline, including the data sync and source actions and the pre/post processing actions
+Resources   Size
+CPU 4 cores
+RAM 8 GB
+Storage 2 GB
+
+Encoding, Training and Generating Nodes
+
+Worker nodes requirements
+These workers are machine learning oriented actions and will have different requirements depending on the size of your training data and how much synthetic data you need to generate. These workers can run on CPU, but performance will be heavily reduced then if they were run on GPUs. The following is the minimum and recommended sizes of CPU workers and GPU workers
+
+Minimum CPU
+
+Resources   Size
+CPU 16 cores
+RAM 16 GB
+Storage 20 GB
+
+Recommended CPU
+
+Resources   Size
+CPU 32 cores
+RAM 32 GB
+Storage 40 GB
+
+Minimum GPU
+
+Resources   Size
+CPU 8 cores
+GPU A10/Telsa T4
+RAM 16 GB
+GPU RAM 8 GB
+Storage 20 GB
+
+Recommended GPU
+
+Resources   Size
+CPU 8 cores
+GPU A100
+RAM 16 GB
+GPU RAM 40 GB
+Storage 40 GB

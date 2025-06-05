@@ -1,0 +1,58 @@
+
+rockfish.actions.transformer
+
+
+rockfish.actions.transformer
+
+
+Classes
+
+
+GenerateTabTransformerConfig
+
+Configuration for the GenerateTabTransformer action.
+Attributes:
+Number of records to generate.  If None, the number of records in the training set up to the maximum of 1000.
+
+GenerateTimeTransformerConfig
+
+Configuration for the GenerateTimeTransformer action.
+Attributes:
+Number of sessions to generate.  If None, the number of sessions in the training set up to the maximum of 1000.
+
+TrainTabTransformerConfig
+
+Configuration for the TrainTabTransformer action.
+Attributes:
+Additional labels to add to the Model.
+
+TrainTabConfig
+
+Attributes:
+
+TrainTimeTransformerConfig
+
+Configuration for the TrainTimeTransformer action.
+Attributes:
+Additional labels to add to the Model.
+
+TrainTimeConfig
+
+Attributes:
+Configuration for the parent/metadata table.
+Configuration for the child/measurement table.
+
+ParentConfig
+
+Attributes:
+Number of epochs to train for.
+
+ChildConfig
+
+Attributes:
+Number of epochs to train for.
+Maximum length of a session.  Sessions with more records will be truncated.
+
+GPT2Config
+
+Attributes:

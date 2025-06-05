@@ -1,0 +1,26 @@
+
+numpy
+pandas
+
+
+sentence-transformers
+langchain==0.1.16  
+huggingface-hub
+
+PyMuPDF  # also known as fitz
+pdfplumber
+bs4  # BeautifulSoup4 for HTML parsing
+requests
+
+chromadb==0.4.24
+
+
+yt-dlp
+whisper
+youtube_transcript_api
+
+ipython
+jupyter
+
+# Disable Chroma telemetry (if needed in your script)
+# os.environ["CHROMA_TELEMETRY"] = "0"

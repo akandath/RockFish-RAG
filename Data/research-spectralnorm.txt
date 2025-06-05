@@ -1,0 +1,1003 @@
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Zinan Lin 1 Vyas Sekar 1 Giulia Fanti 1
+limited understanding of why SN is effective. In
+tant failure modes of GAN training: exploding
+and vanishing gradients. Our proofs illustrate a
+This connection helps to explain why the most
+ishing at the beginning of training, SN preserves
+this property throughout training. Building on
+this theoretical understanding, we propose a new
+spectral normalization technique: Bidirectional
+corporates insights from later improvements to
+pirically, we demonstrate that it outperforms SN
+in sample quality and training stability on several
+benchmark datasets.
+1. Introduction
+deep generative models, perhaps best known for their ability
+1Department of Electrical and Computer Engineering,
+Carnegie Mellon University, Pittsburgh, PA 15213.
+respondence
+<zinanl@andrew.cmu.edu>,
+<vsekar@andrew.cmu.edu>,
+<gfanti@andrew.cmu.edu>.
+random samples from a target data distribution, given only
+access to an initial set of training samples. This is achieved
+dom input noise to a generated sample, and a discriminator
+discriminator are trained in an alternating process known as
+adversarial training. Theoretically, given enough data and
+model capacity, GANs converge to the true underlying data
+Although GANs have been very successful in improving
+changes and even randomness in the optimization can cause
+training to fail. Many approaches have been proposed for
+ator to have unit spectral norm during training. This has the
+nator, which is empirically observed to improve the stability
+Martineau, 2018; Yu et al., 2019; Miyato & Koyama, 2018;
+this speciﬁc normalization is so effective.
+In this paper, we show that SN controls two important failure
+modes of GAN training: exploding gradients and vanishing
+leading either to bad local minima or stalled training prior
+to convergence. We make three primary contributions:
+arXiv:2009.02773v2  [cs.LG]  8 Apr 2021
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+LeCun initialization
+Bidirectional normalization
+Xavier initialization
+Kaiming initialization
+Our proposed
+initialization 
+techniques
+Figure 1. The interesting connections we ﬁnd between spectral
+we proposed BSSN to further improve SN.
+as randomness during training, can amplify the effects of
+large gradients on training instability, ultimately leading
+to generalization error in the learned discriminator. We
+theoretically prove that SN imposes an upper bound on
+gradients during GAN training, mitigating these effects.
+Small gradients during training are known to cause GANs
+tialization, ﬁrst proposed over two decades ago, mitigates
+this effect by carefully choosing the variance of the initial
+SN controls the variance of weights in a way that closely
+parallels LeCun initialization. Whereas LeCun initialization
+ning of training, we show empirically that SN preserves this
+property throughout training. Our analysis also explains
+additional tuning to avoid the vanishing gradient problem,
+requires no tuning.
+Given this new understanding of the connections between
+SN and LeCun initialization, we propose Bidirectional
+It introduces a novel bidirectional spectral normalization
+inspired by Xavier initialization, which improved on LeCun
+initialization by controlling not only the variances of internal
+outputs, but also the variance of backpropagated gradients
+mimics Xavier initialization to give better gradient control
+inspired by Kaiming initialization, a newer initialization
+and training stability than SN on several benchmark datasets,
+including CIFAR10, STL10, CelebA, and ImageNet.
+ments we propose demonstrate the practical value of this
+new theoretical understanding.
+2. Background and Preliminaries
+The instability of GANs is believed to be predominantly
+on the discriminator, and the effects of SN on discriminator
+Consider a discriminator with L internal layers:
+do not model bias terms.
+regularization
+tion. Prior work has shown that regularizing the Lipschitz
+constant of the discriminator ∥Dθ∥Lip improves the stability
+the discriminator is bounded by 1.
+i ∈[1, L], where the spectral norm ∥wi∥sp is deﬁned as the
+stant of the discriminator since ∥Dθ∥Lip ≤QL
+∥lwi∥Lip ≤∥wi∥sp and ∥ai∥Lip ≤1 for networks with
+cally connected the generalization gap of neural networks
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+et al., 2018; Gouk et al., 2018; Yoshida & Miyato, 2017;
+be viewed as a special case of more general techniques for
+values of the maximum and minimum singular values in the
+generator during training.
+matrix wi by its spectral norm:
+i wivi , where ui and vi
+operation, convolutional layers can equivalently be written
+as a multiplication by an expanded weight matrix ˜wi that
+is derived from the raw weights wi. Hence in principle,
+spectral normalization should normalize each convolutional
+call this canonical normalization SNConv as it controls the
+spectral norm of the convolution layer.
+form other regularization techniques and improves training
+does not implement SN in a strict sense. Instead, it uses
+tion kernel wi ∈Rcoutcinkwkh into a matrix ˆwi of shape
+norm ∥ˆwi∥sp, where cin is the number of input channels,
+cout is the number of output channels, kw is the kernel
+width, and kh is the kernel height. Miyato et al. showed
+that their implementation implicitly penalizes wi from being
+However, this does not explain why SNw is more stable than
+other Lipschitz regularization techniques, and as observed in
+2018; Yu et al., 2019; Miyato & Koyama, 2018; Lee et al.,
+performance when training GANs.
+canonical SNConv?
+In this work, we show that both questions are related to two
+These terms describe a problem in which gradients either
+they are known to be closely related to the instability of
+provide an example to illustrate how vanishing or exploding
+gradients cause training instability in GANs in App. I.
+3. Exploding Gradients
+In this section, we show that spectral normalization prevents
+malize all layers equally achieves the tightest upper bound
+for a restricted class of discriminators. We use θ ∈Rd to
+denote a vector containing all elements in {w1, ..., wL}. In
+the following analysis, we assume linear transformations
+lutional layers. Following prior work on the theoretical
+To highlight the effects of the spectral norm of each layer on
+the gradient and simplify the exposition, we will compute
+gradients with respect to w′
+i wivi in the following
+discussion. In reality, gradients are computed with respect
+to wi; we defer this discussion to App. C, where we show
+the relevant extension.
+How SN controls exploding gradients.
+The following
+proposition shows that under this simplifying assumption,
+dients of the discriminator with respect to θ. Notice that
+with respect to the input, x.
+and the norm of the overall gradient can be bounded by
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Theoretical upper bound for SN
+Figure 2. Gradient norms of each discriminator layer in MNIST.
+L ∥x∥. A comparable bound can also be found to
+limit the norm of the Hessian, which we defer to App. D.
+The bound in Prop. 1 has a signiﬁcant effect in practice.
+Fig. 2 shows the norm of the gradient for each layer of
+malization. Without spectral normalization, some layers
+have extremely large gradients throughout training, which
+tion, the gradients of all layers are upper bounded as shown
+in Prop. 1. We see similar results in other datasets and
+tations of SN advocate setting the spectral norm of each
+can set the spectral norms of different layers to different
+constants, without changing the network’s behavior on the
+input samples, as long as the product of the spectral norm
+bounds is the same.
+aL−1 ◦lwL−1 ◦. . .◦a1 ◦lw1 and D′
+lcL−1·wL−1 ◦. . . ◦a1 ◦lc1·w1 where the internal activation
+functions {ai}L−1
+constant scalars c1, ..., cL satisfy that QL
+if there is any beneﬁt to setting the spectral norms of each
+layer equal. It turns out that the answer is yes, under some
+assumptions that appear to approximately hold in practice.
+ai ∈{ReLU, leaky ReLU} ∀i, j ∈[1, L]
+This intuitively describes the set of all discriminators for
+which scaling up the weight of one layer proportionally
+Inverse ratio of spectral norm
+Ratio of gradient norm
+Figure 3. Ratio of gradient norm v.s. inverse ratio of spectral norm
+increases the gradient norm of all other layers; the deﬁnition
+of this set is motivated by our upper bound on the gradient
+optimizing over set D, choosing every layer to have the same
+spectral norm gives the smallest possible gradient norm, for
+a given set of parameters.
+denote θc ≜{ctwt}L
+the geometric mean of the spectral norms of the weights.
+Then we have
+c: Dθc∈D, QL
+ers on MNIST, computing the ratios of the gradient norms
+at each layer and the ratios of the spectral norms, as dictated
+rescalings of the spectral normalization vector c. Each point
+Vertical series of points are from different epochs of the
+same run, therefore their ratio of spectral norms is the same.
+The fact that most of the points are near the diagonal line
+suggests that training naturally favors discriminators that
+mental settings in App. K. This observation, combined with
+Thm. 1, suggests that it is better to force the spectral norms
+correct, uniform normalization across layers to upper bound
+discriminator’s gradients.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+4. Vanishing Gradients
+An equally troublesome failure mode of GAN training is
+also helps to control vanishing gradients.
+How SN controls vanishing gradients. Gradients tend to
+vanish for two reasons. First, gradients vanish when the
+saturate for inputs of large magnitude. Large parameters
+loss function, causing saturation. Second, gradients vanish
+too small. This is because backpropagated gradients are
+These insights motivated the LeCun initialization technique
+dients from vanishing, we must ensure that the outputs of
+each neuron do not vanish or explode. If the inputs to a
+neural unit are uncorrelated random variables with variance
+random variables with variance of
+ni , where ni denote the
+ent vanishing by controlling the variance of the individual
+parameters. In the following theorem, we show that SN
+enforces a similar condition.
+Rm×n with i.i.d. entries aij from a symmetric distribution
+max{m,n} .
+Furthermore, if m, n ≥2 and max {m, n} ≥3, and aij
+max{m,n} ,
+where L is a constant which does not depend on m, n.
+zation of extreme values of random vectors drawn uniformly
+Iterations
+Inception score
+Figure 4. Inception score of different SN variants in CIFAR10.
+Iterations
+Norm of gradient of 
+Figure 5. Gradient norms of different SN variants in CIFAR10.
+across hidden layers, so max{m, n} corresponds precisely
+SN has an effect like LeCun initialization.
+Why SNw works better than SNConv.
+In a CNN, the
+that SN gets the right variance for hidden layers in CNN.
+gradient vanishing. Figs. 4 and 5 shows the gradients of
+SNConv vanishing when trained on CIFAR10, leading to a
+comparatively poor inception score, whereas the gradients
+of SNw remain stable. To understand this phenomenon,
+recall that SNConv normalizes by the spectral norm of an
+expanded matrix ˜wi derived from wi. Thm. 2 does not
+hold for ˜wi since its entries are not i.i.d.
+∥ˆwi∥sp ≤∥˜wi∥sp ≤α ∥ˆwi∥sp, where α is a constant only
+depends on kernel size, input size, and stride size of the
+convolution operation. This result has two implications:
+normalize the matrix with the actual spectral norm of the
+layer, it does upper bound the spectral norm of the layer.
+Therefore, all our analysis in § 3 still applies for SNw by
+changing the spectral norm constant from 1 to α ∥ˆwi∥sp.
+This means that SNw can still prevent gradient explosion.
+by a factor that is at least as large as SNw. In fact, we
+observe empirically that ∥˜wi∥sp is strictly larger than ∥ˆwi∥sp
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score
+Figure 6. Inception score of scaled SN in CIFAR10.
+Parameter variance
+Iterations
+Theoretical 
+upper bound
+Figure 7. Parameter variances throughout training in CIFAR10.
+The blue lines show the parameter variances of different layers
+when SN is applied, and the original line shows our theoretical
+wi, a discriminator using SNConv will have smaller outputs
+than the discriminator using SNw. We hypothesize that
+the different scalings explain why SNConv has vanishing
+gradients but SNw does not.
+To conﬁrm this hypothesis, for SNw and SNConv, we propose
+to multiply all the normalized weights by a scaling factor
+s, which is ﬁxed throughout the training. Fig. 6 shows that
+SNConv seems to be a shifted version of SNw. SNConv with
+suggests that SNw inherently ﬁnds the correct scaling for the
+problem, whereas “proper" spectral normalization SNConv
+ing. Our theoretical analysis only applies at initialization,
+like LeCun initialization which only controls the variance
+This explains why in practice GANs trained with SN are
+stable throughout training.
+5. Extensions of Spectral Normalization
+sion of spectral normalization called Bidirectional Scaled
+bidirectional normalization and weight scaling.
+5.1. Bidirectional Normalization
+initialization, commonly called Xavier initialization. Their
+puts; we should also control the variance of backpropagated
+ni , Glorot and Bengio choose them with variance
+a compromise between
+ato et al.
+For fully connected
+layers, BSN keeps the normalization the same as SNw
+For convolution layers, instead
+of normalizing by
+sp, we normalize
+sp is the spectral norm of the reshaped
+culating these two spectral norms, we use the same power
+theorem gives the theoretical explanation.
+tional kernel w ∈Rcoutcinkwkh with i.i.d. entries wij from
+and σw deﬁned as above, we have
+Furthermore, if cin, cout ≥2 and cinkwkh, coutkwkh ≥3,
+exists a constant L that does not depend on cin, cout, kw, kh
+variance of parameters to scale as
+Xavier initialization. Moreover, BSN naturally inherits the
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+5.2. Weight Scaling
+weight scaling Bidirectional Scaled Spectral Normalization
+The scaling is motivated by the following reasons.
+that the activation functions are linear, which is not true
+Xavier initialization, where a is the negative slope of leaky
+ReLU. This suggests the importance of a constant scaling.
+for GANs. Even more surprisingly, there are multiple modes
+of good scaling. Fig. 8 shows the sample quality of LeCun
+initialization with different scaling on the discriminator. We
+see that there are at least two good modes of scaling: one at
+around 0.2 and the other at around 1.2. This phenomenon
+tialization.
+Recall that SN has similar properties as LeCun initialization
+stants for LeCun initialization and SN are very different,
+there indeed exists an interesting mode correspondence in
+the shift of good scaling from Kaiming initialization we see
+here could result from adversarial training, and defer the
+theoretical analysis to future work. These results highlight
+the need for a separate scaling factor.
+and BSN the order of parameter variance w.r.t. the network
+size is correct, but constant scaling is unknown.
+Inception score
+LeCun initialization
+Figure 8. Inception score of SSN and scaled LeCun initialization
+in CIFAR10. Mean and standard error of the best score during
+training across multiple runs are shown.
+5.3. Results
+In this section we verify the effectiveness of BSSN with
+extensive experiments. The code for reproducing the results
+Therefore, we focus on comparing the performance of SN
+with BSSN here. Additionally, to isolate the effects of the
+two components proposed in BSSN, we include comparison
+we conducts experiments on CIFAR10, STL10, CelebA, and
+in Apps. N to S. The results are summarized in Table 1.
+Iterations
+Inception score
+Figure 9. Inception score in CIFAR10. The results are averaged
+can see that BSN outperforms SN by a large margin in all
+More importantly, the superiority of BSN is stable across
+criminator, and the number of discriminator updates per
+performs SN in most of the cases.
+Moreover, BSN is more stable in the entire training process.
+We see that as training proceeds, the sample quality of SN
+often drops, whereas the sample quality of BSN appears to
+most cases, BSN not only outperforms SN in ﬁnal sample
+quality. This means that BSN makes the training process
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+ILSVRC2012
+7.12 ± 0.07
+31.43 ± 0.90
+9.05 ± 0.05
+44.35 ± 0.54
+9.43 ± 0.09
+12.84 ± 0.33
+75.06 ± 2.38
+7.38 ± 0.06
+29.31 ± 0.23
+9.28 ± 0.03
+43.52 ± 0.26
+8.50 ± 0.20
+12.84 ± 0.33
+73.21 ± 1.92
+7.54 ± 0.04
+26.94 ± 0.58
+9.25 ± 0.01
+42.98 ± 0.54
+9.05 ± 0.13
+1.77 ± 0.13
+265.20 ± 19.01
+7.54 ± 0.04
+26.94 ± 0.58
+9.25 ± 0.01
+42.90 ± 0.17
+9.05 ± 0.13
+13.23 ± 0.16
+69.04 ± 1.46
+with BSSN representing our ﬁnal proposal—a combination of BSN and SSN. Each experiment is conducted with 5 random seeds except
+that the last three rows on ILSVRC2012 is conducted with 3 random seeds. Mean and standard error across these random seeds are
+reported. We follow the common practice of excluding IS in CelebA as the inception network is pretrained on ImageNet, which is very
+different from CelebA. The bold font marks the best numbers in that column.
+comparing SSN with SN in Table 1, we see that scaling
+This veriﬁes our intuition in § 5.2 that the inherent scaling
+in SN is not optimal, and a extra constant scaling is needed
+to get the best results.
+comparing BSSN with BSN in Table 1, we see that in some
+ample, in ILSVRC2012, BSN without any scaling has the
+same gradient vanishing problem we observe for SNConv
+BSSN successfully solves the gradient vanishing problem
+and achieves the best sample quality.
+Additional results. Because of the space constraints, we
+fectively stabilize training and achieve better sample quality.
+Combining them together, BSSN achieves the best sample
+quality in most of the cases. This demonstrates the practical
+value of the theoretical insights in § 3 and 4.
+6. Discussion
+Other reasons contributing to the stability of SN. In the
+ever, there could exists many other parallel factors. For
+SN could speed up training by encouraging the weights to
+be updated along directions orthogonal to itself. This is
+orthogonal to the reasons we discuss in the paper.
+Related work.
+A related result to our upper bound was
+ents more predictive. Given Prop. 1, we can apply the
+insights regarding the gradient vanishing problem are the
+is whether BN similarly controls vanishing gradients.
+In parallel to this work, some other approaches have been
+ﬁnds out that even with SN, the condition numbers of the
+weights can still be large, which causes the instability. To
+solve the issue, they borrow the insights from linear algebra
+and propose precondition layers to improve the condition
+numbers and therefore promote stability.
+Future directions. Our results suggest that SN stabilizes
+GANs by controlling exploding and vanishing gradients
+in the discriminator. However, our analysis also applies
+connection partially explains why SN helps train generators
+because SN seems to have a disproportionately beneﬁcial
+this analysis to understand the effects of adversarial training
+is an interesting direction for future work.
+Related to the weight initialization and training dynamics, a
+stability. Orthogonal weight initialization may be better at
+achieving the goal. In this paper, we focus the theoretical
+analysis and experiments on Gaussian weights and ReLU
+activations as they are the predominant implementations
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+in GANs. We defer the study of other networks to future
+Acknowledgements
+This work was supported in part by faculty research awards
+from Google, JP Morgan Chase, and the Sloan Foundation,
+sored in part by National Science Foundation Convergence
+Accelerator award 2040675 and the U.S. Army Combat
+ment are those of the authors and should not be interpreted
+plied, of the Combat Capabilities Development Command
+Army Research Laboratory or the U.S. Government. The
+U.S. Government is authorized to reproduce and distribute
+right notation here on. This work used the Extreme Science
+References
+Arjovsky, M. and Bottou, L. Towards principled methods
+for training generative adversarial networks, 2017.
+Arjovsky, M., Chintala, S., and Bottou, L. Wasserstein gan.
+arXiv preprint arXiv:1701.07875, 2017.
+Ba, J. L., Kiros, J. R., and Hinton, G. E. Layer normalization.
+arXiv preprint arXiv:1607.06450, 2016.
+vances in Neural Information Processing Systems, pp.
+6240–6249, 2017.
+dependencies with gradient descent is difﬁcult. IEEE
+distance between two neural networks and the stability of
+learning. arXiv preprint arXiv:2002.03432, 2020.
+ral photo editing with introspective adversarial networks.
+arXiv preprint arXiv:1609.07093, 2016.
+Brock, A., Donahue, J., and Simonyan, K. Large scale gan
+training for high ﬁdelity natural image synthesis. arXiv
+preprint arXiv:1809.11096, 2018.
+ceedings of the fourteenth international conference on
+artiﬁcial intelligence and statistics, pp. 215–223, 2011.
+Fang, T., Schwing, A., and Sun, R. Precondition layer and its
+sarial training via spectral normalization. arXiv preprint
+arXiv:1811.07457, 2018.
+Glorot, X. and Bengio, Y. Understanding the difﬁculty
+ceedings of the thirteenth international conference on
+artiﬁcial intelligence and statistics, pp. 249–256, 2010.
+Y. Generative adversarial nets. In Advances in neural
+information processing systems, pp. 2672–2680, 2014.
+ity. arXiv preprint arXiv:1804.04368, 2018.
+Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., and
+Courville, A. C. Improved training of wasserstein gans.
+In Advances in neural information processing systems,
+pp. 5767–5777, 2017.
+He, K., Zhang, X., Ren, S., and Sun, J. Delving deep
+national conference on computer vision, pp. 1026–1034,
+Heusel, M., Ramsauer, H., Unterthiner, T., Nessler, B., and
+rule converge to a local nash equilibrium. In Advances in
+neural information processing systems, pp. 6626–6637,
+Ioffe, S. and Szegedy, C. Batch normalization: Accelerating
+deep network training by reducing internal covariate shift.
+arXiv preprint arXiv:1502.03167, 2015.
+key element missing from standard gan. arXiv preprint
+arXiv:1807.00734, 2018.
+sive growing of gans for improved quality, stability, and
+variation. arXiv preprint arXiv:1710.10196, 2017.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Kingma, D. P. and Ba, J. Adam: A method for stochastic
+optimization. arXiv preprint arXiv:1412.6980, 2014.
+Krizhevsky, A., Hinton, G., et al. Learning multiple layers
+of features from tiny images. 2009.
+LeCun, Y. and Cortes, C.
+MNIST handwritten digit
+LeCun, Y., Bottou, L., Orr, G. B., and Müller, K. R. Efﬁcient
+BackProp, pp. 9–50. Springer Berlin Heidelberg, Berlin,
+Lee, A. X., Zhang, R., Ebert, F., Abbeel, P., Finn, C., and
+Levine, S. Stochastic adversarial video prediction. arXiv
+preprint arXiv:1804.01523, 2018.
+Lin, Z., Thekumparampil, K. K., Fanti, G., and Oh, S.
+works with contrastive regularizers. ICML, 2020.
+Liu, Z., Luo, P., Wang, X., and Tang, X. Deep learning face
+attributes in the wild. In Proceedings of International
+nator. arXiv preprint arXiv:1802.05637, 2018.
+tral normalization for generative adversarial networks.
+arXiv preprint arXiv:1802.05957, 2018.
+Neyshabur, B., Bhojanapalli, S., and Srebro, N.
+gin bounds for neural networks.
+arXiv preprint
+arXiv:1707.09564, 2017.
+Nystrom, N. A., Levine, M. J., Roskies, R. Z., and
+Scott, J. R.
+source for new communities and data analytics.
+tructure, XSEDE ’15, pp. 30:1–30:8, New York, NY,
+USA, 2015. ACM.
+Odena, A., Buckman, J., Olsson, C., Brown, T., Olah, C.,
+Raffel, C., and Goodfellow, I. Is generator conditioning
+causally related to gan performance? In International
+Conference on Machine Learning, pp. 3849–3858, 2018.
+Pascanu, R., Mikolov, T., and Bengio, Y. Understanding
+2:417, 2012.
+Pascanu, R., Mikolov, T., and Bengio, Y. On the difﬁculty
+of training recurrent neural networks. In International
+conference on machine learning, pp. 1310–1318, 2013.
+ical isometry:
+theory and practice.
+arXiv preprint
+arXiv:1711.04735, 2017.
+resentation learning with deep convolutional generative
+adversarial networks. arXiv preprint arXiv:1511.06434,
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S.,
+Ma, S., Huang, Z., Karpathy, A., Khosla, A., Bernstein,
+Visual Recognition Challenge. International Journal of
+Salimans, T. and Kingma, D. P. Weight normalization: A
+simple reparameterization to accelerate training of deep
+cessing systems, pp. 901–909, 2016.
+Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V.,
+ing gans. In Advances in neural information processing
+systems, pp. 2234–2242, 2016.
+Santurkar, S., Tsipras, D., Ilyas, A., and Madry, A. How
+does batch normalization help optimization?
+vances in Neural Information Processing Systems, pp.
+2483–2493, 2018.
+Saxe, A. M., McClelland, J. L., and Ganguli, S. Exact
+solutions to the nonlinear dynamics of learning in deep
+linear neural networks. arXiv preprint arXiv:1312.6120,
+Towns, J., Cockerill, T., Dahan, M., Foster, I., Gaither, K.,
+N. Xsede: Accelerating scientiﬁc discovery. Computing
+training: Scalable certiﬁcation of perturbation invariance
+mation Processing Systems, pp. 6541–6550, 2018.
+adversarial networks with denoising feature matching.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Wei, X., Gong, B., Liu, Z., Lu, W., and Wang, L. Improving
+the improved training of wasserstein gans: A consistency
+term and its dual effect. arXiv preprint arXiv:1803.01541,
+Yoshida, Y. and Miyato, T. Spectral norm regularization for
+improving the generalizability of deep learning. arXiv
+preprint arXiv:1705.10941, 2017.
+Yu, J., Lin, Z., Yang, J., Shen, X., Lu, X., and Huang, T. S.
+Proceedings of the IEEE International Conference on
+Computer Vision, pp. 4471–4480, 2019.
+attention generative adversarial networks. arXiv preprint
+arXiv:1805.08318, 2018.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+A. Proof of Prop. 1
+upper bounded by
+for ∀t ∈[1, L]
+To prove this, for simplicity of notation, let oi
+It is straightforward to show that the norm of each internal output of discriminator is bounded by
+This holds because
+ ≤∥ai∥Lip ·
+from which we can show the desired inequalities by induction.
+Next, we observe that the norm of each internal gradient is bounded by
+This holds because
+Now we have that
+∥wi∥sp · ∥x∥·
+discriminators follows directly.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+B. Proof of Prop. 2
+ aL ◦lcL·wL ◦aL−1 ◦lcL−1·wL−1 ◦. . . ◦a1 ◦lc1·w1
+ aL ◦lwL ◦aL−1 ◦lwL−1 ◦. . . ◦a1 ◦lw1
+C. Additional Analysis of Gradient
+In § 3, we discuss the gradients with respect to w′
+i wivi , where ui, vi are the singular vectors corresponding to the
+From App. A, we know that
+Therefore,
+we know that if wt is initialized with i.i.d random variables from uniform or Gaussian distribution, E
+training as well.
+D. Analysis of Hessian
+with ReLU or leaky ReLU internal activations.
+denote the Hessian of Dθ at x with respect with the vector form of wi. If the internal activations are ReLU or leaky ReLU,
+sp · ∥x∥2 ·
+The proof is in App. D.1. Following Prop. 3, we can easily show the upper bound of Hessian’s spectral norm for spectral
+normalized discriminators.
+leaky ReLU, and ∥wi∥sp ≤1 for all i ∈[1, L], then
+sp · ∥x∥2 .
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+D.1. Proof of Prop. 3
+Lemma 1. The spectral norm of each internal Hessian is bounded by
+Proof. We have
+We also have
+induction.
+Now let’s come back to the proof for Prop. 3.
+Proof. We have
+Therefore,
+sp · ∥x∥2 ·
+sp · ∥x∥2 ·
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+E. Proof of Thm. 1
+constraint QL
+i∥sp. We have
+and the equality is achieved iff c2
+F. Proof of Thm. 2
+Proof. Since aij are symmetric random variables, we know E
+. Therefore, we have
+Our approach will be to upper and lower bound the quantity
+Upper bound
+Assume the singular values of A are σ1 ≥σ2 ≥. . . ≥σmin{m,n}. We have
+≤min {m, n}
+max {m, n} ,
+which gives the desired upper bound.
+Lower bound
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+unit ball. When max {m, n} ≥3, we have
+1≤i≤m ∥ai•∥2
+1≤j≤n ∥a•j∥2
+We thus have that
+max1≤i≤m ∥bi•∥2
+max1≤j≤n ∥b•j∥2.
+Hence, we need to upper bound E
+max1≤i≤m ∥bi•∥2
+max1≤j≤n ∥b•j∥2
+. Let z ∈Rm be a vector uniformly
+bounds the square of the inﬁnity norm of this vector.
+Hence, when m, n ≥2, we have
+1≤i≤m ∥bi•∥2
+Similarly, we have
+1≤j≤n ∥b•j∥2
+Therefore,
+which gives the result.
+. Our matrix A satisﬁes this requirement, and therefore the same theorem holds.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+F.1. Proof of Lemma 3
+n ≤δ < 1 and ∀i ∈[1, n], we have
+F.2. Proof of Lemma 4
+where In is the identity matrix in n dimension. We know that
+1. Therefore, we have
+Note that x2
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+where Γ denotes the Gamma function and we use the Gautschi’s inequality:
+2 for positive real number x.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Therefore, we have
+G. Proof of Thm. 3
+2 ≥. . . ≥σ′
+cin. We have
+which gives the desired upper bound.
+As for the lower bound, observe that
+Then we can follow the same approach in App. F for bounding E
+which gives the desired lower bound.
+H. Datasets and Metrics
+H.1. Datasets
+ten digits of shape 28 × 28 × 1. The pixels values are normalized to [0, 1] before feeding to the discriminators.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+We use the training set for our experiments, which contains 50000 images of shape
+32 × 32 × 3. The pixels values are normalized to [−1, 1] before feeding to the discriminators.
+We use the unlabeled set for our experiments, which contains 100000 images of shape
+normalized to [−1, 1] before feeding to the discriminators.
+This dataset contains 202599 images. For each image, we crop the center 128 × 128, and resize
+it to 64 × 64 × 3 for training. The pixels values are normalized to [−1, 1] before feeding to the discriminators.
+128 × 128 × 3 for training. The pixels values are normalized to [−1, 1] before feeding to the discriminators.
+H.2. Metrics
+into 10 sets for computing the score.
+computing the score.
+I. Gradient Explosion and Vanishing in GANs
+I.1. Results
+To illustrate that gradient explosion and vanishing are closely related to the instability in GANs, we trained a WGAN
+resulting inception scores for each of these runs, and Fig. 11 shows the corresponding magnitudes of the gradients over
+the course of training. Note that the stable run has improved sample quality and stable gradients throughout training. This
+Iterations
+Inception score
+Gradient explosion
+Gradient vanishing
+Figure 10. Inception score over the course of training. The
+“gradient vanishing" inception score plateaus as training is
+Iterations
+Norm of gradient of 
+Gradient explosion
+Gradient vanishing
+Figure 11. Norm of gradient with respect to parameters during
+training. The vanishing gradient collapses after 200k iterations.
+I.2. Experimental Details
+The network architectures are shown in Tables 2 and 3. The dataset is CIFAR10. All experiments are run for 400k
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+kernel size. s stands for stride.
+changed from leaky ReLU to ReLU.
+J. Experimental Details and Additional Results on Gradient Norms
+J.1. Experimental Details
+For the MNIST experiment, the network architectures are shown in Tables 4 and 5. All experiments are run for 100 epochs.
+For the CIFAR10 experiment, , the network architectures are shown in Tables 2 and 3. All experiments are run for 400k
+ensures that the Lipschitz constant of the discriminator is no more than 1, we discard the gradient penalty loss from training.
+the theoretical analysis.
+Table 4. Generator network architectures for MNIST experiments. BN stands for batch normalization. c stands for number of channels. k
+stands for kernel size. s stands for stride.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+x ∈R28×28×1
+Table 5. Discriminator network architectures for MNIST experiments. c stands for number of channels. k stands for kernel size. s stands
+for stride.
+Without SN
+Theoretical upperbound
+L2 norm of gradient
+Figure 12. Gradient norms of each discriminator layer in
+MNIST at epoch 50.
+Without SN
+Theoretical upperbound
+L2 norm of gradient
+FAR10 at iteration 10000.
+J.2. Additional Results
+Figs. 12 and 13 show the gradient norms of each discriminator layer in MNIST and CIFAR10. Despite the difference on the
+network architecture and dataset, we see the similar phenomenon: when training without SN, some layers have extremely
+large gradient norms, which causes the overall gradient norm to be large; when training with SN, the gradient norms are
+much smaller and are similar across different layers.
+K.1. Experimental Details
+For the MNIST experiment, the network architectures are shown in Tables 4 and 5. All experiments are run for 100 epochs.
+discriminator is no more than 1, we discard the gradient penalty loss from training. The random scaling are selected in a
+way the geometric mean of spectral norms of all layers equals 1.
+For the CIFAR10 and STL10 experiments , the network architectures are shown in Tables 2 and 3. All experiments are run
+selected in a way the geometric mean of spectral norms of all layers equals 1.75, which avoids the gradient vanishing
+problem as seen in § 4.
+K.2. Additional Results
+Figs. 14 and 15 show the ratios of the gradient norms at each layer and the inverse ratios of the spectral norms in CIFAR10
+and STL10. Generally, we see that the most of the points are near the diagonal line, which means that the assumption in
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inverse ratio of spectral norm
+Ratio of gradient norm
+Figure 14. Ratio of gradient norm v.s. inverse ratio of spectral
+norm in CIFAR10.
+Inverse ratio of spectral norm
+Ratio of gradient norm
+Figure 15. Ratio of gradient norm v.s. inverse ratio of spectral
+norm in STL10.
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Parameter variance
+Figure 16. Parameter variance without SN in CIFAR10.
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Parameter variance
+Figure 17. Parameter variance with SN in CIFAR10.
+is a fully connected layer whereas all other layers are convolutional layers. We defer the more detailed analysis of this
+phenomenon to future work.
+L. Experimental Details and Additional Results on Vanishing Gradient
+L.1. Experimental Details
+The network architectures are shown in Tables 2 and 3. The dataset is CIFAR10. All experiments are run for 400k iterations.
+L.2. Parameter Variance With and Without SN
+Figs. 16 and 17 show the parameter variance of each layer without and with SN. Note that Fig. 17 is just collecting the
+empirical lines in Fig. 7 for the ease of comparison here. Figs. 18 and 19 show the gradient norm and inception score.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Without SN
+Figure 18. Gradient norm with and without SN in CIFAR10.
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Inception score
+Without SN
+Figure 19. Inception score with and without SN in CIFAR10.
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Theoretical upper bound for layer 1, 3, 5, 7
+Theoretical upper bound for layer 2, 4, 6
+Theoretical lower bound
+Figure 20. The ratio of two spectral norms throughout the training
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Theoretical upper bound for layer 1, 3, 5, 7
+Theoretical upper bound for layer 2, 4, 6
+Theoretical lower bound
+Figure 21. The ratio of two spectral norms throughout the training
+L.3. Comparing Two Variants Spectral Norms
+reason why in some cases the ratio exceeds the upper bound in Fig. 20 is because the spectral norms are calculated using
+L.4. Parameter Variance of Scaled SN
+be too large nor too small.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+2.5 3.03.54.0
+Product of variances
+Figure 22. The parameter variance of scaled SN in CIFAR10.
+M.1. Experimental Details
+The network architectures are shown in Tables 2 and 3. SN models are run for 400k iterations. LeCun initialization models
+Since LeCun initialization is unstable when the scaling is not proper, in Fig. 8, we plot the best score during training instead
+of the score at the end of training.
+M.2. Additional Results
+Although the good scaling modes for SN and LeCun initialization seem to be very different in Fig. 8, there indeed exists
+parameter variances for SN and LeCun initialization. We can see that the ﬁrst good mode occurs when log of the product of
+Inception score
+Figure 23. Inception score v.s. parameter variances of scaled SN and scaled LeCun initialization in CIFAR10. Each point corresponds to
+one run, at the point when the score is the best during training. The numbers near each point indicate the scaling.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score ↑
+Inception score ↑
+6.46 ± 0.06
+42.35 ± 0.74
+8.86 ± 0.03
+54.61 ± 0.51
+7.74 ± 0.11
+6.69 ± 0.05
+39.62 ± 0.40
+8.76 ± 0.03
+55.04 ± 0.48
+7.83 ± 0.09
+6.53 ± 0.01
+41.88 ± 0.50
+8.79 ± 0.03
+56.76 ± 0.44
+7.54 ± 0.08
+6.72 ± 0.05
+38.15 ± 0.72
+8.80 ± 0.03
+53.99 ± 0.33
+7.67 ± 0.04
+7.22 ± 0.09
+31.43 ± 0.90
+9.16 ± 0.03
+42.89 ± 0.54
+9.09 ± 0.32
+7.58 ± 0.04
+26.62 ± 0.21
+9.25 ± 0.01
+42.98 ± 0.54
+8.54 ± 0.20
+Table 6. Inception scores and FIDs on CIFAR10, STL10, and CelebA. Each experiment is conducted with 5 random seeds, with mean and
+standard error reported. We follow the common practice of excluding Inception Score in CelebA as the inception network is pretrained on
+ImageNet, which is very different from CelebA. The bold font marks the best numbers between SN and BSN using the same variant. The
+red color marks the best numbers among all runs. The“same γ" and “diff. γ" variants are not used in practice and are reported to have bad
+with equal discriminator and generator learning rates; the ﬁnal two test unequal learning rates for showing a more thorough
+comparison. More details are in Apps. P and Q.
+outperforms the standard SN in all sample quality metrics except FID score on STL10, where their metrics are within
+standard error of each other. Regarding the SN variants with γ, in CIFAR10 and STL10, they have worse performance than
+on those two variants in most of the settings.
+BSN have larger variance across different random seeds, and the SN variants with γ perform better. On CelebA, BSN also
+Inception score
+Figure 24. Inception score in CIFAR10. The results are averaged over 5 random seeds.
+O. Details on SN Variants
+layer, the idea of this approach is to release the constraint by multiplying each spectral normalized weights with a trainable
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score
+Figure 25. Inception score in STL10. The results are averaged over 5 random seeds.
+momentum parameters in Adam. ndis: number of discriminator updates per generator update.
+parameter γ. However, this would make the gradient of discriminator arbitrarily large, which violates the original motivation
+discriminator to 1. The gradient penalty weights are set to 10 in all experiments.
+try both versions in our experiments. “Same γ” denotes that version where all layers share the same γ. “Diff. γ” denotes the
+version where each layer has a separate γ.
+P. Experimental Details and Additional Results on CIFAR10
+P.1. Experimental Details
+The network architectures are shown in Tables 2 and 3. All experiments are run for 400k iterations. Batch size is 64. The
+For SSN in Table 1, we ran following scales: [0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8,
+4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0, 9.0, 10.0], and present the results from best one for each metric. For BSSN in Table 1, we ran
+the following scales: [0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0], and present the
+results from the best one for each metric.
+P.2. FID Plot
+P.3. Training Curves
+on comparing these two algorithms with the training curves. Figs. 9 and 27 to 35 show the inception score and FID of these
+two algorithms during training. Generally, we see that BSN converges slower than SN at the beginning of training. However,
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Figure 26. FID in CIFAR10. The results are averaged over 5 random seeds.
+Iterations
+always increases and then stabilizes at the high level. In most cases, BSN not only outperforms SN at the end of training,
+conclude that BSN improves both the sample quality and training stability over SN.
+P.4. Generated Images
+Figs. 36 to 39 show the generated images from the run with the best inception score for each algorithm.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Inception score
+eraged over 5 random seeds.
+Iterations
+Figure 29. FID in CIFAR10. The results are averaged over
+Iterations
+Inception score
+eraged over 5 random seeds.
+Iterations
+Figure 31. FID in CIFAR10. The results are averaged over
+Iterations
+Inception score
+eraged over 5 random seeds.
+Iterations
+Figure 33. FID in CIFAR10. The results are averaged over
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Inception score
+eraged over 5 random seeds.
+Iterations
+Figure 35. FID in CIFAR10. The results are averaged over
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score is 7.56. FID is 28.64.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score is 7.70. FID is 25.96.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Figure 40. FID in STL10. The results are averaged over 5 random seeds.
+Q. Experimental Details and Additional Results on STL10
+Q.1. Experimental Details
+The network architectures are shown in Tables 2 and 3. Batch size is 64. The optimizer is Adam. We use the ﬁve
+All other experiments are run for 400k iterations.
+For SSN and BSSN in Table 1, we ran following scales: [0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6], and present the results from best
+one for each metric.
+Q.2. FID Plot
+Fig. 40 shows the FID score in STL10 dataset. We can see that BSN has the best or competitive performance in most of the
+Q.3. Training Curves
+on comparing these two algorithms with the training curves. Figs. 41 to 50 show the inception score and FID of these two
+algorithms during training. Generally, we see that BSN converges slower than SN at the beginning of training. However, as
+training proceeds, BSN ﬁnally has better metrics in most cases. Note that unlike CIFAR10, SN seems to be more stable in
+BSN not only outperforms SN at the end of training, but also outperforms the peak sample quality of SN during training
+quality ﬁrst improves and then signiﬁcantly drops. The problem with BSN seems to be severer. We discussed about this
+problem in App. N.
+Q.4. Generated Images
+Figs. 51 to 54 show the generated images from the run with the best inception score for each algorithm.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Inception score
+Figure 41. Inception score in STL10.
+eraged over 5 random seeds.
+Iterations
+Figure 42. FID in STL10. The results are averaged over 5
+Iterations
+Inception score
+Figure 43. Inception score in STL10.
+eraged over 5 random seeds.
+Iterations
+Figure 44. FID in STL10. The results are averaged over 5
+Iterations
+Inception score
+Figure 45. Inception score in STL10.
+eraged over 5 random seeds.
+Iterations
+Figure 46. FID in STL10. The results are averaged over 5
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Inception score
+Figure 47. Inception score in STL10.
+eraged over 5 random seeds.
+Iterations
+Figure 48. FID in STL10. The results are averaged over 5
+Iterations
+Inception score
+Figure 49. Inception score in STL10.
+eraged over 5 random seeds.
+Iterations
+Figure 50. FID in STL10. The results are averaged over 5
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score is 9.26. FID is 44.38.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Inception score is 9.46. FID is 42.78.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Figure 55. FID in CelebA. The results are averaged over 5 random seeds.
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+R. Experimental Details and Additional Results on CelebA
+R.1. Experimental Details
+The network architectures are shown in Tables 2 and 3. All experiments are run for 400k iterations. Batch size is 64. The
+For SSN and BSSN in Table 1, we ran following scales: [0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6], and present the results from best
+one for each metric.
+R.2. FID Plot
+R.3. Training Curves
+focus on comparing these two algorithms with the training curves. Figs. 56 to 60 show the FID of these two algorithms
+during training. Generally, we see that BSN converges slower than SN at the beginning of training. However, as training
+proceeds, BSN ﬁnally has better metrics in all cases. Note that unlike CIFAR10, SN seems to be more stable in CelebA as
+improves and then signiﬁcantly drops. But even in this case, BSN has better ﬁnal performance than the standard SN.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+R.4. Generated Images
+Figs. 61 to 64 show the generated images from the run with the best FID for each algorithm.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+50000 100000 150000 200000 250000 300000 350000 400000
+Iterations
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+FID is 8.06.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+c stands for number of channels. k stands for kernel size. s stands for stride.
+Direct connection
+Shortcut connection
+k stands for kernel size. s stands for stride.
+S. Experimental Details and Additional Results on ILSVRC2012
+S.1. Experimental Details
+The network architectures are shown in Tables 8 to 13. All experiments are run for 500k iterations. Discriminator batch size
+S.2. Training Curves
+Figs. 65 and 66 show the inception score and FID of SN and BSN during training.
+performance is much worse.
+bad as there is gradient vanishing problem.
+x ∈R128×128×3
+tion. c stands for number of channels. k stands for kernel size. s stands for stride.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Direct connection
+Shortcut connection
+stands for stride.
+Direct connection
+Shortcut connection
+for stride.
+Direct connection
+Shortcut connection
+Iterations
+Inception score
+Figure 65. Inception score in ILSVRC2012. The results are averaged over 5 random seeds.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Iterations
+Figure 66. FID in ILSVRC2012. The results are averaged over 5 random seeds.
+S.3. Generated Images
+Figs. 67 to 74 show the generated images from the run with the best inception score for SN and BSN with different scale
+parameters.
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements
+Why Spectral Normalization Stabilizes GANs: Analysis and Improvements

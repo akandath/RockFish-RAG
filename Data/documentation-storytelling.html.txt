@@ -1,0 +1,4 @@
+
+Storytelling
+
+In Rockfish, you can tell stories with your data based on the properties you want from your synthetic data.

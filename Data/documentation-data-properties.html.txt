@@ -1,0 +1,91 @@
+
+Dataset Properties
+
+
+Overview
+
+To streamline dataset onboarding, Rockfish's onboarding module automatically identifies and describes the data through an extractor called 'DatasetPropertyExtractor'.
+This extractor generates a DatasetProperties object that can be leveraged by other Rockfish components such as the Recommender and the SDA .
+Let's see an example of how to use the extractor. Suppose your dataset finance.csv looks like this:
+First, load the dataset:
+
+dataset = rf . Dataset . from_csv ( "finance" , "finance.csv" )
+
+Next, extract the dataset properties:
+
+dataset_properties = DatasetPropertyExtractor ( dataset ) . extract ()
+
+The DatasetPropertyExtractor.extract() method returns a DatasetProperties object, which contains various details about your dataset, depending on its type (tabular or time-series).
+You can also pass in any known dataset properties when initializing DatasetPropertyExtractor. The extractor will then consistently detect the remaining properties.
+You can review and update the extracted properties before using them in other Rockfish components.
+
+Extracting Dataset Properties
+
+For tabular datasets, a 'TabularDatasetProperties' object is returned, which includes:
+- Dataset Type
+- Field Properties
+- Metadata Fields
+- Dataset Dimensions (n_rows, n_cols)
+For time-series datasets, a TimeseriesDatasetProperties object is returned, which inclues:
+- Dataset Type
+- Field Properties
+- Metadata Fields
+- Dataset Dimensions (n_rows, n_cols)
+- Measurement Fields
+- Timestamp Field
+- Session Key Field
+- Session Dimensions (n_sessions, max_session_length, avg_session_length)
+
+dataset_properties = DatasetPropertyExtractor ( dataset ) . extract () print ( dataset_properties . dataset_type ) # <DatasetType.TIMESERIES: 'timeseries'> print ( dataset_properties . field_properties ) # { ...omitted here for space, see below... } print ( dataset_properties . metadata_fields ) # ['age', 'email'] print ( dataset_properties . measurement_fields ) # ['amount', 'fraud'] print ( dataset_properties . session_key ) # None print ( dataset_properties . timestamp ) # "timestamp" print ( dataset_properties . rules ) # []
+
+dataset_properties.field_properties maps a field name to its FieldProperties object (or one of the field property
+sub-classes).
+If the field is a categorical field (e.g. age ), a subclass CategoricalFieldProperties is returned:
+
+print ( dataset_properties . field_properties [ "age" ]) # CategoricalFieldProperties( #     _dtype=int32, #     _original_etype=categorical, #     col_position=0, #     etype=categorical, #     ndim=5, #     pii_type=UNDETECTED # )
+
+If the field is a continuous field (e.g. amount ), a subclass ContinuousFieldProperties is returned (which
+additionally stores min_value and max_value of the field):
+
+print ( dataset_properties . field_properties [ "amount" ]) # ContinuousFieldProperties( #     _dtype=float, #     _original_etype=continuous, #     col_position=1, #     etype=continuous, #     ndim=1, #     min_value=1.25, #     max_value=133.3699951171875, #     pii_type=UNDETECTED # )
+
+If you want to specify the properties already known to you, you can pass them during initialization:
+
+dataset_properties = DatasetPropertyExtractor ( dataset = self . dataset , dataset_type = DatasetType . TIMESERIES , # this object should have type dict[str, FieldProperties], # see below for a possible way to construct it field_properties = field_properties_obj , metadata_fields = [ "age" , "email" ], session_key = "customer" , timestamp = "timestamp" , ) . extract ()
+
+To construct an appropriate field_properties_obj , you can do the following:
+
+dataset = rf . Dataset . from_csv ( "finance" , "finance.csv" ) cat_cols = [ "age" , "email" , "fraud" ] con_cols = [ "amount" ] other_cols = [ "timestamp" ] field_properties_obj : dict [ str , FieldProperties ] = {} for col in cat_cols : field_properties_obj [ col ] = CategoricalFieldProperties ( dataset [ col ], ... ) for col in con_cols : field_properties_obj [ col ] = ContinuousFieldProperties ( dataset [ col ], ... ) for col in other_cols : field_properties_obj [ col ] = FieldProperties ( dataset [ col ], ... )
+
+
+Additional Properties
+
+To compute additional dataset properties using DatasetPropertyExtractor, you can specify them during initialization by providing additional_property_keys :
+
+dataset = rf . Dataset . from_csv ( "finance" , "finance.csv" ) dataset_properties = DatasetPropertyExtractor ( dataset , additional_property_keys = [ "association_rules" , "pii_type" ] ) . extract ()
+
+The following additional properties are currently supported:
+- "association_rules" : This will update rules with the result of dependency discovery for categorical fields. See
+   the Rules section for more information.
+- "pii_type" : This will update pii_type with the DETECTED_PII_TYPE in each field's FieldProperties object.
+
+Rules
+
+These classes allow specifying rules the original dataset follows, which must also be preserved in the synthetic dataset:
+- ColumnRule : Specifies the operation (e.g., mean, max) that must be preserved for a particular column.
+- AssociationRule : Specifies a list of columns that must maintain their associations with each other.
+Association Rules can be automatically detected for categorical fields by 
+using additional_property_keys=["association_rules"] .
+Example output for the finance dataset:
+
+print ( dataset_properties . rules ) # [AssociationRule(field_names=['age', 'email'])]
+
+
+Updating Dataset Properties
+
+To update the extracted dataset properties, you can choose one of the following options:
+- Create a new DatasetProperties object based on the existing properties using DatasetPropertyExtractor.from_existing(...) , OR
+- Create a new DatasetProperties object if you want the updated property to propagate changes to other dataset properties.
+Example:
+
+# start from existing dataset properties updated_rules = [ AssociationRule ( field_names = [ "age" , "dob" ])] updated_dataset_properties = DatasetPropertyExtractor . from_existing ( dataset_properties , rules = updated_rules ) . extract () # rules are replaced with the new list # create new dataset properties updated_field_properties = field_properties_obj [ "age" ] . etype = EncoderType . CONTINUOUS new_dataset_properties = DatasetPropertyExtractor ( ... , field_properties = updated_field_properties , ... ) . extract ()

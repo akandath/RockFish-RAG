@@ -1,0 +1,111 @@
+
+rockfish.labs.vis
+
+
+vis
+
+
+Classes
+
+
+Functions
+
+
+plot_bar(datasets:list[LocalDataset],field:str,weights:Optional[str]=None,order:Optional[list]=None,orient:str='vertical',nlargest:Optional[int]=10,stat:BinStat='percent',**kwargs)
+
+Plot data as a bar plot.
+This plot should only be used for categorical data.  For numerical data
+consider using :func: plot_kde .
+Parameters:
+List of Dataset all with a same schema.
+A categorical field name.
+If set, a field name containing frequencies of each category for the specified field.  Set this if you have pre-aggregated data.
+Order of categories to display.
+Orientation of the plot. Can be either "vertical" or "horizontal". Default is "vertical", meaning the x-axis will represent the field . If set to "horizontal", the y-axis will represent the field .
+Limit the number of categories to display. It will not be effective if the Dataset is aggregated with weights provided.   Default is 10. Set to None to display all categories.
+Statistic to compute for each bin. Default is "percent", which represents the percentage of each bin relative to the total counts and is useful for comparing distributions with different data sizes.
+
+plot_kde(datasets:list[LocalDataset],field:str,weights:Optional[str]=None,duration_unit:DurationUnit='s',**kwargs)
+
+Create a kernel density estimate plot.
+Parameters:
+List of Dataset all with a same schema.
+A continuous numerical field.
+If set, a field name containing the weights for the specified field.  Set this if you have pre-aggregated data.
+When the specified field is a duration type, display it using these units.
+Additional arguments are passed to the seaborn displot function.
+
+plot_cdf(datasets:list[LocalDataset],field:str,weights:Optional[str]=None,duration_unit:DurationUnit='s',**kwargs)
+
+Create a cumulative distribution function plot.
+Parameters:
+List of Dataset all with a same schema.
+A continuous numerical field.
+If set, a field name containing the weights for the specified field.  Set this if you have pre-aggregated data.
+When the specified field is a duration type, display it using these units.
+Additional arguments are passed to the seaborn displot function.
+
+plot_hist(datasets:list[LocalDataset],field:str,weights:Optional[str]=None,duration_unit:DurationUnit='s',stat:BinStat='density',**kwargs)
+
+Create a histogram plot.
+Parameters:
+List of Dataset all with a same schema.
+A continuous numerical field name.
+If set, a field name containing the weights for the specified field.  Set this if you have pre-aggregated data.
+When the specified field is a duration type, display it using these units.
+Additional arguments are passed to the seaborn displot function.
+Statistic to compute for each bin. Default is "density", which normalizes the histogram so that the area under the histogram equals 1 and is useful for comparing distributions with different sample sizes.
+
+plot_distribution(datasets:list[LocalDataset],field:str,weights:Optional[str]=None,order:Optional[list]=None,**kwargs)
+
+Plot the data as either a histogram or kde depending on the type of
+data.
+If you don't like which one this picks then you can call one of the lower level
+functions directly, either :func: plot_kde or :func: plot_histogram .
+
+plot_scatter(datasets:list[LocalDataset],field_x:str,field_y:str,**kwargs)
+
+Create a scatter plot of the data in the x and y fields of the
+tables.
+Each table is plotted with a different color and listed in the legend by
+name.
+Parameters:
+Tables containing plot data.  Each table must have fields with names field_x and field_y .
+A continuous numerical field name to plot as the x-axis.
+A continuous numerical field name to plot as the y-axis.
+
+plot_correlation(datasets:list[LocalDataset],field_x:str,field_y:str,**kwargs)
+
+Create a scatter plot plot with Pearson correlation coefficient.
+Parameters:
+Tables containing plot data.  Each table must have fields with names field_x and field_y .
+A continuous numerical field name to plot as the x-axis.
+A continuous numerical field name to plot as the y-axis.
+
+plot_correlation_heatmap(datasets:list[LocalDataset],fields:list[str],cmap='Reds',**kwargs)
+
+Plot correlation heatmap.
+This plot should only be used for numerical columns.
+Parameters:
+List of Datasets all with the same schema.
+List of field names for the numerical values.
+Additional arguments are passed to the seaborn heatmap function.
+
+plot_association_heatmap(datasets:list[LocalDataset],fields:list,correction:bool=False,cmap='Blues',**kwargs)
+
+Plot association heatmap.
+This plot should only be used for catigorical columns.
+Parameters:
+List of Datasets all with the same schema.
+List of field names for the catigorical values.
+Boolean value. If True, apply bias correction to Cramer's V. Default is False.
+Additional arguments are passed to the seaborn heatmap function.
+
+custom_plot(datasets:list,query:str,plot_func,*args,**kwargs)
+
+Create a custom plot using custom datasets via the chosen plot_func .
+Parameters:
+List of LocalDatasets all with the same schema.
+An SQL query against a table named my_table , which applies to LocalDatasets.
+A callable plotting function chosen from rf.labs.vis to create a plot.
+Additional arguments except datasets are passed to the chosen plot_func based on their required parameters.

@@ -1,0 +1,29 @@
+The hybrid approach leave us the management of the infrastructure that does not
+touch your data. In this way you don't need to ship your data outside your
+infrastructure.
+The Rockfish Workbench is made of various component for what concerns the
+hybrid deploy Rockfish will provide to you a control plane made of a web ui and
+an HTTP API, you will have to deploy what we call the data plane.
+In practice one or many Python workers that will register to our API and will
+run training and generation workflows and a Redis instance that workers use to
+exchange data in between jobs.
+In this way you are under control of your data, we'll take care of workflow
+monitoring and lifecycle.
+
+Cuttlefish
+
+Cuttlefish is a Python application that registers to the control plane provided by Rockfish and executes
+various actions here a short list to have an idea:
+- upload and download data from and to various objects stores such as: GCP, S3, MinIO
+- Train and generate data with various algorithms
+- Amplify your generated data to continuously an quickly generate more
+
+Self hosted worker
+
+If you have a machine learning team or you want to train your own way our
+platform support self hosted worker that you write and hook to our API to
+extend the capabilities we provide with your specific needs.
+
+Deploy
+
+Check our deploy page to know how we can help you releasing Rockfish Workbench.

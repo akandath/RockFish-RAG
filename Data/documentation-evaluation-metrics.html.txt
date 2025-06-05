@@ -1,0 +1,27 @@
+
+Metrics
+
+We assess the quality of synthetic data both qualitatively through visualizations and quantitatively using metric results.
+
+Evaluate with Metrics
+
+For metric functions, please refer to rockfish.labs.metrics .
+
+Distribution Metrics
+
+
+Correlation Metric
+
+Pearson correlation
+- Correlation coefficient between -1 and 1 -1 means perfectly negative linear relationship between two numerical fields 0 means no relationship between two numerical fields 1 means perfectly positive relationship between two numerical fields
+- -1 means perfectly negative linear relationship between two numerical fields
+- 0 means no relationship between two numerical fields
+- 1 means perfectly positive relationship between two numerical fields
+- P value: if p value is low (generally <0.05), the correlation coefficient is statistically significant.
+
+Association Metric
+
+CramÃ©r's V
+When correction = True , CramÃ©r's V includes bias correction (please refer to this research to understand the bias correction).  When correction=False , bias correction is not applied. By default, bias correction is enabled.
+- 0 means no association between two categorical fields
+- 1 means perfect association between two categorical fields

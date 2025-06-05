@@ -1,0 +1,14 @@
+
+Troubleshooting
+
+Troubleshoot common deployment issues
+Learn how you can troubleshoot Rockfish Data deployment issues that might occur in any Kubernetes environment.
+Pods stay in pending after a cluster restart or "hot swap"
+Problem
+If your policies require to start the cluster on-demand, to move the workloads through nodes, or start as required, you might see that the pods remain in pending status.
+You can then obtain more details about one of the pods with the kubectl describe command.
+kubectl -n rockfish describe pod POD_NAME
+You might see the following:
+Warning  FailedScheduling    0/8 nodes are available: 8 Insufficient memory 
+Solution
+Reduce the per node limits or the number of nodes. If you provision new nodes in your cluster, make sure they have enough capacity (RAM and CPU) to meet the workloads requirements of the Rockfish Data pipeline. For more information, see compute and memory requirements .

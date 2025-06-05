@@ -1,0 +1,29 @@
+
+MuckAI Girish column: Synthetic data for enterprises
+
+By MuckAI Girish– (MuckAI Girish is the co-founder & CEO of the Generative AI company, Rockfish Data – which is developing a state-of-the-art Synthetic Data Workbench Software for Data Scientists. The views in this column are his own) The C-suite in medium and large enterprises including CIOs, CTOs and Business Group Leaders are in an enviable position these days. They have been given an unprecedented mandate to embrace artificial intelligence (AI) wherever possible with budgets that appear to have little or no strings attached for AI-driven solutions and technologies. On the other hand, while their work is closely aligned with the companies’ business outcomes, they have the unenviable task of unbundling the myriad options out there, figuring out what works best for them, developing an implementation strategy and measuring the impact and outcome — all in a highly compressed and what may look like an unrealistic time horizon. One of the biggest challenges in front of these executives and their teams is the availability of data. Specifically, the right data for the right tasks at the right time. They are pulled in many directions at the same time. They find that can only do so much with the data they have today. Over the past decade and more, we have been witnessing stratospheric advancements in Machine Learning algorithms and models. Thanks to the availability of open-source code for most of these models, ML model engineering has reached a crescendo. Unfortunately, data scientists are now finding that these models and pipelines need a variety of data to work more effectively. They are often stymied by one or more of the following conditions: (1) no relevant data or have only outdated data (2) not enough quantity of data (3) not enough quantity or proportion of a particular class of data For example, (1) when a SKU is out of stock or a new product is launched in the e-commerce industry; (2) available or accessible data is quite sparse in healthtech, life sciences and cell and genetic markers, and (3) the number of fraudulent transactions in financial data or the proportion of credit default in highly rated businesses or individuals. Thus, data engineering is now the biggest problem facing enterprises. It turns out that Synthetic Data can address these constraints plaguing enterprises and impeding on model experimentation, selection, training and testing — affecting the speed of roll-out and impairing business outcomes. Rapid innovations over the past few years have yielded models and encodings that give data scientists enterprise grade software that can generate synthetic data to augment their dataset to make their models perform to their expectations. Synthetic data vests power in the hands of data scientists to align their models to achieve superior business outcomes – something much coveted by the senior leaders.
+
+Sharing
+
+- Email this article
+- Print this article
+
+Tags
+
+
+About indica
+
+
+Post navigation
+
+
+Related posts
+
+
+Interview: The Indian American cardiologist who wants to dream big in health-tech
+
+
+Nearly $450 million raised by 22 Indian startups in just one week
+
+
+MuckAI Girish column: Ask Not What You Can Do for Your Data, But What Your Data Can Do for You

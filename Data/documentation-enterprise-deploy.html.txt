@@ -1,0 +1,36 @@
+
+Enterprise
+
+The Rockfish Workbench can be deployed in your own datacenter, you need a way
+to pull and run OCI or Docker containers.
+It can be Kubernetes, systemd, your own solution it does not matter. Let's have a look at the architecture and the various components
+
+Redis
+
+The workbench replays on Redis and its flexibility both as data pipeline (via
+Redis Stream) and as metadata store.
+Based on capabilities and scales you can deploy two independent Redis (even in
+Cluster mode) to scale and operate them independently since they serve two
+distinct needs or you can relay on a single installation, this is why we marked
+the second one as not requited.
+
+Object Store and SSQL
+
+The Rockfish Workbench solution has a feature called dataset. Dataset are
+tables containing the generated value or snapshot of your data you want to
+train a model with.
+This feature is not mandatory to use because via Data Source the workbench can
+do and read data where you have them. Right now we support GCP Storage, AWS S3
+and Databricks.
+If you need us to storage your data you have to provide an object store to use, it can be:
+- AWS S3
+- GCP Storage
+- Azure Object Store
+- MinIO
+To read a dataset you can download all of that via HTTP API or you can filter
+and query a subset of a dataset via SQL query, to do that we serve a container
+called sssql .
+
+Deploy
+
+Check our deploy page to know how we can help you releasing Rockfish Workbench.

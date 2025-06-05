@@ -1,0 +1,61 @@
+
+Docker Compose
+
+Docker Compose is the quickest way to get the Rockfish Data workers up and running. It is suitable for small or test installations
+but you may want to consider container orchestration systems for production deployments. See our Kubernetes for
+details on a set up with it. You will need the Docker runtime and Docker compose . Once you have
+set up your Rockfish Data Workers , installed docker and you have connected to our container registry you will need to create the Docker compose configuration, then you should be able to bring the environment up. Copy the template
+below into a file called docker-compose.yaml .
+
+services : redis : image : redis:7.2.4 volumes : - /opt/redis-data:/data rockfish-worker : image : us-central1-docker.pkg.dev/still-totality-370100/saas/cuttlefish:0.15.0.dev2 restart : always command : - "--model-store-url" - "http://modelstore:8070" - "--redis-client-use-hostname" - "--redis-host" - "redis" - "--rockfish-url" - "https://api.rockfish.ai" - "--api-key" - "<worker api key> - " --worker-id" - "<worker id>" - "--action-module" - "actions" - "workers" - "train" - "generate" - "tabular-gan-train" - "tabular-gan-generate" - "rtf-train" - "rtf-generate" - "train-tab-gan" - "train-time-gan" - "train-transformer" - "generate-tab-gan" - "generate-time-gan" - "generate-transformer" - "databricks-sql-load" - "databricks-dbfs-save" - "databricks-dbfs-save"
+
+In the file you will need to change two values indicated with the <...> angle brackets.
+The first value is <worker api key . This is the API key that was sent with your onboarding
+email. If you do not have access to the key please contact support for assistance.
+The second value is the <worker id> that was created when adding new workers via the api .
+Save the file, now you only need to run docker compose up . This will pull the docker image from the 
+registry and start the container with the parameters listed above. This will start a single worker, and 
+ensure everything is installed and configured correctly. In order to run full Rockfish Data workflows
+you will need multiple workers running. See the next session to update the Docker compose file to launch 
+multiple workers. Once you have the desired number of workers running you are ready to use the Rockfish
+Data workbench via the SDK .
+
+Launching Multiple Workers via Docker Compose
+
+TBD
+
+Package descriptions
+
+Needs polish and full package list
+
+API
+
+The API package is our HTTP API, it is the entrypoint for interacting with the Workbench.
+It accepts a YAML as configuration file so you need to share it via --volume .
+Have a look at the inline documentation for this YAML to get an idea about what
+all those sections are.
+
+# PoC 2 exposes a debug http server that can be used for monitoring and # profiling. debug_server : addr : :9092 # sssql is the sql query engine, PoC 2 relays on this service to run queries # against your datasets sssql : address : http://sssql:3031 # dataset needs to be stored in an object, in this case on AWS S3 dataset : object_store : s3 : bucket_name : model-store-beta-prod02 # Logging configuration logger : development : false encoding : "json" # Connection to the metadata store metadata_store : # Currently redis is the only supported metadata store redis_store : addr : redis:6379 db : 0 pool_size : 1000 # The HTTP API configuration api : addr : :8080 # The HMAC secret used to sign and verify the JWT Token jwt_hmac_secret : "secret-personal"
+
+
+Admin
+
+Admin 2 is an API that we put togethre to do user management and troubleshooting.
+It shares the metadata store and the hwt secret with PoC 2 API.
+
+# Connection to the metadata store, this is the same used by PoC2 metadata_store : redis_store : addr : redis:6379 db : 0 # Seme as poc2 this is a debugging http server debug_server : addr : :9093 logger : development : false encoding : "json" api : # The HMAC secret used to sign and verify the JWT Token jwt_hmac_secret : "secret-personal"
+
+
+sssql
+
+sssql is a container that exposes a SQL query language that connects to the
+same object store populated by PoC2 queries your dataset.
+
+api_addr : 0.0.0.0:3031 object_store : s3 : bucket : model-store-beta-prod02 region : us-east-1
+
+
+Cuttlefish
+
+Cuttlefish is a python application that executes the jobs instantiated as part
+of a workflow via the PoC 2 API.
+It supports many kind of actions, what you see there is a subset of them.

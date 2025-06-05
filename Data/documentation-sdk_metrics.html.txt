@@ -1,0 +1,66 @@
+
+rockfish.metrics
+
+
+metrics
+
+
+Classes
+
+
+Functions
+
+
+session_length(dataset:LocalDataset,session_length_field:str='session_length')->LocalDataset
+
+Returns a new dataset with the metadata of table and a field containing the session length.
+Parameters:
+Input dataset.
+New field name to hold session length.
+Raises:
+When the dataset does not contain dataset metadata.
+
+count_all(dataset:LocalDataset,field:str,*,nlargest:Optional[int]=None)->LocalDataset
+
+Returns a new table containing the distinct values for the specified field and a new field with the number times the value occurred.  The new
+field is named field _count.
+Parameters:
+Input dataset.
+Field name to count.
+Limit results to nlargest values.
+
+interarrivals(dataset:LocalDataset,time_field:str,interarrival_field:str='interarrival',unit:Precision='s')->LocalDataset
+
+Create a table containing the interarrival times.
+Metadata fields are determined using the schema metadata.
+The table will contain the metadata and the interarrival times.  Each
+session has n-1 rows due to the first point not having a interarrival
+delta.
+Parameters:
+Input dataset.
+Field in dataset containing times.
+Field to be added with interarrival times.
+Raises:
+When table does not contain schema metadata.
+
+aggregate(dataset:LocalDataset,field:str,agg_func_name:AggregateMethod,group_fields:Optional[list[str]]=None,output_field:Optional[str]=None)->LocalDataset
+
+Returns a new table containing the aggregate values in the specified field for each group. If group_fields == [], the aggregation will be
+applied to the entire dataset.
+Parameters:
+Input dataset.
+Field name to compute aggregation.
+Aggregation function to use. For numerical field: "sum", "mean", "min", "max", "variance", "stddev", "count", "count_distinct". For categorical field: "count", "count_distinct".
+Optional. The fields to group by. The precedence order for group fields is this group_fields > table_metadata.group_fields > table_metadata.metadata. Default is None.
+Optional. Name of the output field. Default is None. The output will be named field _ agg_func_name .
+
+transitions_within_sessions(dataset:LocalDataset,field:str,metadata_fields:Optional[list[str]]=None,k_gram:Optional[int]=2,collapse:bool=False)->LocalDataset
+
+Creates a new dataset that lists session keys to define sessions and the
+state transitions for a given stateful field within each session.
+Parameters:
+The input dataset.
+A stateful field.
+Optional. The metadata fields to group by. If provided, it will take precedence over the schema metadata. Default is None.
+Optional. The number of states to consider in each transition. Default is 2. If None, the full collapsed transitions for all states will be considered, regardless of the value of collapse .
+Whether to collapse repeated consecutive states into a single state. Default is False. This parameter is effective only when k_gram is not None.

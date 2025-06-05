@@ -1,0 +1,77 @@
+
+Data Models
+
+The Rockfish platform focuses on solving data bottlenecks for enterprises. 
+Our platform supports two types of operational data models: time-series and tabular .
+
+Time-series Data
+
+Time-series data refers to data that is collected over time. In time-series data, each entity is called a session . 
+Each session is a collection of events ordered by a timestamp column.
+Columns in a session can be of two types: metadata and measurement . 
+In a session, metadata columns have the same values for events. These columns usually describe the session.
+Measurement columns, on the other hand, have values that vary over time within a session. 
+In some datasets, each session can also be identified using an explicit session key column.
+Some examples of time-series datasets include:
+- Web analytics data: User interactions with a website, including page views, clicks, and time spent.
+- IoT data: Sensor readings from smart devices, such as temperature or humidity levels.
+- Financial data: Stock prices or trading volumes over time.
+Let's understand the time-series data model using concrete examples.
+
+Example: Financial Transactions Dataset
+
+Suppose we have a dataset that collects information about customer financial transactions:
+Here, each transaction is an event . Each session is a set of transactions that a particular customer performs over time.
+This dataset has two sessions, one for customer C1111 :
+And the other for customer C2222 :
+The following table describes how each column in this time-series dataset is classified:
+
+Sample Time-series Datasets
+
+Download the finance dataset
+Download the pcap dataset
+
+Tabular Data
+
+Tabular data is organized into rows and columns. In tabular data, each entity is called a record . 
+Each row represents an individual record, and each column represents a feature or attribute of the data. 
+All columns in a tabular dataset are metadata columns.
+Some examples of tabular datasets include:
+- Customer data: Information about customers, such as name, age, address, and purchase history.
+- Inventory data: Details about products, including product ID, name, category, quantity in stock, and price.
+- Sales data: Records of sales transactions, including transaction ID, date, customer ID, and items sold.
+Let's understand the tabular data model using concrete examples.
+
+Example: Fall Detection Dataset
+
+Suppose we have a dataset that collects information about patients who went through medical incidents (falls):
+Here, each patient incident is a record and all columns are metadata columns. This dataset has 3 records.
+For example, the first record in this dataset is:
+
+Sample Tabular Datasets
+
+Download the fall detection dataset
+Download the spotify dataset
+
+Choosing Between Time-series and Tabular Data Models
+
+There can be multiple ways of interpreting the same dataset, based on how you plan to use the data in downstream tasks.
+In the examples below, we model a Netflow dataset as both time-series and tabular. 
+You can choose an appropriate data model based on what you will use the synthetic Netflow data for:
+- If your downstream task is an ML model that looks at each flow and predicts its type , using the tabular data model might be preferable.
+- On the other hand, if your downstream task is analyzing patterns over time, using the time-series data model might be a better choice.
+Note : If a dataset contains only one session (a single group of metadata fields), it will be treated as tabular data rather than time-series data, as there are no distinct sessions to learn from.
+
+Example: Modelling the Netflow Dataset as Time-series
+
+Suppose we have a dataset that collects information about network flow data on IoT sensors:
+Here, each flow is an event . Each session is a set of flows that went through a particular connection over time.
+This dataset has two sessions, one for the UDP connection between 192.168.1.79:45927 and 239.255.255.250:15600 :
+And the other for the TCP connection between 192.168.1.32:55822 and 18.194.169.124:80 :
+The following table describes how each column in this time-series dataset is classified:
+
+Example: Modelling the Netflow Dataset as Tabular
+
+Like before, we have the same network flow data on IoT sensors:
+This time, however, each flow is a record and all columns are metadata columns. This dataset has 6 records.
+For example, the first record in this dataset is:

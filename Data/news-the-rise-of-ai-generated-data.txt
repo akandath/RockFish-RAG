@@ -1,0 +1,23 @@
+
+The Rise of AI-Generated Data
+
+Dr. Muckai Girish-
+(MuckAI Girish is the co-founder & CEO of the Generative AI company, Rockfish Data , which is developing a state-of-the-art Synthetic Data Workbench Software for Data Scientists. The views in this column are his own)
+It is hard to believe that our world is running out of data. Ironically, when we are all unequivocally aware that we are generating more data than ever. The Generative AI (GenAI) revolution has made companies building foundation models use up literally every ounce of publicly available data to train their data-hungry models.
+Publicly available data is one thing; however, proprietary data that resides with enterprises is another thing, altogether. Businesses worldwide are clamoring to use AI in every walk of life for everything from operational efficiency to sustainable competitive advantage. It is now very easy to get access to AI/ML models readily, thanks to widely accepted open-source practices and numerous readily available platforms that host thousands of models. Moreover, the expertise available to build and deploy ML models are the norm these days, both internal and external.
+This is necessary, but nowhere near sufficient. Tinkering with models can only get us up to a certain point. Appropriate data is the secret to getting these models to perform at their ultimate potential. More often than not, enterprises are bottlenecked for getting their hands on the necessary data. This is primarily due to data sparsity or data governance constraints. It is evident that overcoming these bottlenecks effectively cannot be achieved through prevailing approaches. A new paradigm is badly needed.
+In comes Generative AI to the rescue. Generating the necessary data for key applications such as model training and sharing is now feasible, thanks to massive advances in synthetic data technologies.
+This recent article from Axios outlines the use of AI models to generate data to train AI models. As Vyas Sekar, Rockfish Data Co-founder & Chief Technologist and Professor of Electrical & Computer Engineering at Carnegie Mellon University, points out, “If used well, it can lead to really good outcomes”.
+The key is to ensure that these generative models are able to learn all the properties of the available data. Then, by applying the right privacy techniques, one can address governance constraints, whether they are driven by confidentiality or compliance aspects. Moreover, by conditionally generating data, the data scientists can create data for most if not all scenarios.
+In summary, generative data platforms can be used to bridge the gap between available operational data and the outcomes targeted by product teams and domain data scientists. Coupled with their knowledge of the domain and using this appropriately, they can unleash the true value of their data and the resulting benefits.
+According to Gartner, by 2026, 75% of businesses will use generative AI to create synthetic customer data, up from less than 5% in 2023 . It is time we leveraged AI to generate data for AI, and the technology is now feasible and associated solutions and platforms are now available for any enterprise.
+
+Sharing
+
+- Email this article
+- Print this article
+
+About indica
+
+
+Post navigation

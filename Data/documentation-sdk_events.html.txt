@@ -1,0 +1,32 @@
+
+rockfish.events
+
+
+Event
+
+Event is the base class for all concrete event types.
+Attributes:
+
+LogLevel
+
+Attributes:
+
+LogEvent
+
+LogEvent is an event from the logging system.
+Attributes:
+
+ProgressEvent
+
+ProgressEvent is an event indicated a change in progress tracking.
+Attributes:
+
+StateEvent
+
+StateEvent is an event indicating a change in state.
+Attributes:
+
+LinkEvent
+
+LinkEvent is an event indicating an artifact was produced.
+Attributes:

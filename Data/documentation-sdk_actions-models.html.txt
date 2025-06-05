@@ -1,0 +1,12 @@
+
+rockfish.actions.models
+
+
+Classes
+
+
+Config
+
+Configuration class for the ModelLoad action.
+Attributes:
+Model ID to load.

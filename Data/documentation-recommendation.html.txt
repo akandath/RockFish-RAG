@@ -1,0 +1,91 @@
+
+Recommendation Engine
+
+
+Overview
+
+Choosing the appropriate model for your dataset is crucial to generating high-quality data that addresses your use case. 
+However this process can be challenging. To ease the onboarding process, Rockfish has introduced a powerful Recommendation Engine.
+
+Recommendation Engine
+
+Rockfish's Recommendation engine auto suggests the steps you need to take to onboard your dataset quickly taking into conisderation your fidelity requirements. 
+It recommends the optimal Rockfish model along with the necessary configurations and hyperparameters.
+- Pre-Processing Dataset
+- Model and Hyperparameter Selection
+The Recommendation engine provides a Recommendation report that describes your source dataset and the recommended Rockfish actions you can add to your Rockfish workflow to create synthetic data
+
+Using Rockfish's Recommendation Engine
+
+Let's walk through a simple example of how to use the recommendation engine to onboard a dataset. Run this 
+example yourself:
+Suppose you want to onboard finance.csv :
+First, import the required components from Rockfish SDK:
+
+import rockfish as rf from rockfish.labs.dataset_properties import DatasetPropertyExtractor from rockfish.labs.steps import Recommender
+
+Then, load the finance dataset:
+
+dataset = rf . Dataset . from_csv ( "finance" , "finance.csv" )
+
+Then, extract dataset properties (note how you can specify your domain knowledge while extracting these properties):
+
+dataset_properties = DatasetPropertyExtractor ( dataset , session_key = "customer" , metadata_fields = [ "age" , "gender" ], additional_property_keys = [ "association_rules" ] ) . extract ()
+
+Run the recommendation engine:
+
+recommender_output = Recommender ( dataset_properties ) . run ()
+
+View the report describing the recommendations:
+
+print ( recommender_output . report )
+
+Run the recommended actions in a Rockfish workflow:
+
+rec_actions = recommender_output . actions save = ra . DatasetSave ({ "name" : "synthetic" }) # use recommended actions in a Rockfish workflow builder = rf . WorkflowBuilder () builder . add_path ( dataset , * rec_actions , save ) # run the Rockfish workflow workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+Once the workflow finishes running, download the synthetic dataset!
+
+syn = None async for sds in workflow . datasets (): syn = await sds . to_local ( conn ) syn . to_pandas ()
+
+
+Configuring Rockfish's Recommendation Engine
+
+The behaviour of Rockfish's recommendation engine can be configured to meet your requirements.
+In particular, you can specify the steps you want recommendations for, and you can fix the output recommendations 
+for a step according to your domain knowledge. The examples below demonstrate how you can configure our recommendation 
+engine.
+Currently, our recommendation engine can provide Rockfish actions for the following steps:
+- Filling in missing values
+- Handling dependent/associated fields
+- Model selection
+Please see the Recommendation Engine SDK reference page for more 
+information on these steps.
+
+Example 1: Get recommendations only for filling out missing values
+
+Suppose you know that your dataset has missing values, and you want the Recommender to only return the corresponding 
+Rockfish FillNull actions.
+You can use the steps argument while initializing the Recommender to specify this intent:
+
+from rockfish.labs.steps import Recommender , HandleMissingValues # load dataset as before # extract dataset properties as before # initialize Recommender to only give the required recommendations recommender_output = Recommender ( dataset_properties , steps = [ HandleMissingValues ()] ) . run ()
+
+
+Example 2: Get train and generate actions for a specific model
+
+Suppose you already know that you want to use a particular Rockfish model for your dataset, and you want the Recommender
+to return the Rockfish Train and Generate actions for this model.
+You can initialize the ModelSelection step according to this intent, and pass the step to the Recommender using the steps argument:
+
+from rockfish.labs.steps import Recommender , ModelSelection from rockfish.labs.recommender import ModelType # load dataset as before # extract dataset properties as before # configure ModelSelection step model_selection = ModelSelection ( model_type = ModelType . TIME_GAN ) # initialize Recommender to only give the required recommendations recommender_output = Recommender ( dataset_properties , steps = [ model_selection ] ) . run ()
+
+
+Next Steps
+
+Once you have onboarded your dataset using Rockfish's recommendation engine, you can modify your Rockfish workflow
+according to your requirements, and get the final synthetic dataset:
+- To add more Rockfish actions to a Rockfish workflow, see the Actions and Workflows section.
+- To tune Rockfish models' hyperparameters and improve synthetic data quality, refer to
+   the Models page.
+- To evaluate your synthetic dataset using metrics and plots, see
+   the Data Evaluation page.

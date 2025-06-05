@@ -1,0 +1,17 @@
+
+Docker Registry
+
+
+Docker registry
+
+Rockfish Data provides access to our container images via our registry. We can support direct upload to a secure site if you require it. However, the fastest way to download the images is to connect directly to our Docker registry which is hosted in GCP.
+
+Pull Image Rockfish Data Registry
+
+To download directly from our registry you will need a gmail or gsuite account and
+- Get access to the Rockfish Data registry, by emailing support@rockfish.ai
+- Configure auth to the registry
+- gcloud auth login
+- gcloud artifacts docker images list us-central1-docker.pkg.dev/still-totality-370100/saas
+- gcloud auth configure-docker us-central1-docker.pkg.dev
+- docker pull us-central1-docker.pkg.dev/still-totality-370100/saas/cuttlefish:0.15.0.dev2

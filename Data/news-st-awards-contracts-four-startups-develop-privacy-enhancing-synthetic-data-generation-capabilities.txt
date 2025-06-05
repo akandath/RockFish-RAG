@@ -1,0 +1,28 @@
+- Science and Technology Directorate
+- News Room
+- S&T Awards Contracts to Four Startups to Develop Privacy-Enhancing Synthetic Data Generation Capabilities
+
+News Release: DHS S&T Awards Contracts to Four Startups to Develop Privacy-Enhancing Synthetic Data Generation Capabilities
+
+
+FOR IMMEDIATE RELEASES&T Public Affairs, 202-286-9047
+
+WASHINGTON – The Department of Homeland Security (DHS) Science and Technology Directorate (S&T) announced four contract awards to Betterdata, DataCebo, MOSTLY AI, and Rockfish Data to develop synthetic data capabilities that model and replicate the shape and patterns of real data, while safeguarding privacy and mitigating security harms.
+“Sharing sensitive data that can be used for analytics, testing, and training machine learning models across organizational boundaries is highly challenging,” said Melissa Oh, S&T’s Silicon Valley Innovation Program (SVIP) Managing Director. “Awarding these contracts are vital because startups are uniquely positioned to offer agile, creative approaches that can help the Department address complex challenges like data privacy and security in groundbreaking ways.”
+The four contract awards stem from an earlier announcement when SVIP launched the Synthetic Data Generator solicitation in partnership with the Cybersecurity & Infrastructure Security Agency (CISA) and the DHS Privacy Office (PRIV). The solicitation was formed to address a critical need for DHS capabilities that support collaborative use of data and mitigate privacy and security risks inherent in the sharing of sensitive data. Synthetic data is crucial for DHS because it enables the Department to train machine learning models in situations where real-world data is either unavailable or poses privacy and security concerns.
+“CISA is eager to work with SVIP and the startup ecosystem as we strive to support the identification, development, and use of privacy-enhancing technologies. Our investment in these technologies and collaboration with industry partners enhances our own agency operations, allows us to support the overall privacy ecosystem and its stakeholders, as these technologies become a part of daily life,” said Dr. Garfield Jones, Associate Chief of Strategic Technology, Cybersecurity and Infrastructure Security Agency.
+The Synthetic Data Generator topic call indicated that each awardee, selected through a highly competitive process, may be eligible for up to $1.7 million across four SVIP phases . The awardees of this first phase presented innovative solutions that have the potential to provide immediate impact to DHS:
+- S&T awarded $196,260 to Betterdata, a Singapore-based company , which is leveraging its Large Synthetic Model (LSM) capabilities to generate synthetic data that is statistically accurate when real data is unavailable or low in volume, while enhancing data auditing using differential privacy. The solution supports tabular, sequential, relational and text data modalities.
+- S&T awarded $196,920 to DataCebo, a Boston, Massachusetts-based company, which is creating AI-generated synthetic data using its Synthetic Data Vault E platform which lets developers easily build, deploy, and manage sophisticated generative AI models for enterprise-grade applications when real data is limited or unavailable.
+- S&T awarded $196,800 to MOSTLY AI, a Vienna, Austria-based company , which is using its generative AI Platform to create highly accurate and private tabular synthetic data to support model training, analytics and testing use cases. In addition, the platform has unique capabilities around generating fair synthetic data to combat bias in synthetic data generation.
+- S&T awarded $199,300 to Rockfish Data, a San Ramon, California-based company , which developed a high fidelity and privacy-preserving generative data platform that automatically adapts to diverse operational datasets and enables flexible generation for myriad use cases. Based on foundational research at Carnegie Mellon University, the Rockfish platform helps customers accelerate their AI transformation and improve the security, resilience, and innovation in operations.
+###
+
+TopicsScience and Technology
+
+- Science and Technology
+
+KeywordsScience and TechnologyData
+
+- Science and Technology
+- Data

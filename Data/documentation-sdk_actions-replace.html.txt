@@ -1,0 +1,67 @@
+
+rockfish.actions.replace
+
+
+Attributes
+
+
+Condition=Union[EqualizeCondition,TopKCondition,ThresholdCondition,SQLCondition]module-attribute
+
+
+Resample=Union[ValuesResample,SQLResample]module-attribute
+
+
+Classes
+
+
+ReplaceConfig
+
+Configuration class for the Replace action.
+Attributes:
+Field name for replacement.
+The condition that defines the criteria for selecting values to be replaced. Options include: - EqualizeCondition - TopKCondition - ThresholdCondition - SQLCondition
+The resample strategy used to obtain values and weights for replacement. If not provided, the retained values are resampled using their frequencies as weights. Options include: - ValuesResample - SQLResample
+Seed for random number generator.
+
+Replace
+
+Replace values in a selected field with given condition with new values
+from the resampled result.
+Attributes:
+Alias for ReplaceConfig .
+
+EqualizeCondition
+
+EqualizeCondition class for the condition configuration.
+Attributes:
+If equalization is True, it enables equalization, replacing frequent values with rare ones to achieve equal rates. The value of resample in ReplaceConfig will be ignored if equalization is enabled.
+
+TopKCondition
+
+TopKCondition class for the condition configuration.
+Attributes:
+The number of top values to retain. The values not in the top_k will be replaced.
+
+ThresholdCondition
+
+ThresholdCondition class for the condition configuration.
+Attributes:
+The threshold value to retain. The values occupying less than the threshold will be replaced.
+
+SQLCondition
+
+SQLCondition class for the condition configuration.
+Attributes:
+A SQL query string that returns a 'mask' column. The values with True in the 'mask' column will be replaced. The input dataset is always referred to as my_table in the query.
+
+ValuesResample
+
+ValuesResample class for the resample configuration.
+Attributes:
+A list of values to replace. The type of these values must match the field type. Each value is automatically assigned a weight of 1.
+
+SQLResample
+
+SQLResample class for the resample configuration.
+Attributes:
+A SQL query string that returns 'values' and 'weights' columns. The 'values' column contains the values to replace, and the 'weights' column contains the weights for each value. The input dataset is always referred to as my_table in the query.

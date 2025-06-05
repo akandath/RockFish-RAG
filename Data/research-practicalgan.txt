@@ -1,0 +1,697 @@
+Trace Generation using NetShare
+Yucheng Yin
+Carnegie Mellon University
+Pittsburgh, PA
+yyin4@andrew.cmu.edu
+Carnegie Mellon University
+Pittsburgh, PA
+zinanl@andrew.cmu.edu
+Minhao Jin
+Carnegie Mellon University
+Pittsburgh, PA
+minhaoj@andrew.cmu.edu
+Giulia Fanti
+Carnegie Mellon University
+Pittsburgh, PA
+gfanti@andrew.cmu.edu
+Vyas Sekar
+Carnegie Mellon University
+Pittsburgh, PA
+vsekar@andrew.cmu.edu
+We explore the feasibility of using Generative Adversarial Networks
+recent advances in machine learning and privacy, we identify design
+choices to tackle these challenges. Building on these insights, we
+tributional metrics and traces, it achieves 46% more accuracy than
+in evaluating accuracy and rank ordering of candidate approaches.
+CCS CONCEPTS
+• Networks →Network simulations; • Security and privacy →
+Data anonymization and sanitization;
+tive adversarial networks, privacy
+ACM Reference Format:
+INTRODUCTION
+management workflows. For instance, they are used to guide the
+SIGCOMM ’22, August 22–26, 2022, Amsterdam, Netherlands
+remains challenging due to business and privacy concerns.
+ture in the networking community on generating synthetic traces
+minecriticalworkloadfeaturesandconfiguregenerationparameters,
+eration using Generative Adversarial Networks or GANs [12, 28, 29,
+39]. If successful, this can lower the barrier for stakeholders with
+key traces to share synthetic data with potential clients. While the
+ber of practical challenges in our context that existing approaches
+data GANs, which dominate the synthetic header generation
+fields and header fields that have large ranges of values.
+to train but suffer in fidelity, while more complex time series
+GANs can take an order of magnitude more time.
+are not well explored in the context of network header traces.
+approaches are likely to yield poor fidelity for networking
+datasets [39].
+approach for time series generation, cannot learn certain key header
+thetic data fidelity.
+In designing NetShare, we tackle these key challenges by a careful
+based approaches. NetShare combines the following key ideas to
+address the above issues:
+• Reformulation as flow time series generation: Instead of treating
+headertracesfromeachmeasurementepochasanindependent
+recast the problem for learning synthetic models for a merged
+• Improving scalability via fine tuning: We identify opportunities
+to optimize learning time by using ideas of model fine tuning
+stances, so we develop heuristics to preserve such correlations.
+• Practical privacy reformulations: We adopt recent advances in
+fidelity tradeoffs. To the best of our knowledge, this is the
+first application and empirical demonstration in the context of
+header trace generation.
+We also tackle a number of other practical challenges that prior work
+has not considered. For instance, prior work does not generate valid
+fidelity of the generated traces for relevant networking use cases
+tributional metrics and traces [1, 2, 16, 47, 51, 59], NetShare achieves
+users’ requirements of downstream tasks [19, 22, 44, 45, 77] which
+approaches.
+MOTIVATION
+ysis in networked systems. Then we argue why synthetic traces are
+conventional approaches.
+Motivating scenarios
+sign and management that are stymied by lack of access to realistic
+Flexibility
+Anonymized
+Anonymized vs. Synthetic traces
+sign and development of novel telemetry algorithms including many
+eraloftheseapproachesalsomakeimplicitassumptionsonstructural
+best suits a target deployment or system provisioning regime, we
+need realistic header traces to compare different algorithms and
+Evaluating machine learning models:. There are also a number
+packet and flow headers [77]. Again, to systematically evaluate the
+potential performance rate of these algorithms in diverse settings,
+ior [30, 52].
+tions, some may care about preserving “heavy hitters”, others may
+Synthetic traces and status quo
+data holders who hold traces are usually unwilling to share raw
+traces. To address these concerns, there are two main alternatives to
+traces where some model of generating packet traces is created to
+mimic properties of the raw data. At a high level, there are qualitative
+tradeoffs between raw, anonymized, and synthetic trace generation
+as summarized in Table 1. Raw traces require least effort, but are also
+privacy, and effort. For example, anonymized data can be made more
+the resulting data fidelity [50]. Similarly, there are techniques for
+generating synthetic data, but the resulting privacy guarantees are
+unclear, and remain an active area of research [18, 32, 41]. Our focus
+in this paper is on lowering the barrier for generating and sharing
+tion than the other two options and may lower the barrier for data
+Existing approaches for synthetic header trace generation be
+drawbacks. First, system designers need to manually determine the
+icant domain knowledge and human efforts [6, 66, 70]. Second, such
+models usually make assumptions about the underlying workloads
+and downstream tasks [66, 70] which makes them hard to generalize
+more automated but have more fundamental structural limitations.
+Furthermore, existing frameworks do not evaluate the fidelity of
+these synthetic traces across diverse datasets and downstream tasks.
+OVERVIEW AND CHALLENGES
+trace generation workflow that requires minimal manual tuning
+and expert knowledge, and can support a wide range of traces from
+diverse deployments and diverse downstream applications. We start
+by defining our goals and how we propose to achieve this using a
+Problem formulation
+consecutive epochs. For each epoch 𝑡, we are given 𝐷𝑡 unsampled,
+depending on scenario.
+• Flow header trace: Each record in a flow header trace consists of
+time, end time of flow, total number of packets, total number
+Scope and goals. Our goal is to learn a generative model of {𝐷𝑡:
+by domain experts and downstream applications. We specifically
+are outside of the current scope.
+We expect three categories of fidelity metrics of interest:
+field, we want to ensure the distribution of the synthetic and
+dresses or distribution of packet sizes.
+ing apps [19, 22, 44, 45, 77]: e.g., flow size distribution or flow
+duration distribution.
+plication achieve similar accuracy on the raw and synthetic
+mance of algorithms preserved between raw and synthetic
+in real traces, is that ordering preserved?
+tic correctness conditions; e.g., IP addresses in valid ranges, packet
+Non goals. We acknowledge some types of properties are out of
+scope for our current work. Specifically, we do not capture stateful
+These are interesting directions for future work, as we discuss in §8.
+ative model [27]. Given a set of training data𝑥1,...,𝑥𝑛, where samples
+𝑥𝑖∈X belong to universe X and are drawn from some underlying
+distribution 𝑥𝑖∼𝑃𝑥, the goal is to learn to generate new samples
+from𝑃𝑥. GANs achieve this through adversarial training; that is, they
+random noise to output samples. The discriminator takes as input
+either a real training sample or a generated sample, and must classify
+trained in alternation to convergence.
+GANs have been used with great success in the image domain,
+are able to learn both local and global correlations in training data to
+that they may also be good at modeling correlations in network
+GANs can be tailored to different types of data, including tabular
+data [74] and time series [26, 39, 80].
+Strawman approaches and limitations
+architectures in our context before we explain our design choices
+to tackle these challenges in the next section.
+Strawman solutions. While GANs have most popularly been used
+tured tabular data that appear in many application domains [74].
+As such, a very natural starting point for using GANs is to treat
+measurement traces modeled as timeseries. However, it is not clear
+approach called STAN that uses autoregressive neural networks [75].
+We defer a full description of these baselines to Section 6.
+# of records with the same five tuple
+PacketCGAN
+All baselines are missing in Fig. 1b as they don’t generate
+flows with >1 packet.
+to accurately capture properties that span across packets and flows
+that the baselines are actually absent in the CDF plot of flow size.
+This is because they do not generate multiple packets for the same
+each packet as a record in a tabular database, without timestamps
+can span multiple measurement epochs, and it is not uncommon to
+see flow records spanning multiple epochs. Moreover, given the way
+distributions for fields with large support.
+The support of a field refers to the possible range of values it
+stream tasks e.g., anomaly detection [77]. Unfortunately, existing
+of packets per flow” and “number of bytes per flow” can range from
+tens for mice flows to hundreds of millions for elephant flows. Fig.
+# of packets per flow
+# of bytes per flow
+UGR16 dataset: left: flow size; right: flow volume.
+2 shows that baselines generate a much more limited range and also
+miss the correct distribution for small values. As another example,
+consider the port number field in headers. Correctly learning the
+Fig. 3 shows the baselines do not accurately capture the structure
+Top 5 service destination port number
+Relative frequency
+baselines fail to capture most frequent service ports while
+NetShare captures each mode of them by simpler and more
+effective IP2Vec.
+erallyachievebetterresultswithmoreparametersandmoredata[14].
+However, this approach quickly encounters scalability challenges.
+while achieving worse fidelity due to their modeling assumptions.
+We were unable to train the synthetic time series trace generator
+DoppelGANger [39] on our datasets due to memory constraints. As
+an intermediate design we modified DoppelGANger to include our
+Avg. normalized EMD
+PacketCGAN
+Avg. normalized EMD
+PacketCGAN
+the average JSD across categorical fields and the average
+102 103 104 105 106 107 108
+102 103 104 105 106 107 108
+Avg. normalized EMD
+102 103 104 105 106 107 108
+102 103 104 105 106 107 108
+Avg. normalized EMD
+categorical fields and the average normalized EMD1across
+it also uses 10x more CPU hours.
+explicitprivacymechanisms[21,31,57,71,74,75].Thisisinadequate,
+as synthetic data may present privacy concerns [68]. In the prior
+work that does explicitly consider privacy [39], the main conclusion
+fidelity of generated signals.2 Indeed, we can see in Figure 5 that as
+In other words, even very weak privacy breaks the fidelity. The full
+experimental setup of Figure 5 is explained in §6.2, Finding 3.
+NETSHARE DESIGN
+series generation problem of generating flow records for the
+	
+Figure 6: Instead of generating measurement epochs 𝐷𝑖
+through a tabular GAN, we merge multiple epochs 𝐷𝑖into
+a giant trace 𝐷, split the trace into flows 𝐷𝑓𝑙𝑜𝑤, and use
+As we saw earlier, existing approaches do not learn header field
+The root cause is these approaches treat each packet or flow record
+relations.
+formulate the header generation problem as a time series generation
+ure 6. Specifically, we begin by merging data from measurement
+correlations. Given this giant trace 𝐷, we split it into a set of flows
+1For each continuous fields, we normalize the EMDs of all models across all epsilons
+to [0.1,0.9].
+it is natural and desirable to generate DP synthetic data without destroying its fidelity.
+scalability
+Table 2: Encoding tradeoffs for various fields. A indicates
+cates acceptable performance. NetShare uses bit encoding for
+IP and embedded vector representation for port numbers.
+sequenceofpacketsforPCAPdataandflowrecordsforNetFlowdata.
+toregressive models [75] also use a time series approach, they are
+natively using a timeseries GAN like DoppelGANger would run into
+the same issues as the tabular GANs as each flow or packet record
+record effects. Furthermore, we will also encounter other challenges
+regarding encoding, scalability, and privacy.
+flow learns a much better flow length distribution compared with
+baselines. That said, this increases the computational complexity
+of learning, as seen in Figure 4. We revisit this scalability challenge
+edge and machine learning to inform the representation of
+Recall that baselines struggle to accurately learn the distribution
+of fields with large support. Hence, instead of training a GAN on the
+original data representation, we use domain knowledge to transform
+is more tractable for GANs.
+effectively reduce the range. This simple yet effective technique
+Table2showsaqualitativeanalysisofdifferentembeddingchoices
+only at fidelity and scalability, a vector embedding of both IP and
+beddings. However, if we consider privacy, this approach does not
+work for a subtle reason. The basic idea of IP2Vec is as follows: as in
+generator is trained on these embeddings; upon generating a new
+and therefore not DP.
+To resolve this issue, we use bitwise encodings of IP addresses
+while using IP2Vec to encode only port numbers and protocols; the
+possible port number and protocol. In addition, the pairs of ⟨port
+is expressive enough to capture the words seen in our private data
+without violating privacy. As shown in Fig. 3, this variant of IP2Vec
+	
+training of later chunks.
+Recall that reformulating our problem as timeseries generation
+total CPU hours. As we can see in Fig. 4, using timeseries GANs to
+feed the entire giant trace 𝐷flow into the generative model increases
+trainingtimeandpotentiallyposestheriskofrunningoutofmemory.
+ever, naively dividing the giant trace into chunks and parallelizing
+training across chunks poses two limitations. First, we again incur
+tion for flows that span multiple chunks. Second, while the wall clock
+time decreases the total CPU hours consumed remains the same.
+We avoid these limitations as shown in Fig. 7. First, we borrow the
+model as a “warm start” to seed training for future models [53, 82].
+Specifically, we use the first chunk as the “seed” chunk to give a
+trained from the first chunk. This permits parallel training across
+tions;finetuningalonecannotpreservethese.Tothisend,weappend
+flag with length equal to the total number of chunks, with each bit
+indicating whether the flow header appears in that specific chunk.
+When splitting the giant trace 𝐷flow into chunks, we have two
+natural choices: split by fixed time interval or by number of packets
+per chunk. Splitting by a fixed number of packets per chunk may
+impact differential privacy guarantees, as the presence of any single
+packet could change the final trained model in an unbounded way:
+lowing trunks. Thus, we choose to split by fixed time intervals rather
+CPU hours while increasing the learning complexity across chunks.
+	
+Prior attempts to train DP synthetic network data models using deep
+ian noise [11]. For a fixed amount of added noise, the more rounds of
+we exploit the observation that one can reduce the number of rounds
+3These chunks are logically independent from the measurement epochs in the original
+dataset; chunks are merely a construct for parallelizing training.
+over the private dataset. In doing so, we reduce the required number
+work from the DP community [15, 38, 43, 82], but it has not been
+utilized in the networking domain to the best of our knowledge.
+Figure 5 illustrates that this approach can significantly improve the
+of this approach further in §6.
+which helps us learn an embedding without affecting our DP budget
+  
+	
+rized in Fig. 9.
+, we map transformed
+IMPLEMENTATION
+4We make an explicit design choice to exclude such derived fields, which are likely
+the checksum based on that to ensure the correctness of packets. Additionally, we did
+pcapshare.com.
+For consistent runtime measurement, all experiments are run on
+the same set of 10 Cloudlab machines [24]. Each machine has Two
+for each hyperparameter, tuned in sequence, prior to running our
+evaluation. Hyperparameters were tuned over the full training data,
+ments. Our metric for hyperparameter tuning is the relative ordering
+be used as one of the “selection criteria” for picking the best model
+among various hyperparameter setups or training snapshots, which
+could potentially boost the performance of specific tasks.
+We envision data holders sharing the synthetic traces generated
+EVALUATION
+synthetic trace generators. We start by describing the datasets and
+baselines we use.
+Datasets. In the interest of reproducibility, we select 6 public
+in the deployments, collection logic, and timescales. For flow header
+header along with the packet arrival timestamp and L4 port numbers
+baselines on a dataset of 1 million consecutive samples; this is done
+for consistency with the evaluations in prior work.
+network. We used data from the third week of March 2016.
+5Sharing the model reveals more information than a finite number of synthetic data
+samples. Thus, we posit that in practice stakeholders will be more likely to share
+synthetic data rather than the models.
+backbone link. Our subset is from the New York collector in
+packet capture from the “UNI1” data center studied in the IMC
+Collegiate Cyber Defense Competitions from March 2012.
+Flow synthesizer [75].6
+data. While it is not designed for network traffic, we extend it
+fields, protocol is categorical. We use CTGAN as a baseline for
+NetFlow and PCAP datasets.
+GAN with gradient penalty [29].
+NetFlow synthesizer that is designed to capture dependency
+structures between attributes and across time. STAN groups
+tributions within the same host. To generate data from multiple
+hosts, we randomly draw host IPs from the real data.
+agreyscaleimageandgeneratesIPpacketsusingConvolutional
+timestamps and there is no natural way to encode them. Hence,
+the timestamp is randomly drawn from a Gaussian distribution
+learned from training data and appended to each synthetic
+• PacketCGAN [71]: PacketCGAN uses conditional GANs to
+augment the encrypted traffic datasets which converts each
+in the vector. It does not generate timestamps, so we append
+timestamps to each vector during training.
+not generate timestamps so we again append a timestamp to
+6We were unableto reproduce the PcapGAN[23] workas its details andcodeare lacking.
+Key findings
+Finding 1: NetShare achieves 46% better fidelity than baselines
+on feature distribution metrics across traces.
+JS divergence
+Normalized EMD
+JS divergence
+PacketCGAN
+Normalized EMD
+PacketCGAN
+We evaluate the fidelity of synthetic data by computing distance
+PKT: number of packets per flow; BYT: number of bytes per flow.
+of packets per flow. For our distance metrics, we follow common
+scales for different fields, we normalize the EMDs of each field to
+[0.1,0.9] for better visualization in the figures.
+distribution metrics across various traces. Fig. 10 shows a more
+detailed quantitative comparison of NetShare to baselines on two
+sistently better than most baselines. There are cases where NetShare
+performs worse than some baselines.
+compute JSD for continuous fields, we need to compute histograms of observed values,
+and we find that JSD is very sensitive to the bin size. We hence adopt EMD instead,
+as in [39]. EMD has an intuitive geometric meaning: it is equivalent to the integrated
+absolute error between the CDFs of the two distributions.
+this is not surprising as we explicitly sample packet timestamps from
+training data out of band and append it to the synthetic data.
+We do not show these in the interest of brevity and refer readers to
+the illustrative examples presented in §3.3.
+work management tasks across different traces.
+We next evaluate whether NetShare synthetic data can be used for
+downstream applications that utilize different properties of traffic
+beled NetFlow data is to design network traffic type prediction
+algorithms [51, 58, 59]. We use the fields port number, protocol,
+thetic data are sorted by timestamp and split into train:test 80%:20%.
+Earlier data is used to train the classifier; later data is used for testing.
+Figure 11: NetFlow traffic type prediction setup
+all classifiers achieve the highest accuracy with synthetic
+data generated by NetShare.
+tests the generalization of models trained on synthetic data. Fig. 12
+shows results on TON dataset: real data should achieve the highest
+accuracy. NetShare outperforms all baselines across five classifiers.
+For example, on the MLP predictor, NetShare achieves 12% higher
+real data accuracy.
+CIDDS and TON. Higher is better.
+tion coefficient between rankings on synthetic and real rankings
+forms all baselines with a higher rank correlation on both CIDDS
+and TON datasets.
+telemetry.8 Westudyatypicaldownstreamtaskofheavyhittercount
+ing [45], NitroSketch [44]. The threshold for heavy hitters is set at
+We run the four sketching algorithms on real and synthetic data
+to get error rates for heavy hitter count estimation error𝑟𝑒𝑎𝑙and
+error𝑠𝑦𝑛, which should be equal. We measure their relative error,
+|error𝑠𝑦𝑛−error𝑟𝑒𝑎𝑙|
+, for three heavy hitter counts on three datasets:
+gation for CA. Fig. 13 shows the results on these three datasets. A
+baseline may be missing for a dataset if the baseline finds no heavy
+dataset, every sketching algorithm is independently run 10 times.
+smaller relative errors on average. We compare the rankings of
+sketchingalgorithms’meanheavyhitterestimationerrorrates,again
+using Spearman’s rank correlation coefficient. NetShare achieves
+description.
+We run different modes of NetML for real and synthetic data,
+and get two anomaly ratios: ratio𝑟𝑒𝑎𝑙and ratio𝑠𝑦𝑛, which should be
+8Sketches uses compact data structures to summarize network traffic.
+anomaly detection.
+PacketCGAN
+equal. We compute their relative error, |ratio𝑠𝑦𝑛−ratio𝑟𝑒𝑎𝑙|
+. For each
+times. Fig. 14 plots the relative errors for different modes on CAIDA,
+DC and CA datasets. Note that NetML only processes flows with
+packet count greater than one, and only baselines that generate such
+flows are presented in the plots.
+NetShare outperforms baselines on most datasets and modes of
+do they preserve rankings of NetML modes. Also, their average JSD
+and normalized EMD across distributional metrics is worse than
+serving the rankings of different modes of NetML. Additionally,
+compared with groundtruth ranking, NetShare achieves a perfect
+match on CAIDA. Table 4 shows the exact rank correlations on these
+three datasets.
+Asdescribedin§4,weaddressthechallengesassociatedwithtraining
+tuning steps. Figure 5 shows that this approach can achieve a better
+distributions of categorical fields and the mean normalized EMD
+acrossalldistributionsofcontinuousfields.Thisgainismoreobvious
+whenthepublicdatasetissimilartotheprivatedata;inFigure5,when
+collector in March 2015, and finetuned on our standard “private"
+datasets likely see different traffic patterns, they are from the same
+UnivMon NitroSketch
+UnivMon NitroSketch
+UnivMon NitroSketch
+NetML modes
+NetML modes
+NetML modes
+PacketCGAN
+still be insufficient for practical purposes.
+Source port number
+Figure 15: Packet length and port CDFs computed without
+level queries in the data. Note that prior work [48] has studied how
+ison to [48] is difficult, as NetShare is tackling a harder problem and
+aims to generate DP synthetic data that can handle any type of query.
+visualize the distribution of the two fields under different privacy
+budgets compared with ground truth data. We observe that without
+the real distribution. However, when adding differential privacy
+the issue. In contrast, [48] reported minimal degradation in query
+fidelity, even with stronger privacy parameters. Indeed, generating
+in our domain and in general [15, 39, 69, 84].
+off than baselines.
+Recall from §4 that NetShare trains a model by first splitting the
+dataset into chunks, then trains a seed GAN model on the first chunk,
+suming similarity with the first chunk. However, Figure 4 shows
+baselines. Here, we summarize fidelity by the average JSD across all
+age normalized EMD across all distributional microbenchmarks on
+to train the model. Particularly for PCAP datasets, we see almost an
+RELATED WORK
+Synthetic trace generation has a long history in the networking
+community. We briefly discuss this related work next.
+Network Simulators. Using network simulators to generate traffic
+settings. This requires substantial manual effort to extract parameter
+fromtraces,whichareoftenincomplete.Further,mostsimulatorsare
+tied to specific protocols protocols [8, 9, 83] and generalize poorly.
+Structural Traffic Generators. A complementary body of trace
+[66] uses a set of distributional parameters extracted from traces
+to generate flow level traffic that matches both temporal volume
+the network traffic. LitGen [60] uses a renewal process abstraction
+tion and creates connection vectors to represent the connection to
+feed into emulation tools [6]. The key challenge here is to choose
+an appropriate model and parameters that achieve high fidelity for
+properties that are currently outside our scope.
+gressive neural models to generate synthetic network traffic in a
+only packet sizes and packet interarrival time of IP traffic which are
+plementary efforts; our work is a systematic application of GANs
+building on their success in other domains.
+data, using IP2vec, encoding packets as images, ignoring temporal
+Share uses a timeseries GAN like DoppelGANger [39] as a building
+block, it does not tackle the specific fidelity, scalability, and privacy
+challenges that arise in the context f of header traces. GANs can
+also be used to augment imbalanced datasets in intrusion detection
+[20, 42, 55, 76]. While NetShare can be extended to these settings,
+this is outside our scope.
+Other generative models The success of GANs has also inspired a
+ation such as Denoising Diffusion Probabilistic Models [33, 65] and
+tradeoffs are less well understood. Applying them to the networking
+domain is an interesting direction for future work.
+DISCUSSION AND FUTURE WORK
+eration, it is only a starting point. We conclude with limitations and
+directions for further research.
+for future work.
+architecture does not currently support stateful protocols, and is
+unlikely to naturally learn stateful generation. We hypothesize that
+direction for future work.
+ing to header traces, our scope of downstream tasks is admittedly
+limited. A natural next step is to evaluate the utility in a broader
+traces, and so on. Looking forward, we also envision new uses for
+tation or serving as a toolkit for data holders to contribute to public
+Payload data. NetShare does not currently generate payloads,
+in this work. We expect that realistic payload generation would be
+challenging, and require different techniques; e.g., it may be possible
+Measuring overfitting. In the image domain, overfitted generative
+models are evaluated by looking for duplicates in the synthetic and
+training data [13]. In our domain, this metric does not apply: a model
+may memorize some fields without memorizing others, and it is
+unclear how to measure packet closeness since fields have different
+units. Our preliminary analysis by measuring the ratio of overlap
+principled way to measure overfitting in the networking domain is
+an important question for future work.
+EthicalConsiderations. WeevaluatedNetShareonpublicdatasets
+for reproducibility; this does not raise ethical concerns. In general,
+systems like NetShare should be used with care to ensure that the
+ative models can memorize and leak individual records [68]. While
+aggregate properties of interest. Thus, actual use of such tools must
+also take into account data holder’s privacy expectations.
+ACKNOWLEDGMENTS
+COMM reviewers for their insightful feedback on the paper. We
+thank Haonan Wang for the help with earlier versions of NetShare.
+This work was supported in part by the National Science Foundation
+grant 2148359. The authors also acknowledge the generous support
+of the Sloan Foundation, Intel, Siemens, Bosch, J.P. Morgan Chase,
+and Cisco.
+REFERENCES
+[1] [n. d.].
+The CAIDA UCSD Anonymized Internet Traces.
+[3] [n. d.]. A Community Resource for Archiving Wireless Data At Dartmouth.
+[8] [n. d.].
+RUDE&CRUDE.
+Accessed on Feb. 1, 2022.
+[11] Martin Abadi, Andy Chu, Ian Goodfellow, H Brendan McMahan, Ilya Mironov,
+Kunal Talwar, and Li Zhang. 2016. Deep learning with differential privacy. In
+Proceedings of the 2016 ACM SIGSAC conference on computer and communications
+security. 308–318.
+[12] Martin Arjovsky, Soumith Chintala, and Léon Bottou. 2017.
+Wasserstein
+generative adversarial networks. In International conference on machine learning.
+PMLR, 214–223.
+[13] Sanjeev Arora and Yi Zhang. 2017. Do gans actually learn the distribution? an
+[14] Yogesh Balaji, Mohammadmahdi Sajedi, Neha Mukund Kalibhat, Mucong Ding,
+Dominik Stöger, Mahdi Soltanolkotabi, and Soheil Feizi. 2021. Understanding
+overparameterization in generative adversarial networks.
+arXiv preprint
+[15] Raef Bassily, Albert Cheu, Shay Moran, Aleksandar Nikolov, Jonathan Ullman,
+and Steven Wu. 2020. Private query release assisted by public data. In International
+Conference on Machine Learning. PMLR, 695–703.
+[16] Theophilus Benson, Aditya Akella, and David A Maltz. 2010. Network traffic
+characteristics of data centers in the wild. In Proceedings of the 10th ACM
+SIGCOMM conference on Internet measurement. 267–280.
+[17] Tom B Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan,
+Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda
+Askell, et al. 2020.
+arXiv preprint
+[18] Nicholas Carlini, Chang Liu, Úlfar Erlingsson, Jernej Kos, and Dawn Song. 2019.
+The secret sharer: Evaluating and testing unintended memorization in neural
+items in data streams. In International Colloquium on Automata, Languages, and
+Programming. Springer, 693–703.
+[20] Jeremy Charlier, Aman Singh, Gaston Ormazabal, Radu State, and Henning
+Schulzrinne. 2019. SynGAN: Towards generating synthetic network attacks using
+adversarial networks. In 2019 IEEE 10th Annual Information Technology, Electronics
+[22] Graham Cormode and Shan Muthukrishnan. 2005. An improved data stream
+[23] Baik Dowoo, Yujin Jung, and Changhee Choi. 2019. PcapGAN: Packet capture
+1149–1154.
+[24] Dmitry Duplyakin, Robert Ricci, Aleksander Maricq, Gary Wong, Jonathon
+Duerig, Eric Eide, Leigh Stoller, Mike Hibler, David Johnson, Kirk Webb, Aditya
+Akella, Kuangching Wang, Glenn Ricart, Larry Landweber, Chip Elliott, Michael
+Zink, Emmanuel Cecchet, Snigdhaswin Kar, and Prabodh Mishra. 2019. The
+Design and Operation of CloudLab. In Proceedings of the USENIX Annual Technical
+[25] Cynthia Dwork, Aaron Roth, et al. 2014.
+The algorithmic foundations of
+[27] Ian Goodfellow. 2016. Nips 2016 tutorial: Generative adversarial networks. arXiv
+Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014. Generative Adversarial
+[29] Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and
+Aaron Courville. 2017. Improved training of wasserstein gans. arXiv preprint
+network correlation for advanced monitoring and intrusion detection. In IFIP
+International Conference on ICT Systems Security and Privacy Protection. Springer,
+[31] Luchao Han, Yiqiang Sheng, and Xuewen Zeng. 2019.
+[32] J Hayes, L Melis, G Danezis, and E De Cristofaro. 2019. LOGAN: Membership
+Inference Attacks Against Generative Models. In Proceedings on Privacy Enhancing
+[33] Jonathan Ho, Ajay Jain, and Pieter Abbeel. 2020. Denoising diffusion probabilistic
+[34] Jordan Holland, Paul Schmitt, Nick Feamster, and Prateek Mittal. 2020. New
+Zhang. 2017. Sketchvisor: Robust network measurement for software packet
+processing. In Proceedings of the Conference of the ACM Special Interest Group on
+Data Communication. 113–126.
+[36] Tero Karras, Samuli Laine, and Timo Aila. 2019.
+Conference on Computer Vision and Pattern Recognition. 4401–4410.
+[37] TeroKarras,SamuliLaine,MiikaAittala,JanneHellsten,JaakkoLehtinen,andTimo
+Aila. 2020. Analyzing and improving the image quality of stylegan. In Proceedings
+[38] Alexey Kurakin, Steve Chien, Shuang Song, Roxana Geambasu, Andreas Terzis,
+and Abhradeep Thakurta. 2022.
+Toward Training at ImageNet Scale with
+[39] Zinan Lin, Alankar Jain, Chen Wang, Giulia Fanti, and Vyas Sekar. 2020. Using
+GANs for Sharing Networked Time Series Data: Challenges, Initial Promise, and
+Open Questions. In Proceedings of the ACM Internet Measurement Conference.
+[40] Zinan Lin, Ashish Khetan, Giulia Fanti, and Sewoong Oh. 2018. Pacgan: The
+power of two samples in generative adversarial networks. Advances in neural
+[41] Zinan Lin, Vyas Sekar, and Giulia Fanti. 2021.
+On the Privacy Properties of
+[42] Zilong Lin, Yong Shi, and Zhi Xue. 2018. Idsgan: Generative adversarial networks
+for attack generation against intrusion detection. arXiv preprint arXiv:1809.02077
+wei Steven Wu. 2021. Leveraging Public Data for Practical Private Query Release.
+monitoring in software switches. In Proceedings of the ACM Special Interest Group
+on Data Communication. 334–350.
+[45] Zaoxing Liu, Antonis Manousis, Gregory Vorsanger, Vyas Sekar, and Vladimir
+Braverman.2016. Onesketchtorulethemall:Rethinkingnetworkflowmonitoring
+with univmon. In Proceedings of the 2016 ACM SIGCOMM Conference. 101–114.
+[46] Zaoxing Liu, Hun Namkung, Georgios Nikolaidis, Jeongkeun Lee, Changhoon
+Kim, Xin Jin, Vladimir Braverman, Minlan Yu, and Vyas Sekar. 2021. Jaqen:
+volumetric ddos attacks with programmable switches. In 30th {USENIX} Security
+Teodoro, and Roberto Therón. 2018. UGR ‘16: A new dataset for the evaluation of
+[50] Meisam Mohammady, Lingyu Wang, Yuan Hong, Habib Louafi, Makan Pourzandi,
+and Mourad Debbabi. 2018. Preserving Both Privacy and Utility in Network Trace
+security systems at the edge: Network TON_IoT datasets. Sustainable Cities and
+[53] Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever. 2018.
+[54] Hasan Redžović, Aleksandra Smiljanić, and Milan Bjelica. [n. d.]. IP Traffic
+malware communication to avoid detection. In 2018 IEEE Security and Privacy
+[56] Markus Ring, Alexander Dallmann, Dieter Landes, and Andreas Hotho. 2017.
+Ip2vec: Learning similarities between ip addresses. In 2017 IEEE International
+network traffic generation using generative adversarial networks. Computers
+[58] Markus Ring, Sarah Wunderlich, Dominik Grüdl, Dieter Landes, and Andreas
+[59] Markus Ring, Sarah Wunderlich, Dominik Grüdl, Dieter Landes, and Andreas
+Hotho. 2017.
+Proceedings of the 16th European Conference on Cyber Warfare and Security
+[60] Chloé Rolland, Julien Ridoux, and Bruno Baynat. 2007. LiTGen, a lightweight
+traffic generator: application to P2P and mail wireless traffic. In International
+Conference on Passive and Active Network Measurement. Springer, 52–62.
+[61] Arjun Roy, Hongyi Zeng, Jasmeet Bagga, George Porter, and Alex C Snoeren.
+ACM Conference on Special Interest Group on Data Communication. 123–137.
+[62] Matthew N. O. Sadiku and Sarhan M. Musa. 2013.
+Network Traffic.
+Springer International Publishing, Cham, 251–265.
+nata Teixeira, and Nick Feamster. 2020.
+Inferring Streaming Video
+perience. In ACM SIGMETRICS, Vol. 3. Boston, Massachusetts, 1–25.
+[64] Md Hasan Shahriar, Nur Imtiazul Haque, Mohammad Ashiqur Rahman, and
+detection system. In 2020 IEEE 44th Annual Computers, Software, and Applications
+2015. Deep unsupervised learning using nonequilibrium thermodynamics. In
+International Conference on Machine Learning. PMLR, 2256–2265.
+Traffic Generator for Router and Network Tests. SIGMETRICS Perform. Eval. Rev.
+[67] Yang Song and Stefano Ermon. 2019. Generative modeling by estimating gradients
+[68] Theresa Stadler, Bristena Oprisanu, and Carmela Troncoso. 2021. Synthetic
+[69] Giuseppe Vietri, Grace Tian, Mark Bun, Thomas Steinke, and Steven Wu. 2020.
+Conference on Machine Learning. PMLR, 9765–9774.
+[70] Kashi Venkatesh Vishwanath and Amin Vahdat. 2009.
+Swing: Realistic and
+[71] Pan Wang, Shuhang Li, Feng Ye, Zixuan Wang, and Moxuan Zhang. 2020.
+PacketCGAN: Exploratory study of class imbalance for encrypted traffic
+2019. Modeling tabular data using conditional gan. arXiv preprint arXiv:1907.00503
+[75] Shengzhe Xu, Manish Marwah, and Naren Ramakrishnan. 2020. STAN: Synthetic
+Network Traffic Generation using Autoregressive Neural Models. arXiv preprint
+[76] Junhua Yan and Jasleen Kaur. 2018. Feature Selection for Website Fingerprinting.
+[77] Kun Yang, Samory Kpotufe, and Nick Feamster. 2020. A Comparative Study
+of Network Traffic Representations for Novelty Detection.
+arXiv preprint
+[78] Tong Yang, Jie Jiang, Peng Liu, Qun Huang, Junzhi Gong, Yang Zhou, Rui
+Miao, Xiaoming Li, and Steve Uhlig. 2018. Elastic sketch: Adaptive and fast
+Special Interest Group on Data Communication. 561–575.
+[79] Chuanlong Yin, Yuefei Zhu, Shengli Liu, Jinlong Fei, and Hetong Zhang. 2018. An
+enhancing framework for botnet detection using generative adversarial networks.
+IEEE, 228–234.
+[81] Jason Yosinski, Jeff Clune, Yoshua Bengio, and Hod Lipson. 2014. How transferable
+[82] Da Yu, Saurabh Naik, Arturs Backurs, Sivakanth Gopi, Huseyin A Inan, Gautam
+Kamath, Janardhan Kulkarni, Yin Tat Lee, Andre Manoel, Lukas Wutschitz,
+[83] Sebastian Zander, David Kennedy, and Grenville Armitage. 2005. Kute a high
+[84] Zhikun Zhang, Tianhao Wang, Ninghui Li, Jean Honorio, Michael Backes, Shibo
+He, Jiming Chen, and Yang Zhang. 2021. Privsyn: Differentially private data
+ADDITIONAL FIDELITY RESULTS
+JS divergence
+Normalized EMD
+JS divergence
+Normalized EMD
+NetFlow distributions.
+JS divergence
+PacketCGAN
+Normalized EMD
+PacketCGAN
+JS divergence
+PacketCGAN
+Normalized EMD
+PacketCGAN
+PCAP distributions.
+gence between real and synthetic datasets that are not shown in §6:
+TRACE GENERATION
+We also want the packet traces to satisfy key correctness conditions
+[57, 75] to be valid packet headers. Specifically,
+• Test 1: Validity of IP address. Source IP address should not
+Table 6: Netflow consistency check on UGR16: NetShare can
+Table 7: PCAP consistency check on CAIDA: NetShare can
+generate protocol and domain knowledge complaint data.
+PacketCGAN
+form 0.xxx.xxx.xxx.
+• Test 3: Relationship between port number and protocol.
+needs to comply with that.
+a TCP packet, the minimum size is 40 bytes, while for a UDP
+packet, the minimum size is 28 bytes.
+Table 6 and Table 7 shows the correctness check results on UGR16
+lines. Though NetShare does not achieve the highest correctness on
+lines that occasionally achieve high correctness do not exhibit good
+performance in terms of distributional metrics, downstream tasks,
+which significantly degrades the usefulness of the synthetic datasets
+generated by baselines.
+IMPLEMENTATION DETAILS OF NETSHARE
+with the following configurations:
+• Auxiliary discriminator is enabled.
+• [0,1] normalization for the continuous fields.
+• Packing [40] is not used as it empirically does not help improve
+the fidelity in our context.
+• The architecture and the loss function remain the same as
+DoppelGANger

@@ -1,0 +1,47 @@
+
+SDK Installation
+
+
+Requirements
+
+- The Rockfish platform works with Python >=3.9. For information on installation of Python or upgrading the version, refer to the official docs .
+The Rockfish platform works with Python >=3.9. For information on installation of Python or upgrading the version, refer to the official docs .
+- The Rockfish SDK will work with any Python development environment. We recommend that you use a virtual environment manager when using our platform. The Rockfish SDK has been tested using Pythonâs officially supported virtual environment manager venv and the conda package manager .
+The Rockfish SDK will work with any Python development environment. We recommend that you use a virtual environment manager when using our platform. The Rockfish SDK has been tested using Pythonâs officially supported virtual environment manager venv and the conda package manager .
+- For convenience, you can also use Jupyter notebooks. For more information on installation and usage of Jupyter Notebooks please see the documentation here . Best practices using Jupyter notebooks with virtual environment management tools can be found here .
+For convenience, you can also use Jupyter notebooks. For more information on installation and usage of Jupyter Notebooks please see the documentation here . Best practices using Jupyter notebooks with virtual environment management tools can be found here .
+
+Setup
+
+We recommend using Python >=3.9 to run the Rockfish SDK. This section assumes you are using pip , venv , and macOS/Linux.
+Create a fresh virtual environment and activate it:
+
+$ python -m venv rf-venv
+$ source rf-venv/bin/activate
+
+Note: You can replace rf-venv here with the virtual environment name of your choice.
+Ensure you have the latest version of pip :
+
+$ python -m pip install --upgrade pip
+
+Install the latest version of the Rockfish SDK using pip :
+
+$ pip install -U 'rockfish[labs]' -f 'https://packages.rockfish.ai'
+
+
+Verification
+
+To check that the Rockfish SDK is installed correctly, you can use one of the following:
+
+$ python -c "import rockfish; print(rockfish.product_version)" $ python -m pip show rockfish
+
+
+Troubleshooting
+
+If you need assistance, please reach out to support@rockfish.ai and we can help you to get started. We would be happy to help you with any question on prerequisites, or issue with supported versions.
+
+What's Next?
+
+Now that you are done installing the Rockfish SDK, you can:
+- Follow the tutorial to set up the Rockfish platform in your pipeline .
+- Go through the Use Case Tutorials to see how Rockfish can meet your business requirements.

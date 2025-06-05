@@ -1,0 +1,30 @@
+For years, Vyas Sekar would call up Muckai Girish, an old friend from undergrad, to talk through potential startup ideas and get Girish’s opinion. The two usually talked through an idea and ended the conversation at that. When Sekar called Girish with an idea involving synthetic data in early 2022, the conversation didn’t just end when they hung up the phone.
+Sekar and fellow Carnegie Mellon University colleague Giulia Fanti had been working on building synthetic data to fix the reproducibility crisis, or inability to reproduce data, within academia. While Sekar was seeing the need for a solution in academia, Girish knew his customers at the time were facing the same problem. After talking to a few enterprises, the thesis was further validated.
+“At that time, it felt that this was very real and there was an opportunity,” Girish, CEO, told TechCrunch. “So that’s what got us started and over the next couple of months we spoke to some investors, people we knew, and more importantly enterprises, and realized this was a significant problem and it is worth putting, you know, an entire life behind it.”
+The result was Rockfish, a startup that uses generative AI to create synthetic data for operational workflows to help enterprises break down their data silos. Rockfish integrates with database providers including AWS and Azure, among others, and helps users choose the best configuration for their data based on company policies or uses for the data.
+Synthetic data has increasingly become a hot topic in the world of AI, but there was already growing momentum for it when the company got started in June 2022. Girish said that Rockfish wanted to make sure that it was building a product that was differentiated from its peers and also a solution enterprises would be using daily, not just every once in a while.
+That’s why the company’s product is designed to ingest data constantly and is focused on operational data, which includes data on things like financial transactions, cybersecurity, and supply chains. These areas are constantly producing data for companies and are also constantly changing. Girish thinks focusing here helps Rockfish stand apart from other competitors.
+Now the company works with a handful of enterprise clients, Girish said, including streaming analytics platform Conviva, in addition to government departments including the U.S. Army and the U.S. Department of Defense.
+
+Save now through June 4 for TechCrunch Sessions: AI
+
+
+Save $300 on your ticket to TC Sessions: AI—and get 50% off a second. Hear from leaders at OpenAI, Anthropic, Khosla Ventures, and more during a full day of expert insights, hands-on workshops, and high-impact networking. These low-rate deals disappear when the doors open on June 5.
+
+
+Exhibit at TechCrunch Sessions: AI
+
+
+Secure your spot at TC Sessions: AI and show 1,200+ decision-makers what you’ve built — without the big spend. Available through May 9 or while tables last.
+
+Rockfish is announcing a $4 million seed round led by Emergent Ventures, with participation from Foster Ventures, TEN13, and Dallas VC, among others. This brings the company’s total funding up to about $6 million.
+Anupam Rastogi, a managing partner at Emergent Ventures, told TechCrunch that he had been tracking Sekar long before the founding of Rockfish. He said that what caused the firm to invest was “team, market, and product, in that order.” Plus, Rockfish’s focus on building for enterprises made it a better fit for Emergent than some of the other players in the space.
+“The team is super high-quality data scientists, multiple PhDs,” Rastogi said. “This is a space that we think is very technically sophisticated and having that technical strength around the table is really critical. They have done a lot of the foundational work in the space, not just in the company, but the whole industry.”
+While Rockfish hopes its focus helps give it a moat amongst competitors, it doesn’t change the fact that synthetic data will likely be an increasingly crowded market. AI companies are turning toward synthetic data as multiple players think the market has exhausted other AI training data .
+There are already numerous startups looking to tackle the market, including Tonic AI , which has raised more than $45 million in venture funding; Mostly AI , which has raised $31 million in VC funding; and Hazy , which raised $14.5 million before being acquired by SAS in 2024, just to name a few.
+Girish said the company looks to add on to its approach to synthetic data by incorporating other types of models like state space models, mathematical models that use state variables. The company also looks to improve its end-to-end features.
+“It’s not like you take random data for the internet and generate synthetic data,” Girish said. “There is no guarantee that it’ll do well. But if you put all of this together for enterprises, it actually is very relevant and realistic. So that’s the key to this, and then being able to do that on a constant basis is what we find to be useful.”
+TechCrunch has an AI-focused newsletter! Sign up here to get it in your inbox every Wednesday.
+Topics
+Senior Reporter, Venture
+Think you know AI? Prove it. With the countdown to TC Sessions: AI underway, it’s your chance to flex your AI knowledge—and score 2 tickets for the price of 1. Answer a few quick AI trivia questions to start your challenge. Special trivia deal ends June 4.

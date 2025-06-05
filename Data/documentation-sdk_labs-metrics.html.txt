@@ -1,0 +1,186 @@
+
+rockfish.labs.metrics
+
+
+metrics
+
+
+Classes
+
+
+Functions
+
+
+pearsonr(dataset:LocalDataset,x:str,y:str)->LocalDataset
+
+Returns a new table containing two fields: statistic and pvalue.  The
+statistic field will have one value with the Pearson product-moment
+correlation coefficient and the pvalue field will have the p-value between
+the fields.
+See :func: scipy.stats.pearsonr .
+Parameters:
+Input dataset.
+Field containing x data.
+Field containing y data.
+
+cramer_v(dataset:LocalDataset,x:str,y:str,correction:bool=True)->float
+
+Compute the Cramer's V for two categorical columns.
+Best at 1, worst at 0.
+Parameters:
+Input dataset.
+Field containing x data.
+Field containing y data.
+Apply bias correction to Cramer's V. Default is True.
+
+ks_distance(ds1:LocalDataset,ds2:LocalDataset,field:str)->float
+
+Computes the Kolmogorov-Smirnov distance between two numerical fields.
+See :func: scipy.stats.ks_2samp .
+Parameters:
+Input dataset 1.
+Input dataset 2.
+Field to compute the distance for.
+
+tv_distance(ds1:LocalDataset,ds2:LocalDataset,field:str)->float
+
+Computes the total variation distance between two categorical fields.
+Parameters:
+Input dataset 1.
+Input dataset 2.
+Field to compute the distance for.
+
+category_coverage(ds1:LocalDataset,ds2:LocalDataset,field:str)->float
+
+Compare the category coverage of two categorical columns.
+Returns: score value
+Score range: 0-1 (best = 1, worst = 0)
+Parameters:
+Input dataset 1.
+Input dataset 2.
+Field to compute.
+
+range_coverage(ds1:LocalDataset,ds2:LocalDataset,field:str)->float
+
+Compare the range coverage of two numerical columns.
+Returns: score value
+Score range: 0-1 (best = 1, worst = 0)
+Parameters:
+Input dataset 1.
+Input dataset 2.
+Field to compute.
+
+jsd(ds1:LocalDataset,ds2:LocalDataset,fields:list[str])->float
+
+Compute the Jensen-Shannon distance (metric) between two categorical distributions. This is the square root of the Jensen-Shannon divergence.
+Returns: score value
+Score range: 0 - 1 (best = 0, worst = 1)
+Parameters:
+Input dataset 1.
+Input dataset 2.
+A list of field(s). (can be a list 1 field or multiple fields)
+
+emd(ds1:LocalDataset,ds2:LocalDataset,fields:list[str])->float
+
+Compute the Wasserstein distance(aka Earth Mover's distance) between two numerical distributions.
+Returns: score value
+Score range: 0 - positive infinity (best = 0, worst = positive infinity)
+For 1D arrays, use scipy.stats.wasserstein_distance().
+For higher dimensional (>=2) arrays, use GeomLoss library for approximation.
+Parameters:
+Input dataset 1.
+Input dataset 2.
+A list of field(s). (can be a list 1 field or multiple fields)
+
+marginal_dist_score(dataset:LocalDataset,syn:LocalDataset,metadata:list[str]=[],other_categorical:list[str]=[],weights:dict[str,float]={})->float
+
+Return the weighted fidelity score of the synthetic dataset compared to the real dataset.
+Range: 0-1 (best = 1, worst = 0)
+Parameters:
+Real dataset
+Synthetic dataset
+[Opitional]List of metadata fields for timeseries dataset
+[Opitional]List of other categorical fields
+[Opitional]Define weights for fields. If not provided, by default all weights are 1.
+
+distance_to_closest_record_score(train_dataset:rf.dataset.LocalDataset,test_dataset:rf.dataset.LocalDataset,syn:rf.dataset.LocalDataset,subset_length:Optional[int]=None,subset_seed:Optional[int]=None,transform:Optional[Literal['sigmoid']]=None)->float
+
+Returns a Distance to Closest Record (DCR) score.
+A DCR score measures the similarity between the DCR distributions b/w the
+two dataset pairs - (train, synthetic) and (train, test). The more similar
+DCR distributions are, the more "private" the synthetic data.
+A DCR distribution is obtained as follows:
+For each record in the synthetic (resp, test) dataset, store the Gower
+distance to the closest record in the train dataset.
+The DCR score is the ratio between the medians of the two DCR
+distributions.
+Range for score: 0 - positive infinity (worst = 0, best >= 1)
+Interpreting the score using a Likert scale for quality (also helpful for
+visualization):
+1. Low: [0 - 0.75)
+2. Medium: [0.75 - 1.0)
+3. High: [1.0, positive infinity)
+If the modified sigmoid function is used, the above ranges are transformed
+to:
+1. Low: [0 - 0.36)
+2. Medium: [0.36 - 0.46)
+3. High: [0.46, 1.0)
+Parameters:
+Real dataset used to train the synthetic data generator.
+Dataset from the same distribution as the train_dataset.
+Synthetic dataset.
+(optional) Number of rows that should be randomly sampled from the three datasets when the DCR score is to be computed on subsets instead of the full datasets.
+(optional) Seed for taking random samples from datasets.
+(optional) Transform the DCR score using a modified sigmoid function.
+
+correlation_score(dataset:rf.dataset.LocalDataset,syn:rf.dataset.LocalDataset,fields:list[str])->float
+
+Returns correlation score between the real and synthetic on the selected fields.
+It considers the difference from real and synthetic values for pearson correlations on the pairwise fields.
+Score range between 0 and 1 (best = 1, worst = 0)
+Parameters:
+Real dataset.
+Synthetic dataset.
+List of continuous numerical fields to compute the correlation score for.
+
+association_score(dataset:rf.dataset.LocalDataset,syn:rf.dataset.LocalDataset,fields:list[str],correction:bool=False)->float
+
+Returns association score between the real and synthetic datasets on the selected fields.
+It considers the difference from real and synthetic values for the Cramer's V associations on the pairwise fields.
+Score range between 0 and 1 (best = 1, worst = 0)
+Parameters:
+Real dataset.
+Synthetic dataset.
+List of categorical fields to compute the association score for.
+Apply bias correction to Cramer's V. Default is False.
+
+memorization_rate(dataset:LocalDataset,syn:LocalDataset)->float
+
+Returns the memorization rate for synthetic data.
+It evaluates on the tabular datasets and measure how much the synthetic dataset has memorized
+from the real dataset.
+Rate range: 0 - 1 (0 means no memorization, 1 means full memorization)
+Parameters:
+Real dataset.
+Synthetic dataset.
+
+range_adherence_score(dataset:LocalDataset,syn:LocalDataset,fields:list[str])
+
+Returns the range adherence score for synthetic data.
+It supports the evaluation of numerical fields as well as temporal fields
+and measures the average adherence level of synthetic fields to the range
+of the real fields.
+Score range: 0 - 1 (worst = 0, best = 1) - 0 means no adherence - 1 means
+full adherence
+Parameters:
+Real dataset.
+Synthetic dataset.
+List of numerical fields.
+
+txtr_score(real:float,syn:float,lower:float=0.5)->float
+
+Calculates the TXTR score.
+Parameters:
+The AUC value of the classifier trained on the real data.
+The AUC value of the classifier trained on the synthetic data.
+The lower reference value of the score.

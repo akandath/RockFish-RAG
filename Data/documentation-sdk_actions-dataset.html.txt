@@ -1,0 +1,24 @@
+
+rockfish.actions.dataset
+
+
+Classes
+
+
+LoadConfigdataclass
+
+Configuration class for DatasetLoad action.
+Attributes:
+Dataset ID to load.
+If True split dataset into multiple tables if larger than the chunk_row_limit .
+Maximum number of rows in a chunk.
+
+SaveConfigdataclass
+
+Configuration class for the DatasetSave action.
+A link to the Dataset is emitted.
+Attributes:
+Name for the new Dataset.
+If True, concatenate all tables into one dataset.
+If set, it will override the schema_metada and treat this field as a session key for concatenation.
+Additional labels to add to the Dataset.

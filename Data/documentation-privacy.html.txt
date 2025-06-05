@@ -1,0 +1,66 @@
+
+Privacy
+
+
+Privacy
+
+Safeguarding privacy while sharing data is crucial. To enable data sharing safely to that end Rockfish provides several features to protect the sensitive data while maintaiing its utility for analysis, model training, and sharing. Rockfish Privacy features ensures that the data workflows remain compliant, secure, and trustworthy.
+
+Modular Secure Architecture
+
+Rockfish platform's modular architecture is purposefully designed with separate, streamlined modules for data onboarding, model training, and data generation. It allows different personas to handle onboarding and generation separately, enhancing security, operational efficiency, and data privacy. For instance, data engineers ensure proper onboarding and privacy safeguards using the onboarding modile, while data scientists can focus on creating high-quality synthetic data for specific use cases using the Generation module.
+Now, lets take a look at the privacy features:
+
+Remapping
+
+Remapping refers to the process of transforming or resturcting a dataset, while maintaining logical consistency. 
+Use the remap functionality if your dataset contains sensitive information that you prefer not to include during training or while sharing.
+Rockfish supports default as well as custom remap options for several Personally Identifiable Information (PII) fields like age, credit card numbers, dates, email addresses, IP addresses, names, phone numbers, and social security numbers.
+With remap you can:
+- Mask the first few characters of every value in a field.
+- Bucket specific values in a field into more general categories.
+- Replace all values in a field with randomly generated fake ones.
+For more details on default and customizable options follow:
+- default remap functions
+- customizable remap functions
+Please also refer to an E2E example for remapping sensitive data:
+
+Default Remap Functions
+
+To use a default remap function, add the following action to your Rockfish Workflow:
+
+remap_action = ra . Transform ({ "function" : { "remap" : [ "<REMAP_TYPE>" , "<FIELD_NAME_TO_REMAP>" , None ]} })
+
+Please refer to the table below for more details on default remap functions.
+
+Custom Remap Functions
+
+To use a custom remap function, add the following action to your Rockfish Workflow:
+
+options = {} # see below for options for each remap_type remap_action = ra . Transform ({ "function" : { "remap" : [ "<REMAP_TYPE>" , "<FIELD_NAME_TO_REMAP>" , options ]} })
+
+Please refer to the table below for more details on customizing the default remap functions.
+In addition to customizing the default remap functions, we offer masking, redacting, and the ability to build custom remap functions (e.g., remap using custom bins or dictionaries).
+
+Privacy Evaluation
+
+Evaluating privacy metrics is critical because it ensures that the synthetic data closely resembles real data wihtout exposing sensitive individual records. 
+By assessing the risk of re-identification and ensuring the synthetic data maintains privacy while remaining useful, organizations can confidently share and use data without violating privacy regulations or compromising personal information.
+With the privacy metrics you can evaluate:
+- How similar are rows in the synthetic dataset w.r.t. to rows in the source dataset?
+- Given access to the synthetic dataset, how likely is it for an adversary to re-identify individuals in the source dataset?
+
+Privacy Metric: Distance to Closest Record
+
+The Distance to Closest Record (DCR) score quantifies privacy risk by checking how similar records in the synthetic 
+dataset are w.r.t. the source dataset.
+It does so by measuring the similarity between the DCR distributions between the two dataset pairs - (source, synthetic) 
+and (source, test). The more similar these two DCR distributions are, the more "private" the synthetic data.
+Note that the test dataset should be sampled from the same distribution as the source dataset, and should not be used to 
+train your synthetic data generator.
+The DCR score is a value between 0 and positive infinity. It can be interpreted using the following Likert scale for 
+quality:
+- Low: [0 - 0.75)
+- Medium: [0.75 - 1.0)
+- High: [1.0, positive infinity)
+View example

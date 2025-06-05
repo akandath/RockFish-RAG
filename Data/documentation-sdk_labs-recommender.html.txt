@@ -1,0 +1,29 @@
+
+rockfish.labs.recommender
+
+
+Recommender
+
+A recommendation engine.
+
+Functions
+
+
+from_dataset(dataset:LocalDataset,col_resembles_timestamps:str=None,dependent_fields:list[str]=None,session_key:str=None,keep_session_keys:bool=False,metadata:list[str]=None,other_categorical:list[str]=None,training_cost:TrainingCostValue=TrainingCostValue.LOW,model:ModelType=ModelType.UNSPECIFIED,run_pii_detection:bool=True)classmethod
+
+Initializes from a dataset.
+Parameters:
+Dataset.
+Name of the column that resembles timestamps.
+Fields with complete association/dependency.
+Name of column used as the session key.
+Whether to keep the session keys after generation.
+Metadata fields for sessions.  Must be categorical.
+Categorical measurement fields.
+Training cost requirement.
+Model/architecture to be used.
+Whether to run PII detection or skip it.
+
+recommendations()->Recommendation
+
+Returns the recommendations.

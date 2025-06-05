@@ -1,0 +1,151 @@
+
+Overview
+
+
+Fidelity Evaluation
+
+To use the generated data to solve your use case you want to make sure that the
+generated data captures the statistical properties of the real data, this is
+known as synthetic data Fidelity.
+Note
+Please ensure to import the
+  following libraries in order to evaluate the datasets import rockfish as rf import rockfish.labs as rl
+
+import rockfish as rf import rockfish.labs as rl
+
+
+Overall Fidelity Score
+
+This is a weighted averaged score, calculated based on the marginal
+distribution between source data and synthetic data.
+In terms of calculation and metric involved,
+- Categorical fields, we use Total Variation distance
+- Continuous fields, we use Kolmogorov-Smirnov distance
+- Default Weights = 1, users can update weights to obtain the corresponding score.
+- Score Range: Between 0 and 1, 1 being the best.
+To apply the API, Please refer to rockfish.labs.metrics.marginal_dist_score for details.
+
+Mechanisms Across Different Perspectives
+
+Rockfish also provides different mechanisms on
+different perspective.
+Pre-requisite For Timeseries Dataset Evaluation
+Having metadata fields or session key to define sessions is compulsory for
+  session-related evaluation (such as Session length measurement, Interarrival
+  time measurement, Transitions measurement).
+
+# need to specify the metadata fields or session key and add that schema to each dataset to help compute session_related evaluation table_metadata = rf . TableMetadata ( metadata = [ "<metadata fields or session_key>" ]) ts_data = ts_data . with_table_metadata ( table_metadata ) ts_syn = ts_syn . with_table_metadata ()
+
+Session length refers to the number of records per session. Please follow the above pre-requisite to evaluate.
+To visualize the distribution
+# compute session_length source_sess = rf . metrics . session_length ( ts_data ) syn_sess = rf . metrics . session_length ( ts_syn ) # "session_length" is a fixed name from the computed datasets rl . vis . plot_kde ([ source_sess , syn_sess ], "session_length" ); To compute the similarity of distribution,  you can use Kolmogorov-Smirnov distance . rl . metrics . ks_distance ( source_sess , syn_sess , "session_length" )
+
+# compute session_length source_sess = rf . metrics . session_length ( ts_data ) syn_sess = rf . metrics . session_length ( ts_syn ) # "session_length" is a fixed name from the computed datasets rl . vis . plot_kde ([ source_sess , syn_sess ], "session_length" );
+
+
+rl . metrics . ks_distance ( source_sess , syn_sess , "session_length" )
+
+Interarrival time is the difference between consecutive timestamps within a
+  session. Please follow the above pre-requisite to evaluate.
+To visualize the distribution # compute interarrival time timestamp_field = "<timestamp_field>" source_interarrival = rf . metrics . interarrivals ( ts_data , timestamp_field ) syn_interarrival = rf . metrics . interarrivals ( ts_syn , timestamp_field ) # "interarrival" is a fixed name from the computed datasets rl . vis . plot_kde ( [ source_interarrival , syn_interarrival ], "interarrival" , duration_unit = "s" ); To compute the similarity of distribution,  you can use Kolmogorov-Smirnov distance . rl . metrics . ks_distance ( source_interarrival , syn_interarrival , "interarrival" )
+
+# compute interarrival time timestamp_field = "<timestamp_field>" source_interarrival = rf . metrics . interarrivals ( ts_data , timestamp_field ) syn_interarrival = rf . metrics . interarrivals ( ts_syn , timestamp_field ) # "interarrival" is a fixed name from the computed datasets rl . vis . plot_kde ( [ source_interarrival , syn_interarrival ], "interarrival" , duration_unit = "s" );
+
+
+rl . metrics . ks_distance ( source_interarrival , syn_interarrival , "interarrival" )
+
+Transitions consider all state transitions within sessions. Please follow the above pre-requisite to evaluate.
+There are 3 ways of implementation:
+Let's say there is a dataset with 2 sessions as below. Session 1: A -> B -> B 
+Session 2: A -> B -> B -> C 1.k-gram uncollapsed transitions
+
+Session 1: A -> B -> B 
+Session 2: A -> B -> B -> C
+
+E.g when it is 2-gram, if uncollapsed, it counts all repeated states appearing
+  at the consecutive events Session 1: A -> B, B -> B 
+Session 2: A -> B, B -> B, B -> C 2.k-gram collapsed transitions
+
+Session 1: A -> B, B -> B 
+Session 2: A -> B, B -> B, B -> C
+
+E.g when it is 2-gram, if collapsed, it skips repeated states appearing Session 1: A -> B , B -> B 
+Session 2: A -> B, B -> B, B -> C 3.full collapsed transitions Session 1: A -> B 
+Session 2: A -> B -> C To visualize the transition distribution field_name = "<stateful_field>" transitions_source = rf . metrics . transitions_within_sessions ( dataset , field = field_name ) transitions_syn = rf . metrics . transitions_within_sessions ( syn , field = field_name ) rl . vis . plot_bar ([ transitions_source , transitions_syn ], f " { field_name } _transitions" , orient = "horizontal" );
+
+Session 1: A -> B , B -> B 
+Session 2: A -> B, B -> B, B -> C
+
+
+Session 1: A -> B 
+Session 2: A -> B -> C
+
+
+field_name = "<stateful_field>" transitions_source = rf . metrics . transitions_within_sessions ( dataset , field = field_name ) transitions_syn = rf . metrics . transitions_within_sessions ( syn , field = field_name ) rl . vis . plot_bar ([ transitions_source , transitions_syn ], f " { field_name } _transitions" , orient = "horizontal" );
+
+To compute the similarity of distribution,  you can use Total Variation distance . rl . metrics . tv_distance ( transitions_source , transitions_syn , f " { field_name } _transitions" )
+
+rl . metrics . tv_distance ( transitions_source , transitions_syn , f " { field_name } _transitions" )
+
+For continuous numerical field, we can visualize its distribution via Probablity density function (using KDE) or Histogram . # plot kde rl . vis . plot_kde ([ dataset , syn ], field = "<continuous_field_name>" ); # plot histogram rl . vis . plot_hist ([ dataset , syn ], field = "<continuous_field_name>" ); To compute the similarity of distribution,  we can use Kolmogorov-Smirnov distance . rl . metrics . ks_distance ( dataset , syn , "<continuous_field_name>" )
+
+# plot kde rl . vis . plot_kde ([ dataset , syn ], field = "<continuous_field_name>" ); # plot histogram rl . vis . plot_hist ([ dataset , syn ], field = "<continuous_field_name>" );
+
+
+rl . metrics . ks_distance ( dataset , syn , "<continuous_field_name>" )
+
+For categorical field, we can visualize its distribution via Bar
+  chart . # plot bar rl . vis . plot_bar ([ dataset , syn ], field = "<categorical_field_name>" ); To compute the similarity of distribution,  we can use Total Variation distance . rl . metrics . tv_distance ( dataset , syn , "<categorical_field_name>" )
+
+# plot bar rl . vis . plot_bar ([ dataset , syn ], field = "<categorical_field_name>" );
+
+
+rl . metrics . tv_distance ( dataset , syn , "<categorical_field_name>" )
+
+This measures the pairwise correlation between multiple numerical fields.
+  To visualize the correlation between two numerical fields, we can show the scatter plot rl . vis . plot_correlation ([ dataset , syn ], "<numerical_field1>" , "<numerical_field2>" ) To visualize the correlation betweem more than two numerical fields, we can
+  show the correlation heatmap rl . vis . plot_correlation_heatmap ([ dataset , syn ], [ "<numerical_field1>" , "<numerical_field2>" , ... , "<numerical_field_k>" ])
+
+rl . vis . plot_correlation ([ dataset , syn ], "<numerical_field1>" , "<numerical_field2>" )
+
+
+rl . vis . plot_correlation_heatmap ([ dataset , syn ], [ "<numerical_field1>" , "<numerical_field2>" , ... , "<numerical_field_k>" ])
+
+To compute the score rl . metrics . correlation_score ( data , syn , [ "<numerical_field1>" , "<numerical_field2>" , ... , "<numerical_field_k>" ])
+
+rl . metrics . correlation_score ( data , syn , [ "<numerical_field1>" , "<numerical_field2>" , ... , "<numerical_field_k>" ])
+
+This measures the pairwise associationn between multiple categorical fields.
+To visualize the association betweem more than two numerical fields, we can
+  show the correlation heatmap rl . vis . plot_association_heatmap ([ dataset , syn ], [ "<categorical_field1>" , "<categorical_field2>" , ... , "<categorical_field_k>" ])
+
+rl . vis . plot_association_heatmap ([ dataset , syn ], [ "<categorical_field1>" , "<categorical_field2>" , ... , "<categorical_field_k>" ])
+
+To compute the score rl . metrics . assotication_score ( dataset , syn , [ "<categorical_field1>" , "<categorical_field2>" ... "<categorical_field_k>" ])
+
+rl . metrics . assotication_score ( dataset , syn , [ "<categorical_field1>" , "<categorical_field2>" ... "<categorical_field_k>" ])
+
+View example for timeseries dataset
+View example for tabular dataset
+
+Privacy Metrics
+
+With privacy metrics you can evaluate:
+- How similar are rows in the synthetic dataset w.r.t. to rows in the source dataset?
+- Given access to the synthetic dataset, how likely is it for an adversary to re-identify individuals in the source dataset?
+
+Distance to Closest Record
+
+The Distance to Closest Record (DCR) score quantifies privacy risk by checking how similar records in the synthetic 
+dataset are w.r.t. the source dataset.
+It does so by measuring the similarity between the DCR distributions between the two dataset pairs - (source, synthetic) 
+and (source, test). The more similar these two DCR distributions are, the more "private" the synthetic data.
+Note that the test dataset should be sampled from the same distribution as the source dataset, and should not be used to 
+train your synthetic data generator.
+The DCR score is a value between 0 and positive infinity. It can be interpreted using the following Likert scale for 
+quality:
+- Low: [0 - 0.75)
+- Medium: [0.75 - 1.0)
+- High: [1.0, positive infinity)
+View example
+If there is a specific metric you would like to see in Rockfish, please contact us via support@rockfish.ai

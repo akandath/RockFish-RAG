@@ -1,0 +1,70 @@
+
+Model Store
+
+
+Model Store
+
+The Model Store is a centralized repository where all your trained models are saved, enabling efficient access, management, versioning, and deployment of models. 
+It enables organizations to efficiently access and query all stored models at any time, making it incredibly powerful for generating data on demand.
+- On-Demand Data Generation: User can query models directly from the store to generate fresh, relevant synthetic data whenever itâs needed, supporting agile workflows and rapid iteration without waiting for new model deployments.
+- Centralized, Real-Time Access: By centralizing models in a single repository, our platform provides a unified view, allowing stakeholders to locate and leverage the right model instantly. This means seamless switching between model versions or types, empowering teams to pull data tailored to evolving business needs.
+
+Setting Labels for Models
+
+Labels are key-value pairs that you can attach to models in the Model Store. They help you organize and categorize models, making it easier to search and filter models based on specific criteria.
+
+Adding Labels to a Model
+
+
+model = await model . add_labels ( conn , foo = "bar" )
+
+
+Replacing Labels on a Model
+
+
+model = await model . set_labels ( conn , workflow_id = "59XvuKcM9t5gqRXdIkiZdp" )
+
+
+Querying Models from Model Store
+
+Labels help you efficiently query and select models based on specific criteria such as data source or version, ensuring you're working with the most relevant models.
+
+Filtering by a label:
+
+You can filter models by specifying labels (key-value pairs), where all provided labels must match for a model to be included in the result set. import rockfish as rf conn = rf . Connection . from_env () async for model in conn . models ( labels = { 'foo' : 'bar' }): print ( model ) This will return models that have the label foo=bar.
+
+import rockfish as rf conn = rf . Connection . from_env () async for model in conn . models ( labels = { 'foo' : 'bar' }): print ( model )
+
+
+Filtering by Time:
+
+You can specify time filters using after and before parameters. These can be provided as RFC3339 strings, timezone-aware datetime objects, or relative times (e.g., 6 hours ago).
+
+Filtering by Create time using after and before parameters.
+
+
+async for model in conn . models ( after = '2024-08-20T02:35:30Z' ): print ( model )
+
+
+Filtering using Datetime objects:
+
+
+async for model in conn . models ( after = datetime ( 2024 , 8 , 20 , 2 , 35 , 30 , tzinfo = timezone . utc )): print ( model )
+
+
+Filtering by Relative time:
+
+
+async for model in conn . models ( after = datetime . now ( timezone . utc ) - timedelta ( hours = 6 )): print ( model )
+
+
+Combining Filters
+
+You can combine labels, after, before and specify multiple labels( all labels must match): async for model in conn . models ( labels = { "workflow_id" : "abcd" , "foo" : "bar" }, after = '2024-08-20T02:35:30Z' , before = '2024-08-20T02:45:30Z' ): print ( model )
+
+async for model in conn . models ( labels = { "workflow_id" : "abcd" , "foo" : "bar" }, after = '2024-08-20T02:35:30Z' , before = '2024-08-20T02:45:30Z' ): print ( model )
+
+Generate Synthetic Data: Once you've selected the appropriate models with one of the methods listed above, you can now generate synthetic data tailored to your use case.
+Generation Options: 
+* Conditionally amplify certain scenarios * Generate data that satisfies specific distribution * Use the generated data to train your downstream model
+For more details, refer to Synthetic Data Generation and follow the colab tutorial for reference.

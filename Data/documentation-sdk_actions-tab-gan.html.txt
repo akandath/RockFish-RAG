@@ -1,0 +1,39 @@
+
+rockfish.actions.tab_gan
+
+
+rockfish.actions.tab_gan
+
+
+Classes
+
+
+TrainTabGANConfig
+
+Configuration class for the TrainTabGAN action.
+Attributes:
+Tabular GAN configuration.
+Dataset configuration.
+Additional labels to add to the Model.
+
+TrainConfig
+
+Training configuration.
+Attributes:
+Number of data samples to process in each step.  This value must be even, and it must be divisible by the pac parameter.
+Number of training epochs.
+Number of samples to group together when applying the discriminator.
+This parameter is no longer in effect. Please set clip_in_range in the generation config instead.
+
+GenerateTabGANConfig
+
+Configuration class for the GenerateTabGAN action.
+Attributes:
+Tabular GAN configuration.
+
+GenerateConfig
+
+Generate configuration.
+Attributes:
+Number of records to generate.
+Whether to clip generated continuous values to be within the range of the training data.

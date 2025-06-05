@@ -1,0 +1,8 @@
+
+Overview
+
+
+Deployment types
+
+Because different types of data may have different data security requirements, Rockfish synthetic data platform has been built with flexibility to accommodate your organizations needs. Rockfish's SaaS offering allows you to get your project going as quickly as possible. To get started without any cloud installation requirements please see our getting started guide . If you have data that cannot leave your cloud, Rockfish also offers a SaaS/ hybrid deployment model which allows you to use our SaaS web application and APIs, but will only access, process, and store data in your cloud. For even greater security you can run the entire entire platform in your cloud with our enterprise (On Prem) deployment option.
+This section gives you a brief architecture overview of the later two deployment types. Please contact (mailto:support@rockfish.ai) for any questions regarding which deployment type best suits your needs.

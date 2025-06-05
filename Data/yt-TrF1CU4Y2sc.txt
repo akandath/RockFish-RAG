@@ -1,0 +1,79 @@
+today organizations are not able to
+fully use or share the data they have
+because of regulatory or policy
+restrictions around data use
+these data silos can slow down or even
+prevent Enterprises from developing
+products testing products and
+Outsourcing work to third parties
+synthetic data is one of the most
+exciting Technologies today for getting
+around data Cycles
+synthetic data allows organizations to
+create fake data sets that look like the
+real data but aren't
+the so-called synthetic data sets are
+produced by state-of-the-art generative
+Ai and can be shared and used in ways
+that real data can't thereby unlocking
+the potential of data
+some estimates suggest that synthetic
+data will comprise as much as 60 percent
+of the data used in AI development and
+Analytics
+but there's a catch
+today music synthetic data is hard
+meet Alice
+Alice is a data scientist at her company
+Acme Incorporated where she's in charge
+of providing synthetic data to other
+divisions within Acme for example she
+generates synthetic data for the sales
+team to run realistic demos to the
+engineering team for testing an incident
+response and to other data scientists
+for training better AI models
+Alice uses an existing synthetic data
+tool to train and generate all of these
+data sets
+this has a problem
+sometimes the synthetic data she gets
+from her existing tools doesn't look
+good for example in a data set of
+financial transactions it might
+misrepresent the fraction of fraudulent
+transactions
+when this happens Alice has to waste
+time and effort trying to get the
+synthetic data to work by changing
+configurations
+at Rockfish data we believe there's a
+better way
+building on years of experience working
+with synthetic data Enterprise use cases
+and Big Data platforms Rockfish provides
+a One-Stop synthetic data workbench that
+automatically customizes itself to your
+data
+Rockfish plugs directly into your
+existing data ingestion pipelines
+automatically chooses the best
+representation for your data and trains
+your models in the most cost efficient
+way possible all while optimizing for
+your Downstream use cases
+now if Alice decides that the data
+doesn't meet her requirements all she
+needs to do is indicate how it's
+mismatched Rockfish does the rest
+now Alice can spend her time on her
+other work without wasting time
+tinkering with synthetic data models
+Rockfish Builds on state-of-the-art
+Innovations in generative modeling from
+Carnegie Mellon University and deep in
+team expertise regarding how to produce
+high quality synthetic data while
+integrating with high volume
+enterprise-grade data streams
+set your data free at rockfish.ai

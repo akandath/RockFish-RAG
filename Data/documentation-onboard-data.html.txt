@@ -1,0 +1,38 @@
+
+Overview
+
+
+Onboarding Dataset
+
+Onboarding a Dataset involves key steps to establish a seamless, automated workflow for continuous data ingestion and processing:
+- Data Ingestion : Start by uploading your initial dataset using your preferred Rockfish supported methods - whether through file uploads, API integrations, or database connections.
+Refer Data Formats supported and Intergration options
+Data Ingestion : Start by uploading your initial dataset using your preferred Rockfish supported methods - whether through file uploads, API integrations, or database connections.
+Refer Data Formats supported and Intergration options
+- Data Properties Setup :
+Data Properties Setup :
+- Data Classification: Rockfish automatically categorizes the dataset based on its structure (e.g., tabular, time series, session-
+     based), optimizing model selection and subsequent processing steps.
+Data Classification: Rockfish automatically categorizes the dataset based on its structure (e.g., tabular, time series, session-
+     based), optimizing model selection and subsequent processing steps.
+- Data Validation: Ensure your dataset is clean by automatically checking for inconsistencies such as missing values, duplicates, 
+     or data type mismatches.
+- Domain Specific Configuration: Apply any domain-specific requirements or constraints relevant to the dataset, which could 
+     include custom rules based on your business logic.
+- Privacy Requirement: Specify any privacy or data protection requirements to ensure 
+     the dataset complies with privacy regulations and platform data protection policies.
+- Fidelity Requirement: Write custom SQL queries for tailored evaluations of the generated data. NOTE: Use Rockfishâs Dataset Property Extractor and Recommendation Engine to streamline the onboarding process by
+ automatically identifying key attributes of the dataset.
+Fidelity Requirement: Write custom SQL queries for tailored evaluations of the generated data.
+NOTE: Use Rockfishâs Dataset Property Extractor and Recommendation Engine to streamline the onboarding process by
+ automatically identifying key attributes of the dataset.
+- Preprocessing and Transformation : Apply necessary transformations, such as normalization, scaling, or encoding, to prepare the data for model training. These transformations can be set to run automatically on all incoming data as part of the continuous workflow. Refer Pre-Processing steps available.
+Preprocessing and Transformation : Apply necessary transformations, such as normalization, scaling, or encoding, to prepare the data for model training. These transformations can be set to run automatically on all incoming data as part of the continuous workflow. Refer Pre-Processing steps available.
+- Training the Model : Initial Model Training: Train the model on the preprocessed dataset to establish a baseline. 
+Rockfishâs Recommendation Engine will guide you in selecting the best-suited model depending on your data type (e.g.,tabular, time series).
+Training the Model : Initial Model Training: Train the model on the preprocessed dataset to establish a baseline. 
+Rockfishâs Recommendation Engine will guide you in selecting the best-suited model depending on your data type (e.g.,tabular, time series).
+- Review Generated Synthetic Data : Utilize Rockfish's Synthetic Data Assessor to review the quality of the generated data. Check for fidelity, accuracy, and potential discrepancies compared to the original dataset. This ensures the synthetic data meets your standards and complies with privacy requirements.
+Review Generated Synthetic Data : Utilize Rockfish's Synthetic Data Assessor to review the quality of the generated data. Check for fidelity, accuracy, and potential discrepancies compared to the original dataset. This ensures the synthetic data meets your standards and complies with privacy requirements.
+- Finalize Workflow Setup : Once the dataset, model and generated data have been reviewed and approved, finalize the workflow. The entire pipeline can run automatically as new data flows into the system,following the same steps outlined above to maintain continuous ingestion, model training, and synthetic data generation.
+Finalize Workflow Setup : Once the dataset, model and generated data have been reviewed and approved, finalize the workflow. The entire pipeline can run automatically as new data flows into the system,following the same steps outlined above to maintain continuous ingestion, model training, and synthetic data generation.

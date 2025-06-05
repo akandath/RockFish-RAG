@@ -1,0 +1,44 @@
+
+Workers
+
+A Worker is a process that can run jobs.  A job is a combination of an action
+and its configuration.  The Rockfish API provides resources to register and
+monitor a set of workers.
+This document describes how to connect a worker to the Rockfish API, but does
+not describe how to run a particular worker process.
+
+System Workers
+
+System Workers are workers that handle jobs from Workflows that do not have a worker_group .  This includes jobs from any organization.  Only the cluster
+operator should have system workers.
+
+Custom Workers
+
+Organization Workers are workers that are run for a particular organization.
+In order to have your Workflow run on your organization workers, you must set
+the worker_group in the Workflow to be the name of the worker group.
+
+Setup
+
+In the public API, a user with the Admin role can then create one worker for
+each worker process that will be ran and associate it to the worker user.
+Each worker should have a different name and defines the set of labels it will
+handle.  The group is used when assigning workflows to workers.  If you make a
+Workflow with "worker_group": "MyOrg" then only workers with "MyOrg":
+"MyOrg" will run it.
+The following are the arguments for creating a new worker.
+- name: the name of the worker, this will show up in logs and other operational data
+- group: the group the worker belongs, this will usually be your organizations name, unless you have multiple worker pools running (e.g. dev and prod)
+- label: extra parameters sent to the worker, this parameter must be included even if it is empty. A standard cpu/gpu worker does not require any values.
+- user: the user unique URI, this will be provided in your on boarding instructions
+- system: for hybrid mode this will always be false.
+Note: The labels parameter must be included even if it is empty
+
+POST /worker HTTP / 1.1 Content-Type : application/json { "name" : "worker-pool-1" , "group" : "fake_co" , "labels" : [], "user" : "<user uri>" , "system" : false } You should see a resul t t ha t looks like : HTTP/ 1.1 201 Crea te d Co ntent - Type : applica t io n /jso n { "id" : "5SThYao7klzZZkJp41br5Y" , "group" : "fake_co" , "labels" : [], "name" : "worker-pool-1" , "self" : "http://localhost:8080/worker/5SThYao7klzZZkJp41br5Y" , "user" : "<user uri>" , }
+
+If the worker should be a system worker, you must use the Admin API again.
+
+PUT /worker/5SThYao7klzZZkJp41br5Y HTTP / 1.1 Content-Type : application/json { "system" : true } HTTP/ 1.1 200 OK Co ntent - Le n g t h : 211 Co ntent - Type : applica t io n /jso n ; charse t =UTF -8 Da te : Wed , 27 Mar 2024 00 : 56 : 51 GMT { "id" : "5SThYao7klzZZkJp41br5Y" , "group" : "rockfish" , "labels" : [ "a" , "b" ], "name" : "xyzzy-1" , "self" : "http://localhost:8085/worker/Ba9xpaDM3JGTMyjTK3Tgo" , "system" : true , "user" : "http://localhost:8085/user/3ty6vlNqDXdHYzLmACKfr6" }
+
+When running the worker you will need to provide the worker-id and the token
+for the worker user.

@@ -1,0 +1,105 @@
+
+CLI Installation
+
+The Rockfish CLI is a tool to help you run our use case tutorials quickly.
+
+Installing the Rockfish CLI
+
+We recommend using Python >=3.9 to run the Rockfish CLI. This section assumes you are using pip , venv , and macOS/Linux.
+Create a fresh virtual environment and activate it:
+
+$ python -m venv rf-venv
+$ source rf-venv/bin/activate
+
+Note: You can replace rf-venv here with the virtual environment name of your choice.
+Ensure you have the latest version of pip :
+
+$ python -m pip install --upgrade pip
+
+Install the latest version of the Rockfish CLI:
+
+$ pip install -U rockfish-tutorial -f https://docs142.rockfish.ai/packages/index.html
+
+This will also install dependencies (which includes Rockfish SDK) to your virtual environment.
+Now, you can view and run the available tutorials!
+
+Example: Run the Central Global Model Accuracy use case tutorial
+
+Let's see how to use the CLI to run an existing tutorial. 
+In this example, we will run the Central Global Model Accuracy tutorial .
+First, initialize the tutorial. This step will download the dataset files required to run the rest of the tutorial.
+
+$ rockfish-tutorial init central_network
+
+Then, run the onboarding step. This step recommends a Rockfish workflow based on the dataset downloaded in the previous 
+step. It also runs this workflow to validate that the synthetic data matches the real data according to some fidelity 
+and privacy requirements.
+
+$ rockfish-tutorial exec central_network run_small onboard
+
+Next, run the train step. This step runs the recommended workflow from the onboarding step on the full dataset, and adds
+the trained Rockfish models to the model store.
+
+$ rockfish-tutorial exec central_network run_small train
+
+Finally, run the generate step. This step uses the recommended workflow and the trained models to generate a synthetic 
+version of the full dataset. The central_network tutorial, in particular, will also show the results of using Rockfish 
+synthetic data for improving a downstream central model.
+
+$ rockfish-tutorial exec central_network run_small generate
+
+Note: The run_small argument runs the tutorial on 20 hours of the full dataset. You can use the run_entire argument to use all 215 hours of the dataset.
+If you want to only view the final results of this tutorial, use the view_results argument:
+
+$ rockfish-tutorial init central_network
+$ rockfish-tutorial exec central_network view_results onboard
+$ rockfish-tutorial exec central_network view_results train
+$ rockfish-tutorial exec central_network view_results generate
+
+Refer to the CLI commands section below for more information on the available options.
+
+CLI Commands
+
+
+List all available tutorials
+
+
+$ rockfish-tutorial list
+
+
+Initialize dataset files for a specific tutorial
+
+
+$ rockfish-tutorial init <tutorial_name> <optional-args>
+
+Optional arguments:
+- --save-path <PATH> : Specify the directory path where the dataset files are stored. If unspecified, a default 
+path will be used.
+
+Run a specific tutorial
+
+
+rockfish-tutorial exec <tutorial_name> <size> <step> <optional_args>
+
+Positional arguments:
+- <size> : Specify one of view_results, run_small, run_entire to run a tutorial step or view the results.
+- <step> : Specify one of onboard, train, generate to run the corresponding part of the tutorial.
+Optional arguments:
+- --logging <TRUE/FALSE> : Enable or disable displaying logs from the Rockfish platform. Disabled by default.
+- --data-path <PATH> : Specify the directory path where the dataset files are stored. 
+Uses the path shown during onboarding by default.
+
+Help Commands
+
+Each CLI command has a --help flag that will display more information (e.g. available arguments) about the command.
+To view more information about the main CLI commands:
+
+$ rockfish-tutorial -h
+
+To view more information about init CLI command:
+
+$ rockfish-tutorial init -h
+
+To view more information about exec CLI command for a particular tutorial:
+
+$ rockfish-tutorial exec <tutorial_name> -h

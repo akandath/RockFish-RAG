@@ -1,0 +1,24 @@
+
+rockfish.actions.amplify
+
+Define PostAmplify Action: # user need to replace the "<>" part post_amplify = ra . PostAmplify ({ "query_ast" : { "<Comparison Operator>" : [ "<Field_Name>" , "<condition>" ], }, "drop_match_percentage" : "<float number between 0 and 1>" , "drop_other_percentage" : "<float number between 0 and 1>" , })
+
+# user need to replace the "<>" part post_amplify = ra . PostAmplify ({ "query_ast" : { "<Comparison Operator>" : [ "<Field_Name>" , "<condition>" ], }, "drop_match_percentage" : "<float number between 0 and 1>" , "drop_other_percentage" : "<float number between 0 and 1>" , })
+
+- query_ast: This specifies the condition for filtering sessions. In this case,
+it selects sessions where the "metadata"
+field is equal to 0. Other Available comparison operators Comparison Operator Meaning "eq" equal to "gt" greater than "ge" greater than and equal to "lt" less than "le" less than and equal to "ne" not equal to
+query_ast: This specifies the condition for filtering sessions. In this case,
+it selects sessions where the "metadata"
+field is equal to 0.
+Other Available comparison operators
+- drop_match_percentage: This sets the percentage of sessions matching the condition (i.e., where "metadata" equals 0) to be dropped. Here, x% of these sessions will be discarded.
+drop_match_percentage: This sets the percentage of sessions matching the condition (i.e., where "metadata" equals 0) to be dropped. Here, x% of these sessions will be discarded.
+- drop_other_percentage: This specifies the percentage of sessions not matching
+  the condition to be dropped. Here, it's set to y%, meaning y% of these
+  sessions will be removed based on this criteria.
+If user does not provide "drop_match_percentage" and "drop_other_percentage"
+after defining a condition, it by default will set "drop_match_percentage": 0,
+"drop_other_percentage": 1 to drop all the unmatched records. post_amplify = ra . PostAmplify ({ "query_ast" : { "<Comparison Operator>" : [ "<Field_Name>" , "<condition>" ], } })
+
+post_amplify = ra . PostAmplify ({ "query_ast" : { "<Comparison Operator>" : [ "<Field_Name>" , "<condition>" ], } })

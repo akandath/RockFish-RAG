@@ -1,0 +1,13 @@
+
+rockfish.remote
+
+
+ApiError
+
+ApiError is raised when an unexpected HTTP status is received from the
+Rockfish API.
+Attributes:
+URL of the Rockfish API in use.
+HTTP status code received.
+HTTP reason string received.
+Error message if any.

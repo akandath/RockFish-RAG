@@ -1,0 +1,1226 @@
+been volunteering for 22 years now
+started in 2002 the other initiative we
+launched last year we call the project
+bright future which means if you get
+into I Madras irrespective of your
+financial status you should not have any
+hindrance getting you to go and study
+right so this is a scholarship we're
+actually raising about 7 million
+Endowment for that fortunate to help to
+have helped raise about 100 million to
+date right over the p 22 years I I call
+startups also nonprofit because none of
+the startups make money so they are
+nonprofit you
+[Music]
+[Music]
+know hello and welcome to another super
+duper fantastic episode of be Cafe
+podcast because the person I'm
+interviewing today is super humorous
+ever since I spoke to him in the first
+five minutes he cracked so many jokes
+that
+uh I it starts with his name his name is
+Makai Girish and he's going to tell you
+what that means he's got an AI here
+which he always highlights I thought
+it's got to do with his AI startup and
+he being a leader in the AI domain but
+apparently it's a word in his Regional
+language so uh he's just so funny and
+you know only you just have to talk to
+him to figure that out but hey he is one
+of the prominent voices in the AI B2B
+Enterprise domain in Silicon Valley he
+has raised loads of funds for the IIT
+Madras Foundation something like several
+million dollar I would say is it100
+million Girish is that right yeah yeah
+yes yes that's a phenomenal amount and
+he is uh of course part of IIT Madras
+Foundation won Community he's got a PhD
+in a technology domain so we're talking
+with an extremely qualified and
+extremely accomplished person who is
+also business savvy lots of takeaways
+here for all you guys who are building
+startups in the AI domain and want to
+secure funding in Silicon Valley so
+Girish what a pleasure and honor to have
+you on my show the least thing I can
+introduce you is you are the CEO and
+founder of Rockfish data a startup name
+I find in every networking event where
+investors and Founders have gathered to
+raise funds it's a very popular startup
+you're a popular CEO so tell us who is
+Girish who is who is what is Makai Makai
+Girish thank you VI I appreciate this
+opportunity to speak with you today so
+I'm Girish as you said U my last name is
+mukai uh you can actually call it mck
+with AI so that's what uh you know
+that's what I've been doing for a while
+these days so you mck around with AI a
+lot even though you're okay but what
+mean in your Reginal language what do
+that yeah so I I come from Kerala a
+place called palakad which is right at
+the border of Kerala and Tamil Nadu in
+Kerala and Muka is a small village uh in
+in you about U about few kilometers from
+the city of palakat my ancestors moved
+there about 220 230 years ago from
+tanjavur and they set up shop and uh
+mukai actually means there are three
+rivers that converge there uh so three
+Kai's arms or hands right right so
+that's what it is and uh there is a nice
+beautiful River uh the the The Story
+Goes that there is a river from
+underneath that joins it just like
+anywhere you see Three Rivers merging
+that's what it is right then there's a
+beautiful Temple and uh also a graveyard
+so I call that it's the most popular
+place in palakad because people are
+dying to go there all the
+time okay nice like I told you audience
+already three jokes in the first five
+minutes so that's Girish for you so but
+I want to call you maky because you're
+McKing around with AI and you know maky
+is not going to be a small village in
+Kerala anymore you're putting it on the
+international map you already brought it
+to Silicon Valley I'm sure soon
+everybody will be talking about it so
+you know Gish what fascinated uh me was
+you you were in the adaa community you
+were doing these talks and panels and
+you're also in the warden community and
+the I Madras community where you're
+raising lots of funds you know if if you
+want to start off with your journey uh
+at Rockfish data and take us back all
+through these amazing organizations you
+know that would be awesome so so tell us
+what what got you to do rockfish data
+and how do you span such an amazing
+broad Journey uh across all these
+accomplished organizations yeah VI I've
+been very fortunate uh Rockfish came
+about U about 2 years ago I got a call
+from who's my co-founder today vas
+Shaker he's a fac faculty member at
+kikan University and I have known vas
+for a very long time and uh you know
+periodically we talk vas always has
+phenomenal ideas he comes up with uh you
+know he's he's uh he's got the
+intellectual PRS like no one else so he
+always thinks of new things and this
+time when he called me in particular he
+mentioned that he and his colleague uh
+Julia fanti and their students have been
+working on on a model for synthetic data
+using generative adversarial networks
+and they got motivated in Academia
+because they felt there was a
+reproducibility crisis in Academia right
+uh people publish papers with various
+results and if you try to redo that or
+compare to that it is almost impossible
+to do because you don't have the
+original papers data to compare with so
+they felt it there was a need for you
+know data that can be used to compare so
+to reproduce produce results right
+that's what motivated them and then in
+2014 there was a paper by Ian Goodfellow
+on Gans generative adversarial networks
+so they saw that and you know they ended
+up working along with uh one of their
+students zenan Lynn who's actually now
+on our Advisory Board and and and a
+bunch of others and turns out this
+produced some really outstanding results
+for uh High Fidelity privacy sharing
+privacy compliance synthetic data that's
+what you know he they had this result
+and vas call me and when I when I spoke
+to him I want to stop you that you know
+I want to tell the audience privacy of
+data is a hot Trend because we are
+swimming in loads of data from lots of
+sources privacy is a top Trend and
+you're seeing that High Fidelity data as
+synthetic data because lot of data
+because of privacy laws people are not
+able to access to train their models and
+your company is is giving High Fidelity
+synthetic and privacy sensitive data so
+this is like a really big deal the the
+the company which I feel has access to
+such kind of data is Facebook right now
+they have tons of data but they always
+running into privacy issues so uh you're
+trying to help companies build that
+scale of data and today in generative
+way everybody thrives on data you if you
+don't have data you can't build a gen AI
+startup so so that's where you are so so
+continue please absolutely no great
+Point VI thank you so when I spoke to
+him it resonated for me because my own
+customers at that time you know
+companies and the financial services
+Telecom and other Enterprises they were
+facing this problem and I was seeing it
+firsthand right and and uh so uh it sort
+of led us to dig deeper uh along with
+vas and Julia he spoke to a number of
+Enterprises at that time and found out
+that this problem is real uh this is a
+pain point and and as you eloquently
+said um uh privacy problem is that
+either due to confidentiality or due to
+regulatory or compliance reasons uh many
+companies are not able to share data not
+just with outside companies but also
+within their own companies with other
+departments and other groups right
+number two uh you really need high
+quality data to either train machine
+learning models or to do other functions
+related to Ai and analytics uh so this
+was standing in the way and and and
+people are struggling and if and if you
+and we all know that uh uh the the pace
+of development in developing AI models
+it's just been amazing over the past you
+know 5 10 20 30 years right and and and
+this was by the way BC before chat
+GPT right November 30th
+2022 um so 2023 sorry how things changed
+oh my God you know there's a chip
+company called ex Tropic just like
+anthropic there's a company called extr
+Tropic today it's in the news last week
+it was figure AI before that it was Sora
+there was mistal I'm not able to It's
+Just sh up this exponential growth
+because of all the 10 20 years of work
+that has happened it's just unbelievable
+yeah yeah absolutely it's it's it's
+incredible right but all of these models
+people are developed it and most of them
+put these models in a paper and also
+open source right or hugging face
+implements a lot of these models as as
+code that you can actually anybody can
+download however the biggest challenge
+is the right data that you need in order
+to make these models work well right if
+you want to use these models well you
+need your data and what we also find is
+toy data that means data that you pick
+up from any of the sites um they are
+good to validate very basic
+functionality but they're not good
+enough for an Enterprise if you're an
+Enterprise your data is very complex uh
+when you look at the statistical
+properties you know they can be as
+complex as you can think of so in order
+to use that type of data to make these
+models work well you really need high
+quality High Fidelity good quality data
+to augment what you have that's where uh
+you know this approach uh synthetic data
+has come into play so so soon after that
+we realized there was a need there was a
+pain point and we also felt we have the
+right technology because of the work uh
+underly Innovation and uh work done at
+Kani melon which is by the way where AI
+originated right uh arguably and uh so
+we felt we and then we also felt that we
+are the team that could actually go
+bring it to Market so uh it you know at
+least the conviction for us that there
+was a need there is a market there is uh
+you know there are customers who are
+telling us we need this and then we have
+the technology so in a way there's a
+nail and we had the hammer in order to
+you know do this that's how we got
+started at the time wonderful but uh
+Girish you have you have such a strong
+track record in corporate as well you
+have held amazing uh you know big
+positions so how do you all bring that
+into uh to your startup you know how
+does that lead you I know you've been in
+business strategy you've been Chief
+marketing officer and some of the
+biggest labels are on your resume so how
+does it all tie in how did you bring
+that experience to this startup yeah and
+and I've been very fortunate right we
+all uh I come from a small small town in
+India but I got the opportunity uh you
+know to go to IIT Madras I was the only
+guy actually that year when I uh from
+the entire District of palakad who was
+very fortunate to get in and then it
+brought me to the US more than 30 years
+ago uh you know when you get
+opportunities like this um you learn a
+lot uh and and and we often times you
+know we don't realize when we're
+learning that that experience comes to
+Bear uh at a later time you know when
+when we Face either opportunities or
+challenges right both ways right uh and
+but more importantly it's the people
+around us uh I've just been fortunate to
+be surrounded by a lot of incredible
+people and it's like osmosis you know
+when you're with them you learn things
+uh you pick up things uh they tell you
+things they make you improve uh and and
+and I call it three things right one is
+the network it's the people that you
+know number two is a domain yeah uh uh
+you know you you you know you need to
+know about the domain that I spent a lot
+of my early career in the Telecom
+networking area and cable Broadband
+Wireless and all that so you learned the
+domain at that time and subsequently in
+Ai and then the third is a lot of the
+functional stuff as you mentioned
+marketing you know Business Development
+sales engineering product all of that
+stuff and and uh you know more
+importantly it's also a lot of luck uh
+you know we we often times when we
+succeed uh we don't talk about luck but
+I I'm a strong believer that luck plays
+a big role for each and every one of us
+uh as we go along and then we should be
+ready to take it as as we get it you
+know nowadays kids are jumping into
+startups very early but when they look
+at a profile like yours you've had ample
+training in the corporate world to
+fine-tune yourself uh to meet so many
+functional verticals and also the
+technology how it's used in scale
+because Enterprise is all about scale so
+when you're building a product now
+you're already prepped up to play the
+game of scale and startup is a game of
+scale so that's that's amazing so I'm
+very curious what are some of the
+exciting products You're Building at
+Juniper I'm sorry in rockfish data and
+um um what can you listeners expect
+absolutely absolutely so you know when
+we started we had a very strong thesis
+that uh you know there was a need and
+then chat GPT came so ad after
+Deliverance uh you know we were we were
+busy building a team and then we were
+building a product right at that time um
+yeah and we we just started uh you know
+just about when uh chat GPT came along
+and then so with vas Julia from CMU and
+then Nathan hogo who leads our
+engineering and product here um we
+started small team we had a few design
+uh design Partners uh you Enterprise
+customers that were ready willing and
+able to roll up their sleeves and work
+with us as we were you know building the
+initial piece of it so we were very
+fortunate to have that um so this I mean
+fast forward a year plus and uh we now
+have a product uh we call it Rockfish
+data synthetic uh data platform what it
+can do is a user can point to a data set
+that they have and it will upload that
+data and uh it will then we call it data
+adaptive which means uh it doesn't
+matter what the data is what it contains
+we can actually adapt to the data adapt
+to the schema adapt to what the
+requirements are for the data right so
+for example if you have geospatial uh
+data we can actually do the right
+encoding for that if you have uh iot
+data set we can actually do the right
+encoding and right stuff and then we
+also have this thing called a
+recommendation engine which again we
+have filed for a number of patents uh
+thanks to our you know uh amazing
+Engineers that we have in the team and
+technologist we have uh we can we can
+figure out what is a right model to use
+because we all realize very quickly that
+one model in AI doesn't fit all so you
+need to pick the right model whether
+it's Transformers whether it's Gans
+whether it's diffusion we can pick the
+right model then we can also it it also
+picks the right configuration right what
+type of configuration do you need in
+order to run it do you need to run it
+for x amount of epo do you need to have
+the right hyperparameters as they call
+in AI all that so it automatically
+decides all of that and and of course
+you can override uh most of the users
+they are very good in their domain they
+don't know as much detail about this so
+we are able to give them the opportunity
+to do all of this without them having to
+figure it out right once we do that then
+you can generate we train our model and
+it stores a model store in that and then
+after that you can generate synthetic
+data that's where we call it um outcome
+Centric which means we not generating
+synthetic data for the sake of
+generating synthetic data but what does
+it mean for the ultimate use that you
+have so let's say you mentioned earlier
+about uh model training if you're
+training a classification model or a
+recommendation model or a prediction
+model you need to make sure that model
+is trained well that means often times
+you need to provide scenarios right uh
+an example is if you're trading a fraud
+prediction model for a credit card
+company um you may not have enough fraud
+for certain types of
+users so using synthetic data can
+increase the fraud that you know someone
+with a high credit score you're creating
+a Sandbox you're creating a Sandbox kind
+of place where for you can create
+different scenarios and you can train
+the model is that right that's correct
+that's correct and then when they
+generate the data they can use it for
+various purposes at that time okay
+wonderful uh so Girish you you're having
+a train of thought I'm sorry I'm
+interrupting you I'm too excited please
+don't mind this is like this is probably
+the hottest startup I've talked in a
+while and I super excited about this now
+um one of the things I feel um I'm
+seeing there's a swarm of uh models used
+in language training and I see that
+there are swarm of data being used in
+you know personality engines as well
+like if you look at social media people
+with different personalities are having
+data and their on the platform for a
+long time so tell me when you're dealing
+with sensitive social media data what is
+your platform do like how does it adapt
+to something like that absolutely so
+when you have sensitive data our users
+we can actually do a lot of things one
+is if uh we have something called
+automatic pii detection pii is
+personally identifiable information
+right so if the data contains pii and if
+the user of our platform wants to make
+sure that that that that personally
+identifiable information is not revealed
+afterwards right in some cases people
+use it for their own internal use in
+which case it doesn't matter but in
+other uses most of the time they need to
+remove so we can actually automatically
+detect pii and then we can either redact
+it that means completely remove or we
+can remap it or randomize it in the case
+of pii you actually want to redact it
+for the most part if you have social
+security number or address of somebody
+you know you want to just completely
+remove it so that information after that
+even before we use it to TR our model
+it's all gone right so that is we call
+it privacy applying privacy postures at
+ingestion itself so while we ingest
+itself we can do all of this stuff
+second we can after we trade a model
+when we generate synthetic data you can
+also apply a lot of privacy filters so
+sometimes you may say you know what I
+want my data to be retained and the and
+and the Rockfish platform is being used
+by the customer on their environment
+that means they're not worried about any
+data leakage but when you're generating
+synthetic data you can say hey I don't
+want someone to see my name name of the
+customers and the social media or their
+you know handle right it may be more
+anonymized at that point so you can
+either redact it you can randomize it
+you can remap it you can do all kinds of
+stuff with it or the ultimate thing they
+call it differential privacy which is a
+double-edged sword right uh it sounds
+very exciting when someone says
+differential privacy and you cannot
+re-identify but is a trade-off there is
+a you know like you mentioned right at
+the beginning with Fidelity and privacy
+there is a clear tradeoff between the
+two you can always make everything
+private by sharing nothing right it's
+like a yeah think of a clock there are
+two clocks one is running 10 minutes
+late and the other clock doesn't work at
+all the the clock that doesn't work at
+all actually tells time correctly twice
+a day but the clock that is 10 minutes
+late never tells the correct time ever
+right yeah that doesn't mean that the
+that is not working is the best clock
+you know so so same analogy applies here
+too yeah yeah awesome no no this these
+are all Mercy Waters when we sign these
+data contracts there are so much fine
+print we don't read and Google or
+Facebook they keep sending these updates
+and we don't even bother to read them
+and what they talk about what they're
+going to do with the data you know when
+you are explaining what you do uh you
+know how you train your models and
+things like that for scenarios I was
+thinking are you going to have at some
+point a training um or a conference uh
+kind of setup where you train people how
+to use your platform sounds like you
+know they have AWS training and you know
+they have all these sounds like you're
+going to be there at some point uh
+telling people how to be part of this
+Rockfish data ecosystem right there's a
+lot absolutely V yes absolutely and and
+and there are two parts right I think to
+your to your point so our product
+actually can be used in two different
+ways one is a simp web app web
+application with the graphical user
+interface and all that the second is
+what data scientists like which is an
+SDK right so you have a jupyter notebook
+where they they all love these things
+right they they can go and play with it
+they know how to use it well so
+depending on the per the person using it
+if if let's say the user is a product
+manager uh all they want is to generate
+synthetic data we have a web app which
+is very simple you go there once you
+sign in um you can actually say say I
+I'm starting a new project and then you
+can point to the data source and we can
+ingest data from anywhere it could be a
+upload a CSV file or a Json file park or
+you can go to data bricks and fetch data
+you can go to Snowflake and fetch data
+you can go to an S3 bucket and fetch
+data or Google cloud storage and fetch
+data after that it does everything it'll
+actually format it recommendation engine
+will tell you now you detected pii do
+you want to redact it uh and then then
+this is a model to use and then you
+click it'll train the model and once
+it's trained it'll actually know you can
+go in and click and say I want to
+generate synthetic data you can either
+generate the beauty of synthetic data is
+let's say you trained it with 10,000
+data points you can generate 10 million
+10 billion 50 trillion synthetic data
+points which are of very similar
+statistical property right so you can
+just say the number I need so many and
+then you can also apply conditions as
+you mentioned right give me incre a
+fraud scenarios that you want to change
+so you can specify if you want to and
+then it will generate a synthetic data
+up and download it right back into
+wherever you need it CSV file go to
+snowflake or data brakes S3 bucket
+whatever it may be so for the people
+that are using it in the web app it's
+very simple very you know almost any man
+woman and child can use it but the the
+SDK uh in terms of using Jupiter
+notebook you know data scientists love
+it but there I think you need a little
+bit of training for people uh as and
+when you know they start using it so of
+course as we expand and get bigger we
+would love to have uh you know training
+sessions where uh you know uh people can
+get a certification out of this and so
+on right um but our goal is to make it
+simpler as simple as possible you know I
+I'm very tempted to ask you you have the
+data and then at what layer you're
+operating you know what layer like so
+there's a data and then there's the
+model layer then if you're working with
+snowflake or uh data brakes or company
+like that they they have an Enterprise
+layer so how many layers are there
+before Rockfish starts working on the
+data yeah so we work with their
+application layer because end of the day
+this data is being used by somebody for
+running an application which is either
+prediction model or a classification
+model if you think of one of the medical
+Diagnostics companies uh you know we've
+been working with one where they collect
+patient data on a medical diagnostic
+device and then they have built a
+classification model which will tell you
+whether you have a particular disease
+yes or no for the patient right and you
+want that model to be really accurate if
+if if that model tells you hey you have
+cancer with you know 55% accuracy uh
+none of us are going to believe it right
+we're not going to go get treatment
+based on that or we're going to be
+satisfied if it says no cancer at 5 at
+55% accuracy we still going to be wor
+right so you want that accuracy to be
+very high the false negatives and false
+positives to be really really low so for
+them it's about using this data to make
+sure that their classification model
+works like a chart so we are operating
+at that level of course their
+classification model does work through
+all the layers you mentioned right uh
+they have a model which is a model layer
+they have data that we provide that
+augments their data in the data layer
+and then it all runs on some sort of a
+semiconductor chip uh uh compute right
+whether it's Nvidia GPU or AMD GPU or
+elsewhere as well wonderful awesome
+sounds like uh a great hard startup to
+be part of now that you have spent so so
+many months maybe years on this project
+tell us what you can what you can tell
+the or you can guide the first time AI
+entrepreneur you know what are some of
+things they can do to build a good AI
+start up I'm sure there are best
+practices hygiene practices there are
+some warnings they they need to look out
+for since gen Ai and AI seem to be uh
+where people are flocking around what
+are some of the tips you know to keep
+them grounded absolutely you know a have
+don't do this yourself right uh you know
+if you want to start something always
+have a a few other people with you uh
+especially with nonoverlapping skills as
+much as possible right so if you are a
+business person have a technology person
+and Engineering person if you're an
+engineering person have a product person
+and a business person with you and so on
+right so that and and and many startups
+uh I've seen where a person thinks I'm
+smart I can do this all by myself it's
+usually very hard right we all realize
+and I've learned in my life that uh it's
+the people you surround yourself with
+that are working with you that have
+stake in it with you that make it so
+that's one second is you know look for a
+problem that it's a real problem right
+uh
+uh don't solve because a technology does
+something but rather you're solving a
+problem for somebody and that problem is
+big enough and then and there is a lot
+of need and so on and then the third is
+you know do you uh uh do you have the
+right technology that you can bring
+together I mean the beauty today with
+Gen as you mentioned is lot of tools are
+available right if you look at Lama open
+source you can actually use a lot of the
+foundation models you don't need to
+build it so leverage what you can out
+there rather than building everything
+yourself especially at the beginning at
+a later time if you feel those models or
+those Technologies are not good enough
+you can always do things yourself but
+initially to build a prototype to build
+a demo to build a initial concept idea
+it's it's easy to use something that is
+out there to help you but of course you
+have to have your own technology stack
+and then the fourth I would say is in my
+opinion um just patching up things
+together is not good enough today uh
+because the the number one thing
+everyone asks you is how are you
+different and and as you see VI there
+are you know so many companies in the
+Gen field right it's it's about
+differentiating yourself and you being
+the uh you know uh highly wanted and
+highly differentiated company is very
+important so not to just patch things
+together but have something that you can
+bring uniquely right
+and this this is probably the most
+important thing missing on decks today
+as you go through lot of pitch decks and
+I sit with investors a lot this is
+really very important what you just
+mentioned they're not able to
+differentiate themselves enough yeah and
+yeah the fifth one yeah the fifth one is
+of course a business model I know as we
+do startups you know it takes us a while
+to figure out the right business model
+but I think having a a straw man here is
+how I'm going to make money right with
+the company here is what I think it is
+here is the value that I'm bringing I
+think thinking through and having a
+little bit of that initial idea there
+helps a lot and finally it's all about
+feedback um yeah you know like you talk
+to a lot of lot of people with on a on a
+on a very regular basis so you have a
+phenomenal perspective but as an
+entrepreneur I think getting that early
+feedback you know yeah does it pass the
+smell test of an Enterprise does it pass
+the smell test of a in of an investor so
+getting that feedback you know don't
+bring don't build anything in isolation
+sitting in a cave right corre so so just
+being out there and getting feedback is
+great important yeah yeah and also you
+missed very important thing the founder
+or the founding team has to be cheerful
+and always in the right Spirit like you
+are whenever I meet you you're there's
+always a joke on your on know you're
+about to deliver you're always cheerful
+no matter what so it's very important to
+keep your chin up so wonderful awesome
+absolutely so so Girish uh on that note
+I want to ask you you're doing amazing
+work at UH it Madras startups uh what's
+it like what kind of startups are you uh
+helping fund what is your fund all about
+and how can Founders who are in I Madras
+iits or nons how can they leverage that
+Foundation yeah yeah absolutely so I've
+been fortunate to uh uh I I call
+startups also nonprofit because none of
+the startups make money so they are
+nonprofit you
+know yeah right so my my life has uh
+revolved around so-called nonprofits for
+a long time but Jokes Aside real
+nonprofit organizations I've been
+volunteering for 22 years now started in
+2002 um and uh initially about you know
+10 plus years with shakar Foundation
+which you know most of the Indian
+American Community knows right so when I
+joined as a volunteer we had one
+Hospital in katur now shakar has grown
+to be the largest community iare in tion
+in the world right so I helped you know
+as a volunteer uh fundrais was part of
+the board uh you know we just know did
+everything under the sun experimented
+with everything under the sun and then I
+was with another organization
+volunteering local organization called
+Calico Center which helps child abuse
+victims in California right so that's
+the I was a board chair for that for
+many years and then I got um asked uh
+actually thanks to Vijay alal uh who
+actually he was a chairman of I madas
+Foundation they had just started to to
+join him and rest of the team uh to be
+the CEO back in 2017 so it was about six
+and a half years ago so uh it was an
+opportunity could never pass up but fast
+forward six and a half years what we you
+know set out to do is to raise 100
+million Endowment for I Madras uh like
+any any University here and uh of course
+if you look at uh you know my Alum M pen
+which has got a very sizable endowment
+and Harvard has a 50 billion plus
+endowment uh IAT I Madras and also other
+iats are now uh you know most of them
+have an endowment today in fact we
+collaborate a lot with other iats and
+help each other out I Bombay had one
+before us so they helped us out now I
+and my you know my colleagues we have
+helped out other I start you know their
+foundations right the goal is um a lot
+of stuff is paid by the know the
+Institute intution government money and
+all that but it's very restricted you
+can only do so much but we want to do a
+lot more in terms of student stuff in
+terms of faculty in terms of research
+Innovation entrepreneurship and all that
+so this helps us to kind of Advance all
+of that so example last week um you know
+we had the fourth year of uh women
+leading I Madras this was an initiative
+started by um you know essentially the
+brainchild of rohini chakrawarti who's
+partner at new bill Ventures and she's
+also been a board member right to the
+right at the beginning uh at I madas
+Foundation um essentially you know uh I
+madrasa has only about 10 to 11% of
+Faculty are women for example and many
+people while they go through their PHD
+programs or otherwise they find it you
+know some sort of things stalling or uh
+standing as hurdles so the idea for wili
+women leading it Madras is to help them
+circumvent all these issues and then
+change the entire level of playing field
+for women so this is the fourth year um
+about 38 awards were given and we had a
+ceremony just few days ago right second
+is there are a lot of research centers
+that are being established uh one was
+done by uh pratab subramanyam he is a
+very early person at VMware and a VMware
+fellow you know he donated more than a
+million dollars for setting up this
+thing called PSC disha which is a
+semiconductor Center in India India
+India we know we have lot of conductors
+on All Buses but no
+semiconductor
+sem yeah or very few you know so this
+completely Advanced and and the current
+director of I Metras Kama you know
+Kam he was running the center at that
+time and now later he became phenomenal
+person he just un phenomenal person is
+yeah yeah absolutely so initiatives like
+that and then the other initiative we
+launched last year is um we call the
+project bright future which means if you
+get into I Madras irrespective of your
+financial status right family income you
+should not have any hindrance uh uh
+getting you to go and study right so
+this is a scholarship we are you know we
+have established it's we actually
+raising about 7 million Endowment for
+that and you know we are well uh well uh
+on our way towards it and thanks to
+there's a partner from Goldman who
+actually was the first maheswar Sai from
+the 1998 batch he actually started and
+seeded this uh you know funding for this
+and actually got a lot of people
+together and subsequently more people
+have joined right so everything from
+student scholarships research centers
+and then we also have a very um vibrant
+ecosystem for entrepreneurs at it Madras
+everything from Center for Innovation
+tinkering lab all the way to uh you know
+the the the incubation cell and getting
+funded and getting the wings to fly out
+right so that entire ecosystem you know
+we want to make sure that uh you know a
+there is guidance and mentorship and B
+There is money and and I call it uh time
+talent and treasure the three T's uh
+time for one te Talent second te
+treasure is a third te so we want to
+make sure that all of that is provided
+along with this so we've been fortunate
+phenomenal group of
+volunteers uh been having the
+opportunity to work with the uh our
+group of volunteers and very generous
+alumni to move ourselves in that in that
+right front that's what so it's been
+it's been a phenomenal Journey V done
+yeah yeah I know I mean uh I think
+working on semiconductors I think mean
+what I saw is this is the time where you
+know you invest in the shovel uh where
+you're shovelling gold in the gold rush
+so semiconductor is the chip where all
+this AI magic is happening and um people
+like you with the endowment
+and with the director kamak cot's Vision
+you're putting your money in the right
+place and also students yeah
+uninterrupted education for them they
+made it there to the top tier and then
+you don't want them to back off you want
+them to finish the education and
+nowadays there's lot of uh uh this you
+know mindsets where you don't want to
+finish college you want to get started
+with a startup even before college so
+all these endowments are you know great
+ways of keeping the student focused I
+don't think a company like Fish can be
+built without Scholars from Cornell and
+Scholars like yourself from you know
+your a PhD because you finished your
+education and you develop that expertise
+that's why you're building a company
+like that so this is amazing so you're
+walking the
+talk whatever you are you're building
+the startup you finished you have great
+Scholastic abilities and you're endowing
+this so you know one thing I felt Kish
+what what was it like learning to raise
+funds here you are building your startup
+and and uh can I ask what round of
+funding are you looking at or are you
+comfortable with funding what is your uh
+yeah for for Rockfish right yeah uh so
+Rockfish we raised a preed uh when we
+started off last year we raised a preed
+round and uh uh that actually helped us
+to build the product and we actually
+have now number of customers uh whom we
+are delivering you know a product too
+right for their uses uh we will be going
+out to raise uh either a large seed or a
+cies a sometime in Q2 April May time
+frame and we want to accelerate now that
+uh you know the proverbial you know you
+have this uh founder market fit and then
+the product Market fit correct right so
+initially it's a it's it's a founder
+market fit and then the product Market
+fit now I think we feel very confident
+that uh you know there's a real problem
+and we can actually address it well and
+uh we can actually bring this to uh to
+bear and now we ready to scale it right
+so in in
+the next month to two we'll be rising
+around yeah like you're going past the
+tech risk and the market risk you're
+going past that and then later on there
+are other kinds of risks so this is
+amazing so um you all your work in
+nonprofits raising funds what did it
+teach you about raising funds for your
+own startup what did you feel I know
+you're also nonprofit yeah I like
+honestly honestly if you were to tell
+Founders I see Founders who don't build
+great decks it's just too cluttered they
+want to talk talk about everything when
+they get five minutes and you know they
+didn't focus on the ask itself they kept
+on talking about technology 100 problems
+Founders go through tell me what was it
+like nonprofits are harder you know they
+I just feel it's so hard to go and tell
+people hey you should do good at least
+Tech absolutely have a reason what do
+you so yeah totally totally so in the in
+the for-profit world in startups you
+know people are investing in you to get
+a return right correct there is that you
+know that is a fundamental reason for
+that and corre the returners in terms of
+monetary benefits you know they they
+basically get uh you know 50x 100x or
+whatever X return they want to get and
+that's what motivates people to invest
+in the nonprofit world it's also getting
+a return it's not in terms of money but
+in terms of something that they want to
+see as an impact so yeah you know the
+reason why people are donating money
+gifting money to a nonprofit they
+actually want to see a return but it's
+not for them as money return monetary
+returns but they're actually seeing an
+impact so from a from a lot of respect
+um uh it is very similar from that point
+of course it is very different um in the
+case of for-profit obviously you don't
+get a tax uh benefit if you invest in a
+company right uh in the case of
+nonprofit you are actually giving uh you
+get a tax deduction here in the US to
+donate a 51 C3 but more importantly they
+are looking at what does organization do
+what what is a mission and vision what
+is a purpose and how good are they in
+deploying that money right yeah and then
+what is the impact it is likely to in
+the case of
+nonprofits um for most of the
+run-of-the-mill gift options that are
+already there they know that you know
+let's say scholarship to student they've
+seen scholarship Works last you know
+five years you know many students have
+benefited right in it Madras we have
+about 500 plus students every year get
+scholarships right uh so you see that
+impact and you know you want to be part
+of that sometimes people do new things
+like the the semiconductor one there was
+no semiconductor center before taking a
+risk right but they believe that it can
+move the needle when it comes to
+semiconductors in India and recently um
+one of our donors is established a wind
+energy center clean wind energy center
+right so he wants to see the impact of
+what that can bring a change in India
+but you want to see that as as an impact
+so as a nonprofit you know to fundraise
+one you you need an organization that is
+having a right purpose and mission and
+vision number two they need to deploy
+that well right so you need to be able
+to deploy that funds well for a right
+right gift right option third is you
+want to tell what the impact is and we
+call it donor stewardship you want to go
+back and tell the donor how their money
+was spent and what the impact was so
+connecting the dots together what we
+find is people are willing to give more
+not everyone starts off by giving 10000
+million check you know they may start
+off at Thousand but if they see the
+impact they will continue to increase
+and they'll do more and more right um
+but in this and the same goes for a
+for-profit right if you have a track
+record and initially in in a in a angel
+or a preed round they're investing in
+you as a person or a team correct you
+know correct they believe that you can
+do this you have this idea you're
+capable you're going to work hard but
+over time they see more and more
+evidence that you can actually now make
+an impact you can get customers the
+product is good the team is better and
+uh and and then they are ready to invest
+more but outcome is financial return
+whereas this but I tell you a lot of
+people that are investing in startups
+they are also making a lot of
+philanthropic efforts as well right and
+it kind of cuts both ways uh from a
+larger from a person's perspective you
+know they want to see benefiting both
+and we are in the middle of some of the
+you know the most
+uh how do I say it the the people that
+want the world to be better um
+philanthropy at I mean the US right I
+mean philanthropy is at its best that
+you know nowhere else it is like this
+but yeah to raise money and I've been
+fortunate to help to have helped raise
+about 100 million to date right over the
+last 22 years and as you said it's never
+easy but not easy having the right right
+organization right impact right people
+and the right donors and the right focus
+and and the right governance all of that
+matters a lot you know so you learn a
+lot and and what I liked about this
+whole structured approach you gave is
+you have this whole donor stewardship
+you tell them what happened to their
+money and you tell you you tell them the
+right story so what and I I feel very
+strongly from all the work you've done
+in nonprofits and for startups that you
+have nailed the skill of telling a story
+to showcase impact which Founders lack
+in most of their pitch teexs there is so
+much of course technology is important
+maybe in a pre- series or series a deck
+it's all about that but when you have to
+um get somebody's Buy in it's the impact
+story which really matters and even in
+in nonprofits seems like you're you're
+doing it after the donation also the
+impact story it never ends this whole
+game is about impact story so wonderful
+on that note I did want to ask you let's
+say there are founders who are reaching
+out for funding what is a good way for
+them to you know ask your advisory uh I
+know you're busy person because you're
+building a startup but really you you're
+part of Wen Angels at some point in your
+life and you're also currently very
+actively involved with ATA the Tamil
+Association is that right I do see you
+in those events and you're part of um of
+course the I madas initiative so uh what
+is a good way for them to leverage your
+your expertise uh you know after this
+podcast let's say they want to reach out
+to you how should they do it what what
+are a few ways to do it yeah absolutely
+uh so water alumni Angels uh as an
+example we are always looking for again
+early stage
+companies um uh and they can look for
+the team uh but they should have founder
+from won or they don't need to have
+found they don't need to no they don't
+need to at all yeah they can be anybody
+any any any company uh the the investors
+are the members of the B alumni Angel
+Community most of them are uh you know
+pretty much alumni right uh even though
+there are some non- alumni investors as
+well um so they can reach out you know
+wat alumni angels.com um and they can
+always connect with me on LinkedIn and
+happy to put that you know you know
+connect with them as well uh always
+looking for companies very active
+Community almost 500 uh members in that
+uh worldwide uh you know always looking
+for Bright Ideas great team
+and also just a passion right like you
+mentioned earlier with the the the the
+the number one thing that you need in
+entrepreneurs is the conviction and
+passion um the rest of the rest of the
+things can always fall in right uh so
+looking for that uh and then with with
+uh with IIT startups uh you know there
+is a community that you know they can
+reach out and do ATA very actively
+involved Tai very actively involved in a
+lot of the stuff and in general um you
+know somebody seeking funding it's about
+you know reaching out to the right
+Network right what resonates is a thesis
+attractive lot of accelerators that are
+out there uh if if it's relevant to you
+you know uh relevant to the founders
+they can go there uh but happy to you
+know connect people with the right band
+like seems like you're focusing a lot on
+your startup and I don't blame it
+startup founder is excused for a lot of
+things because they neck deep and
+something so big it's they're building a
+baby basically or they're raising a
+child so uh uh I see you invested in a
+lot of companies or at least advisory in
+what in are you still actively advising
+and investing or is something you put on
+a
+hold yeah I still do uh but I'm not
+taking on new ones uh there are a number
+of companies that I advise and I do want
+to see them you know at least my help in
+seeing them through so that I continue
+but being part of you know starting a
+company uh as you said it's more than a
+full-time job in its own right so I have
+to do justice in terms of time
+management right so unless something is
+uh very strategically involved with us
+uh in our our journey aligned with it uh
+you know not sort of doing uh additional
+new things uh at this point but uh
+always uh happy to connect them with
+others who may be uh you know relevant
+and who have the bandwidth right at this
+point wonderful on that note very
+reluctantly I have to end this podcast
+there is so much to learn from you I
+only scratched the surface uh and we
+very rarely we meet people like you uh
+thank you so much Girish Mak M
+Girish for gracing pitch Cafe podcast
+and you know any last thoughts for
+listeners um you know just to set the
+tone yeah yeah Vida I mean it's amazing
+right I mean you you know you bring
+tremendous uh experience here and and
+passion in this area one one thought I
+have for everybody is there is never a
+better time to start a company in AI I
+think it almost looks like next 5 10 20
+30 years uh this is going to be
+dominating our lives and uh it's just
+super exciting times in terms of you
+know doing things right now and and we
+don't nobody wants to miss out right you
+don't want to look back 30 years from
+now and say I wish I had done this so we
+live in at every area everything from
+healthare all the way to social media
+and everything in between we living in
+times that are unprecedented at this
+point so correct correct I hope to see
+more and more people doing this and
+making the world better for all of us
+wonderful on that high note uh thank you
+so much for joining us for pitch Cafe
+podcast uh Girish and we'd love to have
+you back thank you so much thank you so
+much VI appreciate the opportunity and
+have a great one aw

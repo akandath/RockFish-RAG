@@ -1,0 +1,561 @@
+RareGAN: Generating Samples for Rare Classes
+Zinan Lin, Hao Liang, Giulia Fanti, Vyas Sekar
+Carnegie Mellon University
+zinanl@andrew.cmu.edu, hl106@rice.edu, gfanti@andrew.cmu.edu, vsekar@andrew.cmu.edu
+to a labeling budget. This problem is motivated from practical
+class for that of the common classes. We propose RareGAN, a
+learning the rare class. We show that RareGAN achieves a
+work across different applications, budgets, rare class fractions,
+GAN losses, and architectures1.
+Introduction
+working, and systems require samples from rare classes. For
+example, operators often want to generate queries that force
+response to a recent executive order Improving the Nation’s
+Cybersecurity2, the U.S. National Institute of Standards and
+Technology published guidance highlighting the importance
+of creating ‘black box’ tests for device and software security
+that do not rely on the implementation or source code of
+Given the success of generative adversarial networks
+Copyright © 2022, Association for the Advancement of Artiﬁcial
+Diversity↑
+14,788,089
+Table 1: RareGAN achieves better ﬁdelity and diversity with
+speciﬁc techniques. See § 5.1 for the deﬁnition of metrics.
+ask if we can use GANs to generate samples from a rare class
+without requiring prior knowledge about the systems. Note
+that there are two unique characteristics in our problem:
+labels is often resource intensive. For example, for a new
+system, we often do not know a priori which packets will
+trigger high CPU usage, and evaluating the CPU usage
+C2. Rare class only. We only need samples from the rare
+To the best of our knowledge, no prior GAN paper considers
+both rare and common samples, which sacriﬁces the ﬁdelity
+new characteristics bring unique challenges.
+Contributions. We propose RareGAN, a generative model
+both labelled and unlabelled data for better generalization.
+the rare class over the common class; we propose efﬁcient
+optimization techniques for realizing this reweighting.
+tradeoff on the rare class than baselines across different use
+tures. Table 1 shows that RareGAN achieves better ﬁdelity
+arXiv:2203.10674v1  [cs.LG]  20 Mar 2022
+channel plots a generated image, and the green channel the
+nearest real image from the training set. Yellow pixels show
+where the two overlap. RareGAN achieves the high sample
+quality and diversity without memorizing training data.
+erating DNS ampliﬁcation attack packets, compared to a
+sider image generation, both as a useful tool in its own right
+and to visualize the improvements. Fig. 1 shows generated
+samples trained on a modiﬁed MNIST handwritten digit
+produces samples from the wrong class. GAN memorizes the
+diverse samples from the correct class without memorizing
+the training data.
+Problem Formulation and Use Cases
+Problem formulation.
+class distribution, not the common class. More precisely,
+rare class distribution, pc is the common class distribution,
+α ≪1 denotes the weight of the rare class, and we have
+bel yi ∈{rare, common}. The training dataset D does not
+include these labels y1, ..., yn beforehand, but we can request
+to label up to B samples during training. Given this budget B,
+This formulation is motivated from the following use cases.
+with spoofed source IP addresses, so the response goes to the
+speciﬁed victims. These requests are designed to maximize
+response size, thus exhausting victims’ bandwidth. Server
+ﬁcation attacks to e.g., drop attack requests. Prior solutions
+require detailed information about the server, such as source
+threshold. All other requests belong to the common class. To
+the request through the server, which can be costly. Hence,
+we want to limit the number of label queries. We want to
+to maximize coverage of the input space.
+ever, current tools for generating such workloads often rely
+ˆpr to synthesize such workloads. For the same reasons as the
+previous case, we want to limit the number of label queries
+and learn the rare class faithfully.
+Motivating scenario 3: inspecting rare class images
+generating samples from both rare and common classes for
+ever, in some other applications, we may only need rare class
+samples. For example, in federated learning, we may want to
+We will see in § 5.2 that RareGAN outperforms baselines
+across all these very different use cases and data types.
+Background and Related Work
+Background
+that have spurred signiﬁcant interest in recent years. GANs
+D for guessing whether the input image is generated or from
+two distributions. Several other distance metrics have later
+jovsky, Chintala, and Bottou 2017; Gulrajani et al. 2017;
+minG max∥D∥L≤1 LW
+and ∥D∥L denotes the Lipschitz constant of D. RareGAN
+works well with both of these losses.
+the generated sample. For example, in a face image dataset
+the entire face distribution, generators in CGANs could allow
+fying c. Several different techniques have been proposed to
+Odena, Olah, and Shlens 2017; Salimans et al. 2016; Mariani
+classiﬁer C which discriminates the labels for both generated
+data and real data. The ACGAN loss function is:
+truth label distribution. Lclassiﬁcation is deﬁned by
+tribution of samples and labels, and ˆpxl denotes the joint
+the classiﬁer is trained to match not only the real data, but
+other implementations, the second part of loss only applies
+on G, so that the classiﬁer will not be misled by errors in the
+Related work
+Depending on the availability of the labels, prior related
+Fully supervised GANs. Prior work has studied how to use
+lick, Datta, and Das 2019; Douzas and Bacao 2018; Ren,
+2018; Rangwani, Mopuri, and Radhakrishnan 2021; Asokan
+dataset by generating samples from the minority class with
+on the entire dataset, learns a Gaussian latent distribution
+for each class, and uses that as the input noise for each class
+to the GAN generator. We cannot utilize these approaches
+because we lack labels.
+Unsupervised GANs.
+factors to learn. Hence, there is no guarantee that they will
+imans et al. 2016; Dai et al. 2017; Kumar, Sattigeri, and
+supervised GANs could also be used, like the seminal one
+vides cleaner signal for our active learning technique in § 4.2.
+all classes, whereas we want to faithfully reproduce only the
+rare class. We show how this distinction requires different
+problem, as they are most useful when we have some prior
+understanding of the physical or semantic of a system, but in
+our problem we are given an arbitrary system whose internal
+structure is unknown. For example, for disentangling digit
+plies operations like rotation on images to construct positive
+responding operations should be in our problem due to the
+‘black box’ nature of the systems. For example, in motivating
+Our work is also related to prior work on weighted loss
+and data augmentation for GANs, which we discuss below.
+Weighted loss. Our proposed approach involves a weighted
+ing more stable. Instead, as we see in § 4.3, the proposed
+RareGAN uses different weights for samples in the rare and
+the common classes.
+Data augmentation. Data augmentation techniques have
+been proposed for improving GANs’ performance in limited
+As mentioned in § 2 and § 3.2, our problem is distinguished
+randomly and uniformly draw B samples from the dataset
+and request their labels. Then, we train a vanilla GAN on the
+packets with label “rare”. However, since the rare class could
+have a very low fraction, the number of training samples
+will be small and the GAN is likely to overﬁt to the training
+dataset and generalize poorly.
+rate common class samples into training, because they could
+actually be useful for learning the rare class. For example, in
+However, due to the small number of rare samples, ACGAN
+In the following, we progressively discuss the design
+choices we make in RareGAN to address the challenges,
+Better distribution learning with unlabeled
+In the above process, the majority of samples from D are
+unlabeled because of the labeling budget. Those samples are
+formation about the mixture distribution of rare and common
+classes, and could therefore help learn the rare class.
+GAN loss. Recall that the loss has two parts: a classiﬁcation
+loss separating rare and common samples, and a GAN loss
+GAN loss does not require labels. We propose a modiﬁed
+ﬁcation loss, and all samples for the GAN loss. However,
+when training the GAN loss, we need to know the fraction
+n has variance
+, which is small for reasonable n.
+Improving classiﬁer performance with active
+Because the rare and common classes are highly imbalanced,
+Joshi, Porikli, and Papanikolopoulos 2009; Sivaraman and
+about which the classiﬁer is least conﬁdent.
+Inspired by these works, our approach is to divide the
+training into S stages. At the beginning of each stage, we
+we have only two classes, they are in fact equivalent.
+it does so in a diametrically opposite way: they request the
+labels for the most certain samples. These two completely
+different designs result from having different goals: ALCG
+tain samples usually have better image quality, and therefore
+tain samples are more informative for learning distribution
+boundaries, and therefore we label them.
+Relation to § 4.1. Naively using active learning is actually
+biased, which partially explains ALCG’s poor performance
+unlabeled samples for training the GAN loss. The following
+3In the ﬁrst stage, the samples for labeling are randomly chosen
+from the dataset.
+Proposition 1 The optimization
+p∗∈arg min
+r is p∗under condition
+the support of p′
+the generated joint distribution of samples and labels, and
+The above optimization is a generalization of the ACGAN
+GAN loss is computed with respect to the true distribution
+p, which uses all samples, labeled or not. The proposition is
+cation loss, we can still learn pr. On the other hand, if we had
+recover a biased version of pr.
+Better rare class learning with weighted loss
+effect at the expense of learning the common class. Let ˆp
+under ˆp, and let ˆp′
+r be ˆp restricted to and normalized over
+c be ˆp over
+where d is dJS or dW. We propose to modify this objective
+function to instead minimize
+ing: this modiﬁed loss will more heavily penalize errors in the
+placing no constraint on the common class. This completely
+information from the common class and the penalty on the
+error of rare class.
+plicative weight to the loss of both real and generated samples
+for Wasserstein distance, where
+Proposition 2 For any D, p, and ˆp, we have
+The above implementation requires the ground truth labels of
+do not want to waste labeling budget on weight estimation.
+rogate labeler. Although this classiﬁer is imperfect, weighting
+real and generated samples according to the same labeler is
+good and stable results.
+Experiments
+We conduct experiments on all three applications in § 1. The
+Use case 1: DNS ampliﬁcation attacks. DNS is one of the
+bourakis et al. 2007; Anagnostopoulos et al. 2013; Rossow
+eral set of problems, can also be effectively used for ﬁnding
+ampliﬁcation attack requests. In this setting, we deﬁne the
+rare class as DNS requests that have size of response
+size of request ≥T, where
+T is a threshold speciﬁed by users. For the request space,
+we let GANs explore all possible bits. The entire search space
+is 3.6 × 1017. Unlike image datasets where samples from the
+mixture distribution p are given, here we need to deﬁne p.
+Since our goal is to ﬁnd all DNS requests with ampliﬁcation
+≥T, we deﬁne p as a uniform distribution over the search
+space. More details are in App. C.
+Note on ethics: For this experiment, we needed to make
+cation is a fundamental building block of modern networks.
+Switches or routers classify incoming packets to determine
+was designed to optimize classiﬁcation time and memory
+footprint. We deﬁne the rare class as network packets that
+have classiﬁcation time ≥T, a threshold speciﬁed by users.
+1.0 × 1031. As before, p is a uniform distribution over the
+entire search space. To avoid harming network users, we ran
+all measurements on our own infrastructure rather than active
+switches. More details are in App. C.
+Use case 3: inspecting rare images. Although RareGAN is
+ages for visualizing the improvements. Following the settings
+we treat digit 0 as the rare class, and all other digits as the
+common class. For CIFAR10, we treat airplane as the rare
+class, and all other images as the common class. In both cases,
+the default class fraction is 10%. To simulate a smaller rare
+class, we randomly drop images from the rare class.
+Evaluation Setup
+Baselines. To demonstrate the effect of each design choice,
+we compare all intermediate versions of RareGAN: vanilla
+respectively. All the above baselines and RareGAN use the
+same network architectures. For the ﬁrst two applications, the
+generators and discriminators are MLPs. The GAN loss is
+4These experiments did not involve collecting any sensitive data.
+Such “penetration testing” of services is common practice in the
+unintentional harm. We avoided harming the public Internet by
+running our experiments in sandboxed environments. Since we only
+did not need to disclose new vulnerabilities.
+For the image datasets, we follow the popular public ACGAN
+only released codes for that. As discussed in § 3.2, we cannot
+directly apply the last two in our problem; we make minimal
+Metrics. We aim to minimize the distance between real and
+are often evaluated along two axes: ﬁdelity and diversity
+applications, we use different ways to quantify them:
+size of request
+in DNS ampliﬁcation attacks, and classiﬁcation time in
+meaningful, e.g., for quantifying mean or maximum security
+risk. We deﬁne hr as the ground truth distribution of this
+samples from the entire search space, computing their scores,
+and ˆhr as its corresponding generated distribution. We use
+packets are duplicates. Therefore, we count the fraction of
+in a set of 500,000 generated samples as the diversity metric.
+tween generated data and real rare data to measure ﬁdelity.
+ble here, as duplicate images are very rare. Instead, we take
+nearest distances among a set of generated samples. Note that
+these two metrics are not completely decoupled: when GAN
+overﬁts severely, FID also detects that. Nonetheless, these
+Van De Weijer 2016; Heusel et al. 2017; Arora and Zhang
+Unless otherwise speciﬁed, the default conﬁgurations are:
+baseline’s upper row is generated samples; lower row is the
+closest real sample.
+that the choice of these default conﬁgurations do not inﬂuence
+the ranking of different algorithms too much, as we will show
+in the studies later. All experiments are run over 5 random
+seeds. More details are in App. C.
+Robustness across applications. We start with a qualitative
+quality MNIST images in Fig. 1 by memorizing the labeled
+ter diversity. On CIFAR10, Fig. 2 shows for each baseline
+ing data, ACGAN and ALCG have poor image quality, and
+takeaway of Fig. 3 is that RareGAN has the best tradeoff in
+work applications, GAN ﬁdelity is good due to overﬁtting. In
+have much worse ﬁdelity than other methods, consistent to
+5All samples are drawn from the model with the median FID
+score over 5 runs.
+InfoGAN incorrectly generating digits that are mostly not
+better diversity metrics and less overﬁtting than GAN, at the
+ality: the dimension of the images are much larger than the
+other two cases, so additional data gives a more prominent
+that weighted loss beneﬁts the network packet datasets, but
+not the image datasets. This could be due to the complexity
+of the rare class boundary, which is nonsmooth in network
+Due to space limitations, the following parametric studies
+show plots for a single dataset; we defer the results on the
+other datasets to the appendices, where we see similar trends.
+Robustness to labeling budget B. We decrease B to show
+results on MNIST are shown in Fig. 4. All three RareGAN
+niﬁcantly, as evidenced by the bad FIDs for small budgets.
+rect generated digits. GANs always have the worst diversity,
+no matter the budget. Results on other datasets are in App. D;
+RareGAN generally has the best robustness across budgets.
+Robustness to rare class fraction α. In Fig. 5, we vary α to
+measure the effect of class imbalance. All algorithms exhibit
+worse sample quality when the rare class fraction is decreased.
+has worse ﬁdelity than RareGAN due to wrong generated
+digits. GANs always have the worst diversity. Results on the
+other datasets are in App. D, where we see that RareGAN
+generally has the best robustness to α.
+Variance across trials. The standard error bars in Fig. 3
+show that ACGAN, ALCG, and BAGAN have high variance
+across trials, and RareGAN with weighted loss has lower
+variance. This is because the weighted loss penalizes errors
+in the rare class, thus providing better stability.
+The following ablation studies give additional insights into
+each tunable component of RareGAN.
+weighted loss do not inﬂuence the image dataset results much
+both metrics improve, saturating at w ≥3. At the default
+little difference. Comparing Fig. 14 with Fig. 3a RareGAN
+improves upon ACGAN and ALCG for almost all S and w.
+Ablation study on RareGAN components. RareGAN has
+Fraction unique rare samples
+Fraction unique rare samples
+Distance to the nearest
+Distance to the nearest
+Distance to the nearest
+Figure 4: MNIST with different labeling
+budget B. RareGAN is insensitive to B.
+Distance to the nearest
+Figure 5: MNIST with varying rare class
+fraction. RareGAN has the best tradeoff.
+only makes sense with unlabeled samples, so there are 6
+on the DNS application. Including all components, RareGAN
+in Table 1. AmpMAP ﬁnds high ampliﬁcation packets by
+drawing random packets and requesting their ampliﬁcation
+pliﬁcation packets. AmpMAP uses ampliﬁcation threshold
+10, and the same packet space as ours. Note that AmpMAP is
+speciﬁcally designed for ampliﬁcation attacks, not applicable
+for other applications we did. Even in that case, our proposed
+RareGAN still achieves much better ﬁdelity and diversity
+with a fraction of the budget.
+Conclusions
+We propose RareGAN for generating samples from a rare
+class subject to a limited labeling budget. We show that
+Acknowledgements
+We thank Yucheng Yin for the help on baseline comparison,
+and Sekar Kulandaivel, Wenyu Wang, Bryan Phee, and Shruti
+Datta Gupta for their help with earlier versions of RareGAN.
+This work was supported in part by faculty research awards
+from Google, JP Morgan Chase, and the Sloan Foundation,
+as well as gift grants from Cisco and Siemens AG. This
+tion Convergence Accelerator award 2040675 and the U.S.
+Army Combat Capabilities Development Command Army
+preted as representing the ofﬁcial policies, either expressed or
+implied, of the Combat Capabilities Development Command
+Army Research Laboratory or the U.S. Government. The U.S.
+Government is authorized to reproduce and distribute reprints
+tation here on. Zinan Lin acknowledges the support of the
+Siemens FutureMakers Fellowship, the CMU Presidential
+Fellowship, and the Cylab Presidential Fellowship. This work
+References
+imbalanced dataset classiﬁcation using multiple fake class
+generative adversarial network. Neurocomputing, 361.
+Anagnostopoulos, M.; Kambourakis, G.; Kopanos, P.;
+Louloudakis, G.; and Gritzalis, S. 2013. DNS ampliﬁcation
+attack revisited. Computers & Security, 39: 475–485.
+Arjovsky, M.; Chintala, S.; and Bottou, L. 2017. Wasserstein
+generative adversarial networks. In ICML, 214–223. PMLR.
+Arora, S.; and Zhang, Y. 2017.
+Do gans actually learn
+the distribution? an empirical study.
+arXiv preprint
+arXiv:1706.08224.
+Asokan, S.; and Seelamantula, C. S. 2020. Teaching a gan
+what not to learn. arXiv preprint arXiv:2010.15639.
+Augenstein, S.; McMahan, H. B.; Ramage, D.; Ramaswamy,
+erative models for effective ML on private, decentralized
+datasets. arXiv preprint arXiv:1911.06679.
+Black, P. E.; Guttman, B.; and Okun, V. 2021. Guidelines on
+Minimum Standards for Developer Veriﬁcation of Software.
+arXiv:2107.12850.
+glot: Automatic extraction of protocol message format using
+dynamic binary analysis. In Proceedings of the 14th ACM
+conference on Computer and communications security.
+Chen, T.; Zhai, X.; Ritter, M.; Lucic, M.; and Houlsby, N.
+CVPR, 12154–12163.
+Chen, X.; Duan, Y.; Houthooft, R.; Schulman, J.; Sutskever,
+I.; and Abbeel, P. 2016. Infogan: Interpretable representation
+learning by information maximizing generative adversarial
+nets. In Proceedings of the 30th International Conference on
+Neural Information Processing Systems, 2180–2188.
+classiﬁcation for OpenFlow protocol based on FPGA. In
+Proceedings of the 2018 VII International Conference on
+Network, Communication and Computing, 64–69.
+J. 2018. Stargan: Uniﬁed generative adversarial networks for
+In CVPR, 9268–9277.
+Dai, Z.; Yang, Z.; Yang, F.; Cohen, W. W.; and Salakhutdinov,
+gan. arXiv preprint arXiv:1705.09783.
+Douzas, G.; and Bacao, F. 2018. Effective data generation for
+imbalanced learning using conditional generative adversarial
+networks. Expert Systems with applications, 91: 464–471.
+Duplyakin, D.; Ricci, R.; Maricq, A.; Wong, G.; Duerig,
+J.; Eide, E.; Stoller, L.; Hibler, M.; Johnson, D.; Webb, K.;
+et al. 2019. The design and operation of CloudLab. In 2019
+USENIX Annual Technical Conference, 1–14.
+Generative adversarial networks.
+arXiv preprint
+arXiv:1406.2661.
+Gulrajani, I.; Ahmed, F.; Arjovsky, M.; Dumoulin, V.; and
+Courville, A. 2017. Improved training of stein gans. arXiv
+preprint arXiv:1704.00028.
+arXiv preprint
+arXiv:2012.15864.
+Heusel, M.; Ramsauer, H.; Unterthiner, T.; Nessler, B.; and
+rule converge to a local nash equilibrium. arXiv preprint
+arXiv:1706.08500.
+class active learning for image classiﬁcation. In CVPR, 2372–
+2379. IEEE.
+Kambourakis, G.; Moschos, T.; Geneiatakis, D.; and Gritzalis,
+S. 2007. A fair solution to dns ampliﬁcation attacks. In
+Second International Workshop on Digital Forensics and
+Karras, T.; Aittala, M.; Hellsten, J.; Laine, S.; Lehtinen, J.;
+and Aila, T. 2020. Training generative adversarial networks
+with limited data. arXiv preprint arXiv:2006.06676.
+Kong, Q.; Tong, B.; Klinkigt, M.; Watanabe, Y.; Akira, N.;
+work for image classiﬁcation. In AAAI, volume 33, 4090–
+Krizhevsky, A. 2009. Learning multiple layers of features
+from tiny images.
+Kumar, A.; Sattigeri, P.; and Fletcher, T. 2017.
+supervised learning with gans: Manifold invariance with
+cessing Systems, 30.
+LeCun, Y.; Bottou, L.; Bengio, Y.; and Haffner, P. 1998.
+tainty sampling for supervised learning. In Machine learning
+proceedings 1994, 148–156. Elsevier.
+ing. IEEE transactions on pattern analysis and machine
+Liang, E.; Zhu, H.; Jin, X.; and Stoica, I. 2019. Neural packet
+classiﬁcation. In Proceedings of the ACM Special Interest
+Group on Data Communication, 256–269.
+trolled AutoEncoders to Generate Faces from Voices. In
+International Symposium on Visual Computing, 476–487.
+landaivel, S.; Fanti, G.; and Sekar, V. 2019. Towards oblivious
+network analysis using generative adversarial networks. In
+Proceedings of the 18th ACM Workshop on Hot Topics in
+Networks, 43–51.
+Lin, Z.; Thekumparampil, K.; Fanti, G.; and Oh, S. 2020.
+ing and selection for disentangling gans. In International
+Conference on Machine Learning, 6127–6139. PMLR.
+ley, S. 2017. Least squares generative adversarial networks.
+In ICCV, 2794–2802.
+ossi, C. 2018. Bagan: Data augmentation with balancing gan.
+arXiv preprint arXiv:1803.09655.
+Matwyshyn, A. M.; Cui, A.; Keromytis, A. D.; and Stolfo,
+S. J. 2010.
+Ethics in Security Vulnerability Research. In
+IEEE Security & Privacy.
+Mirza, M.; and Osindero, S. 2014. Conditional generative
+adversarial nets. arXiv preprint arXiv:1411.1784.
+pliﬁcation attacks using ampmap. In 30th USENIX Security
+Symposium.
+sarial minority oversampling. In ICCV, 1695–1704.
+Naeem, M. F.; Oh, S. J.; Uh, Y.; Choi, Y.; and Yoo, J. 2020.
+Reliable ﬁdelity and diversity metrics for generative models.
+In ICML, 7176–7185. PMLR.
+ing generative neural samplers using variational divergence
+minimization. In NeurIPS.
+Nystrom, N. A.; Levine, M. J.; Roskies, R. Z.; and Scott,
+J. R. 2015. Bridges: A Uniquely Flexible HPC Resource for
+New Communities and Data Analytics. In Proceedings of the
+2015 XSEDE Conference: Scientiﬁc Advancements Enabled
+by Enhanced Cyberinfrastructure, XSEDE ’15, 30:1–30:8.
+adversarial networks. arXiv preprint arXiv:1606.01583.
+Odena, A.; Olah, C.; and Shlens, J. 2017. Conditional image
+synthesis with auxiliary classiﬁer gans. In ICML. PMLR.
+arXiv preprint
+arXiv:1910.01112.
+raki, K. 2018. Automated synthesis of adversarial workloads
+for network functions. In Proceedings of the 2018 Conference
+of the ACM Special Interest Group on Data Communication.
+Petsios, T.; Zhao, J.; Keromytis, A. D.; and Jana, S. 2017.
+gorithmic complexity vulnerabilities. In Proceedings of the
+cations Security, 2155–2168.
+Rangwani, H.; Mopuri, K. R.; and Radhakrishnan, V. B. 2021.
+Class Balancing GAN with a Classiﬁer in the Loop.
+Rashelbach, A.; Rottenstreich, O.; and Silberstein, M. 2020.
+terest Group on Data Communication on the applications,
+munication, 542–556.
+ume 33, 10011–10012.
+Rossow, C. 2014. Ampliﬁcation Hell: Revisiting Network
+Protocols for DDoS Abuse. In NDSS.
+ford, A.; and Chen, X. 2016. Improved techniques for training
+gans. arXiv preprint arXiv:1606.03498.
+Shmelkov, K.; Schmid, C.; and Alahari, K. 2018. How good
+is my GAN? In ECCV, 213–229.
+ing. IEEE Transactions on Intelligent Transportation Systems,
+simple CART structure for low latency trafﬁc classiﬁcation
+on FPGAs. Computer Networks, 167: 106977.
+versarial network. In Proceedings of the Asian Conference
+on Computer Vision.
+Towns, J.; Cockerill, T.; Dahan, M.; Foster, I.; Gaither, K.;
+Vlachos, A. 2008. A stopping criterion for active learning.
+Wang, Y.; Zhang, L.; and Van De Weijer, J. 2016.
+sembles of generative adversarial networks. arXiv preprint
+arXiv:1612.00991.
+Wei, J.; Suriawinata, A.; Vaickus, L.; Ren, B.; Liu, X.; Wei,
+J.; and Hassanpour, S. 2019. Generative image translation
+for data augmentation in colorectal histopathology images.
+arXiv preprint arXiv:1910.05827.
+conditional gans with active sampling. In Proceedings of
+edge Discovery & Data Mining, 998–1006.
+anced Data Augmentation GAN. In ICPR. IEEE.
+Zadorozhnyy, V.; Cheng, Q.; and Ye, Q. 2021. Adaptive
+Weighted Discriminator for Training Generative Adversarial
+Computer Vision and Pattern Recognition, 4781–4790.
+preprint arXiv:2006.10738.
+Proof of Prop. 1
+c be p∗under condition “common”. Note that the objective function in Prop. 1 is the ACGAN loss, which has two parts: the
+rare class pr from the common one pc. Since p∗
+Hence we have that p∗optimizes both parts of the AGCAN loss.
+c contains elements not in pc or p∗
+r contains elements not in pr, any
+classiﬁer C must either have nonzero error on the rare or the common class. Hence, the ACGAN classiﬁer loss will be nonzero.
+0, the GAN loss cannot achieve its optimal value of 0.
+Therefore, the optimal solution could be moved away from this p∗.
+Proof of Prop. 2
+It sufﬁces to show that
+Experiment details
+DNS ampliﬁcation attacks
+• rdatatype: choosing from [1, 28, 18, 42, 257, 60, 59, 37, 5, 49, 32769, 39, 48, 43, 55, 45, 25, 36, 29, 15, 35, 2, 47, 50, 51, 61,
+• url: choosing from [’berkeley.edu’, ’energy.gov’, ’chase.com’, ’aetna.com’, ’google.com’, ’Nairaland.com’, ’Alibaba.com’,
+Packet classiﬁcation
+The details of the packet ﬁelds are as follows.
+BAGAN evaluation
+To make a fair comparison with BAGAN, we have taken the following approach, which is similar to how we compared
+modiﬁcations to make it suitable for our problem:
+• Contrastive loss: For a randomly selected labeled sample, we randomly pick a sample with the same label as the positive
+Computation resources
+Tesla V100 GPUs. All the experiments took around 10k GPU hours. To evaluate DNS ampliﬁcations, we set up our own DNS
+parameters are:
+Additional Results: Robustness w.r.t. Labeling Budget and Rare Class Fraction
+The results with different labeling budget on MNIST, CIFAR10, DNS ampliﬁcation attacks, and packet classiﬁers are in Figs. 4
+and 6 to 8 respectively. The results with different rare class fractions are on MNIST, CIFAR10, DNS ampliﬁcation attacks, and
+packet classiﬁers are in Figs. 5 and 9 to 11 respectively. In all cases, we can see that RareGAN with active learning and weighted
+The reason is that the random trials in DNS tend to have large variances. To illustrate this, we pick the smallest budget in Fig. 7
+and the smallest rare class fraction in Fig. 10 and plot their error bars in Figs. 12 and 13. We can see that ACGAN, ALCG, and
+rare class fraction are small, as this dataset is challenging. However, even in that case, RareGAN versions still have better FIDs
+than the baselines.
+Distance to the nearest
+Figure 6: CIFAR10 with different budgets.
+Fraction unique rare samples
+Figure 7: DNS ampliﬁcation attacks with different budgets.
+Fraction unique rare samples
+Figure 8: Packet classiﬁers with different budgets.
+Distance to the nearest
+Figure 9: CIFAR10 with different rare class fractions.
+Fraction unique rare samples
+Additional Results: Effect of stages S and loss weight w
+Figure 14 illustrates the effect of the two main hyperparameters of RareGAN: the number of stages S and the weight w.
+Additional Results: Ablation Study
+Fraction unique rare samples
+Fraction unique rare samples
+Fraction unique rare samples
+Fraction unique rare samples
+Figure 14: RareGAN with different weights w and numbers of stages S on DNS ampliﬁcation attacks.
+Fraction unique rare samples
+Figure 15: Different combinations of RareGAN components on DNS ampliﬁcation attacks. U, A, W, NULL refer to using
+unlabeled samples, active learning, weighted loss, and none of them respectively. Bars show standard error over 5 runs.

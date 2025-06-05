@@ -1,0 +1,18 @@
+
+Home
+
+
+Welcome to Rockfish Data!
+
+The Rockfish Synthetic Data Platform is an enterprise-grade synthetic data platform for sharing operational data (e.g., tabular or time series) across data silos. Use it to:
+- Generate realistic datasets for product demos
+Generate realistic datasets for product demos
+- Train machine learning models from siloed data
+Train machine learning models from siloed data
+- And more!
+And more!
+With Rockfish, developers can quickly onboard sample datasets, set up workflows for continuous training of synthetic data models, and utilize stored models to generate outcome-focused data that drives diverse business applications.
+
+Get started
+
+Get started

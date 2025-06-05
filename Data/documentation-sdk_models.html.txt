@@ -1,0 +1,32 @@
+
+rockfish.models
+
+
+rockfish.Model
+
+
+Functions
+
+
+add_labels(conn,**labels:str)->Selfasync
+
+Add additional labels to the model and return updated model object.
+
+model = await model.add_labels(conn, foo="bar")
+
+
+set_labels(conn,**labels:str)->Selfasync
+
+Set the labels on the model to only the labels specified and return
+updated model object.
+
+model = await model.set_labels(conn, foo="bar")
+
+
+from_id(conn,model_id)->Selfasyncclassmethod
+
+Get a Model object for the model_id.  This method should be
+preferred to calling the initializer directly to verify the model
+is found.
+
+model = await Model.from_id(conn, model_id="abc")

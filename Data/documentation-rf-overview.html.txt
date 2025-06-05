@@ -1,0 +1,13 @@
+
+Overview
+
+The Rockfish Synthetic Data Platform processes synthetic data in four steps:
+- Onboarding: helps users upload and process their dataset.
+Onboarding: helps users upload and process their dataset.
+- Training: helps users train a synthetic data model.
+Training: helps users train a synthetic data model.
+- Generation: helps users generate a synthetic dataset with the desired properties
+Generation: helps users generate a synthetic dataset with the desired properties
+- Evaluation: evaluates the quality of the synthetic data relative to the real data
+Evaluation: evaluates the quality of the synthetic data relative to the real data
+This user guide helps users nagivate each of these four phases. We also include information on Deployment, which is for users who want to integrate Rockfish into their own system.

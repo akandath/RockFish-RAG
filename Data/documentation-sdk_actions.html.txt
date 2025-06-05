@@ -1,0 +1,538 @@
+
+rockfish.actions
+
+
+import rockfish.actions as ra
+
+
+Source and Sink Actions
+
+
+rockfish.actions.DatasetLoad
+
+Load a Dataset as the output table.
+Attributes:
+Alias for LoadConfig .
+
+rockfish.actions.DatasetSave
+
+Save table as a Dataset.
+Attributes:
+Alias for SaveConfig .
+
+rockfish.actions.ModelLoad
+
+Produce a model table.
+Attributes:
+Alias for Config .
+
+Data Processing Actions
+
+
+rockfish.actions.Apply
+
+Apply a function and append the results to the table as a new field.
+Attributes:
+Alias for ApplyConfig .
+
+rockfish.actions.Transform
+
+Transform a field replacing the values with the result of the function.
+Attributes:
+Alias for TransformConfig .
+
+rockfish.actions.Append
+
+Return table with new field of values created using the provided
+generator.
+Attributes:
+Alias for AppendConfig .
+
+rockfish.actions.append.AppendConfig
+
+Config class for the Append action.
+Attributes:
+List of fields to group over. Each group will be assigned a new value in the append_field. If an empty list is specified, each row will be assigned a new value. If unspecified, group_fields will be taken from the dataset's TableMetadata.
+The name of the new field to append.
+The name of the generator that creates values for the new field. Supported generators = ["uuid"].
+The seed for the random number generator.
+
+rockfish.actions.Flatten
+
+Flatten a table by expanding json objects / pyarrow structs in a column into multiple columns.
+e.g.
+turns into
+This action recursively flattens the table until no more json nestings are present.
+This action does not handle lists or JSON arrays, and will raise an error if present in the table.
+
+rockfish.actions.flatten.FlattenConfigdataclass
+
+Configuration class for the Flatten action.
+Attributes:
+String that field values after expanding a struct will be concatenated by.
+
+rockfish.actions.Unflatten
+
+Unflatten a table by condensing multiple columns into json objects / pyarrow structs.
+e.g.
+turns into
+
+rockfish.actions.flatten.UnflattenConfigdataclass
+
+Configuration class for the Unflatten action.
+Attributes:
+String that field values are split by when constructing structs.
+
+rockfish.actions.Sample
+
+Return table with sampled rows according to the provided sample_type.
+
+import rockfish.actions as ra sample = ra . Sample ( sample_size = 100 , sample_type = None )
+
+
+import rockfish.actions as ra sample = ra . Sample ( frac = 0.23 , sample_type = "random" , replace = True , seed = 3 )
+
+Attributes:
+Alias for SampleConfig .
+
+rockfish.actions.sample.SampleConfigdataclass
+
+Config class for the Sample action.
+Attributes:
+the number of rows to sample
+the fraction of rows to sample
+the type of sampling to use, if None, uses first_n
+the seed for the random number generator
+sample with replacement, if true, allows the same row to be sampled multiple times
+the field name that defines the session for timeseries datasets
+produce chunks of data
+number of rows in each chunk
+
+rockfish.actions.SampleLabel
+
+Sample rows/sessions that match a label.
+
+sample = ra.SampleLabel(
+    field="my_label",
+    dist={
+        "value1": ra.SampleLabel.Count(2),
+        "value2": ra.SampleLabel.Count(4),
+        "": ra.SampleLabel.Count(6),
+    }
+    replace=True,
+)
+
+Attributes:
+Alias for SampleLabelConfig .
+
+rockfish.actions.sample_label.SampleLabelConfig
+
+Config class for the SampleLabel action.
+Attributes:
+field containing the sampling label
+distribution for each label; the empty string matches all unspecified values
+sample with replacement, if true, allows the same row to be sampled multiple times
+the field name that defines the session for timeseries datasets
+the seed for the random number generator
+produce chunks of data
+number of rows in each chunk
+
+rockfish.actions.AlterTimestamp
+
+Alter a timestamp field in the table.
+The method to generate new timestamps depends on the interarrival_type option.
+
+fixed
+
+The fixed type generates new timestamps with fixed/regular interarrivals
+spread over the time range at a per session level.
+
+random
+
+The random type generates new timestamps with random interarivals at a
+per session level.
+
+squeeze
+
+The squeeze type takes the original interarrivals and shifts them to the
+starting or ending of the time range depending on the value of flow_start_type .  If the interarrivals are larger than the range they are
+linearly scaled to fit.
+
+chop
+
+The chop type takes the original interarrivals and shifts them to the
+starting or ending of the time range depending on the value of flow_start_type .  If the interarrivals are larger than the range they are
+trimmed.
+
+original
+
+The original type takes the original interarrivals and shifts them to the
+starting or ending of the time range depending on the value of flow_start_type . They are not scaled or trimmed.
+
+import rockfish.actions as ra alter_timestamp = ra . AlterTimestamp ( field = "ts" , start_time = datetime ( 2024 , 11 , 11 , 0 , 0 , 0 ), end_time = datetime ( 2024 , 11 , 11 , 23 , 59 , 59 ), interarrival_type = "random" , )
+
+Attributes:
+Alias for AlterTimestampConfig .
+
+rockfish.actions.timestamps.AlterTimestampConfig
+
+Configuration class for the AlterTimestamp action.
+Attributes:
+Field name containing the timestamp to alter.
+Start time for the desired output range.
+End time for the desired output range.
+Method for placing the flow within the range, if the interarrival_type supports.
+Method to use for generating new timestamps.
+Fixed seed for the random number generator.
+
+rockfish.actions.PostAmplify
+
+
+rockfish.actions.SQL
+
+Return table after applying the provided SQL query.
+
+import rockfish.actions as ra sql = ra . SQL ( query = "select col_1 from foo_table;" , table_name = "foo_table" )
+
+
+import rockfish.actions as ra query = "select t1.col_1, t2.col_1, from t1 inner join t2 on t1.id = t2.id;" t2_id = "<ID_OF_REMOTE_DATASET>" # using rockfish.RemoteDataset.id sql = ra . SQL ( query = query , table_name = "t1" , dataset_name_to_id = { "t2" : t2_id } )
+
+Note: If your table(s) contains columns that have uppercase names, please
+wrap the column names in backticks or quotation marks.
+For example, if your table has a column called 'Color', the SQL query
+should be passed as:
+- "select `Color` from my_table" , OR
+- 'select "Color" from my_table'
+Attributes:
+Alias for Config .
+
+rockfish.actions.sql.Configdataclass
+
+Config class for the SQL action.
+Attributes:
+The SQL query to run on the table.
+Name that the table is referred to in the SQL query, the default name is 'my_table'.
+Dict that maps additional remote dataset names to their dataset IDs, these are retrieved before the query is applied.
+
+Encoding Actions
+
+
+rockfish.actions.JoinFields
+
+Merge fields using a separator and append the merged field to the table.
+The original fields are dropped from the table.
+
+import rockfish.actions as ra join = ra . JoinFields ( fields = [ "a" , "b" , "c" ])
+
+
+import rockfish.actions as ra join = ra . JoinFields ( fields = [ "a" , "b" ], separator = "++" )
+
+
+import rockfish.actions as ra join = ra . JoinFields ( fields = [ "a" , "b" ], append_field = "a_and_b" )
+
+
+rockfish.actions.join_split.JoinConfig
+
+Configuration class for the JoinFields action.
+Attributes:
+List of field names in the table that need to be merged.
+Name of merged field that will be appended to the table.
+String that field values in the merged field will be separated by.
+
+rockfish.actions.SplitField
+
+Split a field using a separator and append the split fields to the table.
+The original field is dropped from the table.
+
+import rockfish.actions as ra split = ra . SplitField ( field = "a;b;c" )
+
+
+import rockfish.actions as ra # suppose the join actions were added as follows: builder . add ( join_ab , parents = [ dataset ]) builder . add ( join_cd , parents = [ join_ab ]) # the corresponding split actions should be added # in the reverse order: split_ab = ra . SplitField ( field = "a;b" ) split_cd = ra . SplitField ( field = "c;d" ) builder . add ( split_cd , parents = [ model ]) builder . add ( split_ab , parents = [ split_cd ])
+
+
+rockfish.actions.join_split.SplitConfig
+
+Configuration class for the SplitField action.
+Attributes:
+Field name in the table that needs to be split.
+List of split field names that will be appended to the table.
+String that field values in the split field will be separated by.
+
+rockfish.actions.LabelEncode
+
+Return table after label encoding has been applied on the given field.
+
+import rockfish.actions as ra label_encode = ra . LabelEncode ( field = "a" )
+
+
+rockfish.actions.encode.LabelConfig
+
+Config class for the LabelEncode and
+the LabelDecode action.
+Attributes:
+field to be encoded (should be categorical)
+
+rockfish.actions.LabelDecode
+
+Return table after label decoding has been applied on the given field.
+Assumes a LabelEncode action was applied on the field before training.
+
+import rockfish.actions as ra label_decode = ra . LabelDecode ( field = "a" )
+
+
+import rockfish.actions as ra # suppose the encoding actions were added as follows: builder . add ( label_encode_a , parents = [ dataset ]) builder . add ( label_encode_b , parents = [ label_encode_a ]) # the corresponding decoding actions should be added # in the reverse order: label_decode_a = ra . LabelDecode ( field = "a" ) label_decode_b = ra . LabelDecode ( field = "b" ) builder . add ( label_decode_b , parents = [ model ]) builder . add ( label_decode_a , parents = [ label_decode_b ])
+
+
+rockfish.actions.encode.LabelConfig
+
+Config class for the LabelEncode and
+the LabelDecode action.
+Attributes:
+field to be encoded (should be categorical)
+
+rockfish.actions.LogEncode
+
+Return table after log encoding has been applied on the given field.
+
+import rockfish.actions as ra log_encode = ra . LogEncode ( field = "a" )
+
+
+rockfish.actions.encode.LogEncodeConfig
+
+Config class for the LogEncode action.
+Attributes:
+field to be encoded (should be continuous)
+
+rockfish.actions.LogDecode
+
+Return table after log decoding has been applied on the given field.
+Assumes a LogEncode action was applied on the field before training.
+
+import rockfish.actions as ra log_decode = ra . LogDecode ( field = "a" )
+
+
+import rockfish.actions as ra log_decode = ra . LogDecode ( field = "a" , field_ndigits = 2 )
+
+
+import rockfish.actions as ra # suppose the encoding actions were added as follows: builder . add ( log_encode_a , parents = [ dataset ]) builder . add ( log_encode_b , parents = [ log_encode_a ]) # the corresponding decoding actions should be added # in the reverse order: log_decode_a = ra . LogDecode ( field = "a" ) log_decode_b = ra . LogDecode ( field = "b" ) builder . add ( log_decode_b , parents = [ model ]) builder . add ( log_decode_a , parents = [ log_decode_b ])
+
+
+rockfish.actions.encode.LogDecodeConfig
+
+Config class for the LogEncode action.
+Attributes:
+field to be decoded (should be continuous)
+precision of decoded field, applicable for float fields only (default = 3)
+
+rockfish.actions.SubtractTimestamp
+
+This calculates deltas for a list of timestamps relative to a primary timestamp.
+This is useful for calculating the time difference between two timestamps, if using the TimeGAN model.
+Example:
+
+import rockfish.actions as ra subtract = ra . SubtractTimestamp ( base_timestamp = "timestamp1" , fields = [ "timestamp2" , "timestamp3" ], timestamp_format = "%Y-%m- %d " )
+
+After running the workflow:
+Another example, if not all timestamps are correlated:
+
+import rockfish.actions as ra subtract = ra . SubtractTimestamp ( base_timestamp = "timestamp1" , fields = [ "timestamp2" ], timestamp_format = "%Y-%m- %d " )
+
+After running the workflow:
+Another example, if you do not want to replace the fields:
+
+import rockfish.actions as ra subtract = ra . SubtractTimestamp ( base_timestamp = "timestamp1" , fields = [ "timestamp2" , "timestamp3" ], append_fields = [ "timestamp2_delta" , "timestamp3_delta" ], timestamp_format = "%Y-%m- %d " )
+
+After running the workflow:
+
+rockfish.actions.timestamps.SubtractTimestampConfigdataclass
+
+Configuration class for the SubtractTimestamp action
+Attributes:
+the timestamp to which the other timestamps are compared
+the list of timestamps to calculate the deltas for
+the list of columns to append the durations to. If None, the durations will be appended to the same column.
+the format of the timestamps IF they are strings.
+
+rockfish.actions.AddDuration
+
+This calculates timestamps from deltas for a list of timestamps relative to a primary timestamp.
+Post Synthesis, this is useful for converting the deltas back to timestamps.
+Example:
+
+import rockfish.actions as ra add = ra . AddDuration ( base_timestamp = "timestamp1" , fields = [ "timestamp2" , "timestamp3" ], timestamp_format = "%Y-%m- %d " )
+
+After running the workflow:
+Another example, if not all timestamps are correlated (will be ignored):
+
+import rockfish.actions as ra add = ra . AddDuration ( base_timestamp = "timestamp1" , fields = [ "timestamp2" ], timestamp_format = " %d -%m-%Y" )
+
+After running the workflow:
+
+rockfish.actions.timestamps.AddDurationConfigdataclass
+
+Configuration class for the AddDuration action
+Attributes:
+the timestamp to which the other timestamps are compared
+the list of columns that are timestamp deltas, or duration[s] dtype
+the format of the timestamps. This parameter is REQUIRED. This converts the primary timestamp to this format if it is a string. This also converts all relative_timestamps into this format after delta conversion.
+
+Train and Generate Actions
+
+
+rockfish.actions.TrainTimeGAN
+
+Train a Rockfish DoppelGANger based model.
+
+train = ra . Train ( ra . Train . Config ())
+
+Attributes:
+Alias for Config
+Alias for DGConfig
+Alias for DatasetConfig
+Alias for TimestampConfig
+Alias for FieldConfig
+Alias for EmbeddingConfig
+Alias for PrivacyConfig
+
+rockfish.actions.GenerateTimeGAN
+
+Generate synthetic data using the Rockfish DoppelGANger model.
+
+generate = ra . Generate ( ra . Generate . Config ())
+
+Attributes:
+Alias for Config
+Alias for DGConfig
+Alias for DatasetConfig
+Alias for TimestampConfig
+Alias for FieldConfig
+Alias for EmbeddingConfig
+Alias for PrivacyConfig
+
+rockfish.actions.TrainTabGAN
+
+Train a model using a tabular GAN.
+Attributes:
+Alias for TrainTabGANConfig
+Alias for TrainConfig
+Alias for DatasetConfig
+Alias for TimestampConfig
+Alias for FieldConfig
+
+rockfish.actions.GenerateTabGAN
+
+Generate synthetic data using a tabular GAN model.
+Attributes:
+Alias for GenerateTabGANConfig
+Alias for GenerateConfig
+
+rockfish.actions.TrainTransformer
+
+
+rockfish.actions.GenerateTransformer
+
+
+rockfish.actions.TrainTabTransformer
+
+Train a Tab Transformer model.
+
+rockfish.actions.GenerateTabTransformer
+
+Generate synthetic data using the Tab Transformer model.
+Attributes:
+Alias for GenerateTabTransformerConfig .
+
+rockfish.actions.TrainTimeTransformer
+
+Train a Time Transformer model.
+Attributes:
+Alias for TrainTimeTransformerConfig .
+Alias for TrainTimeConfig .
+Alias for ParentConfig .
+Alias for ChildConfig .
+Alias for GPT2Config .
+Alias for DatasetConfig .
+Alias for TimestampConfig .
+Alias for FieldConfig .
+
+rockfish.actions.GenerateTimeTransformer
+
+Generate synthetic data using the Time Transformer model.
+Attributes:
+Alias for GenerateTimeTransformerConfig .
+
+rockfish.actions.SessionTarget
+
+SessionTarget can be used to trigger generation cycles until a desired
+target number of sessions is reached.
+Attributes:
+Alias for Config .
+
+Evaluation
+
+
+rockfish.actions.EvaluateLogisticRegression
+
+Evaluate the classification performance using Logistic Regression.
+Example:
+Consider the fall detection dataset with labels for train and
+test sets.
+The configuration for the action includes the numerical features, the
+binary-valued target, and the positive label.
+
+config = { "features" : [ "Body Temperature" , "Heart Rate" , "Respiratory Rate" , "SBP" , "DBP" , ], "target" : "Sex" , "pos_label" : "F" , } evaluate_logistic_regression = ra . EvaluateLogisticRegression ( config )
+
+The output of the action is a table with a single AUC value.
+
+rockfish.actions.txtr.LogisticRegressionConfig
+
+Configuration for the EvaluateLogisticRegression action.
+See details on some of the arguments in sklearn.linear_model.LogisticRegression v1.6.1 .
+Attributes:
+Numerical features to use in the model.
+The classification target.  Must have two unique values.
+The positive label.  If None and the target value set is {0, 1} or {-1, 1}, then the positive label is 1.
+The name of the column that contains the split label (train/test).
+Specify the norm of the penalty.
+Dual (constrained) or primal (regularized) formulation.
+Tolerance for stopping criteria.
+Inverse of regularization strength; must be a positive float.
+Specifies if a constant (a.k.a. bias or intercept) should be added to the decision function.
+Useful only when the solver 'liblinear' is used and fit_intercept is set to True .
+Weights associated with classes in the form {class_label: weight} . If not given, all classes are supposed to have weight one.
+Used when solver == 'sag' , 'saga' or 'liblinear' to shuffle the data.
+Algorithm to use in the optimization problem.
+Maximum number of iterations taken for the solvers to converge.
+
+rockfish.actions.EvaluateRandomForest
+
+Evaluate the classification performance using Random Forest.
+See the example in EvaluateLogisticRegression for usage.
+
+rockfish.actions.txtr.RandomForestConfig
+
+Configuration for the EvaluateRandomForest action.
+See details on some of the arguments in sklearn.ensemble.RandomForestClassifier v1.6.1 .
+Attributes:
+Numerical features to use in the model.
+The classification target.  Must have two unique values.
+The positive label.  If None and the target value set is {0, 1} or {-1, 1}, then the positive label is 1.
+The name of the column that contains the split label (train/test).
+The number of trees in the forest.
+The function to measure the quality of a split.
+The maximum depth of the tree.  If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+The minimum number of samples required to split an internal node.
+The minimum number of samples required to be at a leaf node.
+The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node.
+The number of features to consider when looking for the best split.
+Grow trees with max_leaf_nodes in best-first fashion.
+A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
+Whether bootstrap samples are used when building trees.  If False, the whole dataset is used to build each tree.
+Whether to use out-of-bag samples to estimate the generalization score.
+The number of jobs to run in parallel.
+Controls both the randomness of the bootstrapping of the samples used when building trees (if bootstrap=True ) and the sampling of the features to consider when looking for the best split at each node (if max_features < n_features ).
+Weights associated with classes in the form {class_label: weight} . If not given, all classes are supposed to have weight one.
+Complexity parameter used for Minimal Cost-Complexity Pruning.
+If bootstrap is True, the number of samples to draw from X to train each base estimator.
+
+rockfish.actions.txtr.ClassWeight=Union[dict[str,float],str,None]module-attribute

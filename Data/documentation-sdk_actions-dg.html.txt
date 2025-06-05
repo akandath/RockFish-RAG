@@ -1,0 +1,64 @@
+
+rockfish.actions.dg
+
+
+rockfish.actions.dg
+
+
+Attributes
+
+
+FieldType=Literal['continuous','categorical','session-key','ignore','session']module-attribute
+
+
+Classes
+
+
+Config
+
+Configuration for the Train action.
+Attributes:
+DoppelGANger configuration.
+Dataset configuration.
+Model IDs for generation.
+Additional labels to add to the Model.
+
+DatasetConfig
+
+Dataset configuration.
+Attributes:
+
+DGConfig
+
+DoppelGANger configuration.
+Attributes:
+Concat multiple records as one record in order to make effective session length shorter for training speed and fidelity.
+Number of training epochs.
+Deprecated: checkpointing is now automatic.
+Learning rate for the generator.
+Learning rate for the discriminator.
+Beta1 of adam optimizer for the metadata discriminator.
+Number of sessions to generate.
+
+EmbeddingConfig
+
+Embedding configuration.
+Attributes:
+
+FieldConfig
+
+Configuration for Dataset fields.
+Attributes:
+Name of the field.
+Type of the field.
+Semantic type of the field.
+
+PrivacyConfig
+
+Privacy configuration.
+Attributes:
+
+TimestampConfig
+
+Timestamp configuration.
+Attributes:

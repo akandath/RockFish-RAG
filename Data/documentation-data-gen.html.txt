@@ -1,0 +1,128 @@
+
+Basic Generation
+
+Synthetic generation refers to the process of creating artificial data that mimics real-world datasets while preserving privacy and meeting specific requirements. This data generation can be useful for applications such as training machine learning models, testing, privacy-preserving analytics, and more
+Synthetic conditional generation involves generating data based on specified conditions or constraints, enabling the creation of realistic datasets that follow particular patterns, distributions, or dependencies. This approach allows more control over the synthetic data, making it especially useful for testing, scenario simulations, and analytics while ensuring that privacy requirements are met.
+
+Generate Module
+
+Rockfish's Generate Module provides users the flexiblity to use any trained model to generate high-quality synthetic data for specific use cases.
+With the Generate Module, you can:
+* Use the trained model to generate synthetic data based on your specified configurations.
+* Customize the generation process to meet specific requirements, such as data volume or target features.
+
+Generation Process
+
+1. Fetch the trained model
+After training is complete, the model can be fetched using model = await workflow . models () . last () 2. Create a Generate Action
+
+model = await workflow . models () . last ()
+
+Follow the generate action specific to the model trained.
+3. Create a SessionTarget action
+The session target action is to assign a target generation value to the
+synthetic output. target = ra . SessionTarget ( target = < target generation value > )
+
+target = ra . SessionTarget ( target = < target generation value > )
+
+
+Default Generation
+
+For default generation, you do not need to specify a target value: target = ra . SessionTarget () By default:
+
+target = ra . SessionTarget ()
+
+- For time series models, it generates the same number of sessions as in the training data.
+- For tabular models, it generates the same number of records as in the training data.
+4. Create a Save action
+The save action is used to store the generated dataset. # please give the synthetic data name save = ra . DatasetSave ( name = "<synthetic data name>" })
+
+# please give the synthetic data name save = ra . DatasetSave ( name = "<synthetic data name>" })
+
+5. Build generation workflow
+You can build the generation workflow to start the generation job with as follows builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model , target ]) builder . add_action ( target , parents = [ generate ]) builder . add_action ( save , parents = [ generate ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model , target ]) builder . add_action ( target , parents = [ generate ]) builder . add_action ( save , parents = [ generate ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+6. Generate synthetic data syn = None async for sds in workflow . datasets (): syn = await sds . to_local ( conn ) syn . to_pandas ()
+
+syn = None async for sds in workflow . datasets (): syn = await sds . to_local ( conn ) syn . to_pandas ()
+
+
+Use Cases for generation
+
+Now that you know how to generate data using the Generate Module, lets explore the different ways to generate data specific to your use case
+Lets take a look at few example use cases.
+
+Use Case 1: Regulatory Compliance and Data Masking
+
+
+Solution: Generate Specific amount of data
+
+To use this solution, please follow the steps desribed in the General Generation Process .
+
+Use Case 2: Stress Testing Systems or Applications
+
+
+Solution: Continuous Generation
+
+To use this solution, assign a large target generation value to the session target
+action for large-scale generation, as described in Step 3 above in the General Generation Process .
+
+Use Case 3: Tracking Customer Transaction Behavior Based on Session Metadata
+
+
+Solution: Generation with Conditions on Session Metadata
+
+To use this solution, update generate configuration, described in Step 2 of the General Generation Process
+Note: This feature is only supported with the RF-Time-GAN model.
+
+Use Case 4: Simulating Rare Events
+
+
+Solution: Generate specific amount of data with conditions
+
+To use this solution, update the Step 4 above
+in the General Generation Process .
+Note: Applicable to all 4 models. 
+If you have multiple conditions with different desired amount, follow the below steps and then concatenate all the results together.
+For example, users may want to generate fraud events with 1000 records or sessions.
+- Set Conditions: You can define conditions either with the PostAmplify action or with the SQL action : condition_filter = ra . PostAmplify ({ "query_ast" : { "eq" : { "fraud" : 1 } }, }) Alternatively, use can also use the SQL action condition_filter = ra . SQL ( query = "SELECT * FROM my_table WHERE fraud=1" )
+
+condition_filter = ra . PostAmplify ({ "query_ast" : { "eq" : { "fraud" : 1 } }, })
+
+
+condition_filter = ra . SQL ( query = "SELECT * FROM my_table WHERE fraud=1" )
+
+- Set Target Value: it controls the number of generated conditional records (for tabular data) or sessions (for time-series data): target = ra . SessionTarget ( target = 100 )
+Set Target Value: it controls the number of generated conditional records (for tabular data) or sessions (for time-series data): target = ra . SessionTarget ( target = 100 )
+
+target = ra . SessionTarget ( target = 100 )
+
+- Build the Workflow: builder = rf . WorkflowBuilder () builder . add ( model ) builder . add_action ( generate , parents = [ model , target ]) builder . add_action ( condition_filter , parents = [ generate ]) builder . add_action ( target , parents = [ condition_filter ]) builder . add_action ( save , parents = [ condition_filter ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+Build the Workflow: builder = rf . WorkflowBuilder () builder . add ( model ) builder . add_action ( generate , parents = [ model , target ]) builder . add_action ( condition_filter , parents = [ generate ]) builder . add_action ( target , parents = [ condition_filter ]) builder . add_action ( save , parents = [ condition_filter ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+builder = rf . WorkflowBuilder () builder . add ( model ) builder . add_action ( generate , parents = [ model , target ]) builder . add_action ( condition_filter , parents = [ generate ]) builder . add_action ( target , parents = [ condition_filter ]) builder . add_action ( save , parents = [ condition_filter ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+
+Use Case 5: Ensuring equal representation to meet specific synthetic data requirements.
+
+
+Solution: Equal Data Distribution
+
+To use this solution, update the Step 5 above
+in the General Generation Process .
+
+replacement = ra . Replace ( field = "flavors" , condition = ra . EqualizeCondition ( equalization = True ) ) builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model ]) builder . add_action ( replacement , parents = [ generate ]) builder . add_action ( save , parents = [ replacement ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+
+Use Case 6: Validating product combinations in retail inventory data generation.
+
+
+Solution: Inclusion & Exclusion Constraint on Generation
+
+To use this solution, update the Step 5 above
+in the General Generation Process .
+For example, the front doors in black are prefixed, the rear doors must also be black. replacement = ra . Replace ( field = "color" , condition = ra . SQLCondition ( query = "select door=rear and color!=black as mask from my_table" ), resample = ra . ValuesResample ( replace_values = [ "black" ] ) builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model ]) builder . add_action ( replacement , parents = [ generate ]) builder . add_action ( save , parents = [ replacement ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )
+
+replacement = ra . Replace ( field = "color" , condition = ra . SQLCondition ( query = "select door=rear and color!=black as mask from my_table" ), resample = ra . ValuesResample ( replace_values = [ "black" ] ) builder = rf . WorkflowBuilder () builder . add_model ( model ) builder . add_action ( generate , parents = [ model ]) builder . add_action ( replacement , parents = [ generate ]) builder . add_action ( save , parents = [ replacement ]) workflow = await builder . start ( conn ) print ( f "Workflow: { workflow . id () } " )

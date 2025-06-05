@@ -1,0 +1,41 @@
+Sign up
+Sign in
+Sign up
+Sign in
+
+Synthetic Data for Enterprises
+
+--
+Listen
+Share
+by MuckAI Girish
+CIOs, CDOs and Business Group Leaders in large and medium enterprises are in an enviable position today — their work is closely aligned with the companies’ business outcomes, they have been given unencumbered mandate to embrace artificial intelligence (AI) wherever possible and their budgets have fewer strings attached when it comes to implementing AI based technologies and solutions.
+On the other hand, they have the unenviable task of unbundling the myriad options out there, figure out what works best for them, develop a strategy for implementing these and measuring the impact and outcome — all in an unprecedented and highly compressed time horizon.
+One of the biggest challenges facing these executives and their teams is the availability of data. More specifically, the right data for the right tasks at the right time. They are pulled in all directions at the same time. They can only do so much with the data they have today.
+Over the past decade or so, enterprises were focused on implementing data strategies such as data governance, data warehousing, data lakes — to meet compliance and regulatory frameworks — while setting up robust development and MLOps pipelines.
+Unfortunately, they are now finding that these models and pipelines need a variety of data to work more effectively. They are often stymied by one or more of the following conditions:
+(1) no data or have only outdated data
+(2) not enough quantity of data
+(3) not enough quantity or proportion of a particular class of data
+For example, (1) when a SKU is out of stock or a new product is launched in the e-commerce industry; (2) available or accessible data is quite sparse in healthtech, life sciences and cell and genetic markers, and (3) the number of fraudulent transactions in financial data or the proportion of credit default in highly rated businesses or individuals
+Synthetic data to the rescue: it is here to address these constraints plaguing enterprises and impeding on model experimentation, selection, training and testing — affecting the speed of roll-out and impairing business outcomes. Rapid innovations over the past few years have yielded models and encodings that give data scientists enterprise grade software that can generate synthetic data to augment their dataset to make their models perform to their expectations.
+One might even call synthetic data (SD) as artificial data (AD) — much like how artificial intelligence (AI) has been used to model natural intelligence. SD or AD gives the power in the hands of data scientists to align their models to achieve superior business outcomes.
+MuckAI Girish is the co-founder & CEO of Rockfish Data and is based in the San Francisco Bay Area
+--
+--
+
+Written byMuckAI Girish
+
+
+No responses yet
+
+Help
+Status
+About
+Careers
+Press
+Blog
+Privacy
+Rules
+Terms
+Text to speech
