@@ -7,13 +7,6 @@ This repository contains the foundational pipeline for building a **Retrieval-Au
 ✅ YouTube video transcripts  
 ✅ Research papers and documentation
 
-### 🎥 Demo Video
-
-<video width="640" controls>
-  <source src="media/rf-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 
 ## 📂 Project Overview
 
@@ -25,6 +18,8 @@ The chatbot is designed to **answer customer questions** about Rockfish’s miss
 - 📦 ChromaDB as the vector store  
 - 🤖 Generative LLMs for natural-sounding answers
 
+
+[vid](https://github.com/user-attachments/assets/9d22462f-027f-496f-8067-e78852c51989)
 
 
 ## 🟩 Key Steps
@@ -49,7 +44,7 @@ The chatbot is designed to **answer customer questions** about Rockfish’s miss
 
 #### Example of Chunking
 
-
+![Example Text Chunk](media/chunk.png)
 
 #### Example Text Chunk
 
