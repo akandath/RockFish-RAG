@@ -40,11 +40,10 @@ The chatbot is designed to **answer customer questions** about Rockfish’s miss
 
 ## 🖼️ Media and Examples
 
-### 📸 Screenshots
 
 #### Example of Chunking
 
-![Example Text Chunk](media/chunk.png)
+![Example Text Chunk](media/chunking.png)
 
 #### Example Text Chunk
 
